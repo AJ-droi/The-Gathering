@@ -1,7 +1,8 @@
 import React from 'react'
-import heroBgd from '../assets/heroBgd.png'
-import join from '../assets/join.png'
-import Button from './Button'
+import heroBgd from '../../assets/heroBgd.png'
+import join from '../../assets/join.png'
+import Button from '../common/Button'
+
 
 interface Layout {
     children: React.ReactNode;
@@ -27,18 +28,17 @@ const Hero = () => {
         <div className='flex justify-center absolute top-[15%] z-[5] w-[100%]'>
             <p className='text-[#fff] '>Create <span className='text-[#FF6E31] '>Connect</span> Collab</p>
         </div>
-        
-        
+          
     </div>
   )
 }
 
 export default Hero
 
-export const HeroModal: React.FC<Layout> = ({children}) => {
+ const HeroModal: React.FC<Layout> = ({children}) => {
     return (
         <div className='absolute top-[0%] w-[100%] h-[90vh] bg-[#212121E5] flex items-center px-[5%]'>
             {children}
         </div>
-    )
-    }
+    )}
+

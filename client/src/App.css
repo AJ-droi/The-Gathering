@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .App-logo {
@@ -36,3 +39,20 @@
     transform: rotate(360deg);
   }
 }
+
+.img-clip{
+  background-color: black;
+  clip-path: polygon(0 0, 100% 0%, 100% 58%, 0 100%);
+}
+
+.img-clip2{
+  background-color: black;
+  clip-path: polygon(0 45%, 100% 5%, 100% 58%, 0 100%);
+}
+
+.faq{
+  box-shadow: 1px 1px 10px #FF6E31;
+}
+
+
+

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import logo from '../assets/logo.png'
-import Button from './Button'
+import logo from '../../assets/logo.png'
+import Button from '../common/Button'
 import {HiOutlineMenuAlt1} from "react-icons/hi"
 
 const Navbar = () => {

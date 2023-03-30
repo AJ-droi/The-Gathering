@@ -1,15 +1,14 @@
 import React from 'react'
-import Hero from '../components/Hero'
-import Navbar from '../components/Navbar'
-import Event from '../components/Event'
+import Hero from '../components/HomeComponents/Hero'
+import Event from '../components/HomeComponents/Event'
+import Review from '../components/HomeComponents/Review'
 
 const Home = () => {
   return (
     <div>
-        <Navbar />
         <Hero />
         <Event />
-
+        <Review />
     </div>
   )
 }
