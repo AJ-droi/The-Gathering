@@ -1,8 +1,7 @@
-import { text } from 'node:stream/consumers'
 import faq from '../../assets/faq.png'
-import faqbg from '../../assets/faqbg.png'
+// import faqbg from '../../assets/faqbg.png'
 import {IoAddOutline} from 'react-icons/io5'
-import {AiOutlineMinus} from 'react-icons/ai'
+// import {AiOutlineMinus} from 'react-icons/ai'
 import { faqData } from '../../data/faq'
 
 interface FaqData {
