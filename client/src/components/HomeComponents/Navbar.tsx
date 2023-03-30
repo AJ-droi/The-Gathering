@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import logo from '../../assets/logo.png'
 import Button from '../common/Button'
 import {HiOutlineMenuAlt1} from "react-icons/hi"
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     const myRef = useRef<any>(null)
@@ -32,9 +33,9 @@ const NavbarDesktop = () => {
     <div className='bg-[#212121] flex justify-evenly relative z-[2]'>
         <img src={logo} alt="logo" />
         <ul className='flex justify-between items-center text-[#fff] text-[16px] w-[25%]'>
-            <li><a href=" ">Home</a></li>
-            <li><a href=" ">About Us</a></li>
-            <li><a href=" ">Gallery</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to=" ">Gallery</Link></li>
         </ul>
         <div className='flex justify-center items-center w-[20%]'>
             <Button title="Sign In" classes="bg-[#fff] w-[35%] h-[4vh] mr-[5%]" />
@@ -57,9 +58,9 @@ const NavbarMobile= () => {
          
        {isOpen ?<div>
             <ul className='flex flex-col justify-between items-center text-[#fff] text-[16px] h-[15vh] my-[5%]'>
-                <li><a href=" ">Home</a></li>
-                <li><a href=" ">About Us</a></li>
-                <li><a href=" ">Gallery</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to=" ">Gallery</Link></li>
             </ul>
             <div className='flex justify-center items-center pb-[5%]'>
                 <Button title="Sign In" classes="bg-[#fff] w-[30%] h-[4vh] mr-[5%]" />
