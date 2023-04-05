@@ -1,3 +1,4 @@
+
 export const faqData = [
     {
         text:"What methods of payments are available for purchasing tickets ?",
@@ -18,4 +19,4 @@ export const faqData = [
         text:"How can I purchase ticket ?"
     }
 ]
-    
+ 

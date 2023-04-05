@@ -6,6 +6,7 @@ import Button from '../common/Button'
 
 interface Layout {
     children: React.ReactNode;
+    style?:any;
 }
 
 const Hero = () => {
@@ -14,7 +15,7 @@ const Hero = () => {
         <div className='flex justify-end '>
             <img src={heroBgd} alt="heroBgd"  className='h-[80vh]'/>
         </div>
-        <HeroModal>
+        <HeroModal style={`absolute top-[0%] w-[100%] h-[90vh] bg-[#212121E5] flex items-center px-[5%]`}>
             <div className='w-[80%] text-[#fff] text-left'>
             <h3 className="text-[30px] lg:text-[70px]">
                 The <span className='text-[#FF6E31] '>#1</span> creative <br /> community in Nigeria.
@@ -35,9 +36,9 @@ const Hero = () => {
 
 export default Hero
 
- const HeroModal: React.FC<Layout> = ({children}) => {
+ export const HeroModal: React.FC<Layout> = ({children,style}) => {
     return (
-        <div className='absolute top-[0%] w-[100%] h-[90vh] bg-[#212121E5] flex items-center px-[5%]'>
+        <div className={` ${style}`}>
             {children}
         </div>
     )}

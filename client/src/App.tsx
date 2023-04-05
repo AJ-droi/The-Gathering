@@ -1,25 +1,42 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './pages/Home';
-import Contact from './components/HomeComponents/Contact';
-import About from './pages/About';
-import Navbar from './components/HomeComponents/Navbar';
-import Footer from './components/HomeComponents/Footer';
+import Homepage from './pages/Homepage';
+import SignIn from './pages/onboarding/SignIn';
+import Verify from './pages/onboarding/Verify';
+import Confirmation from './pages/onboarding/Confimation';
+import Verified from './pages/onboarding/Verified';
+import Expired from './pages/onboarding/Expired';
+import Update from './pages/onboarding/Update';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './redux/reducer';
+import Test from './pages/Test';
+
+const store = createStore(reducer, applyMiddleware(thunk));
+
 
 function App() {
   return (
     <div className="App">
+      <Provider store={store}>
       <Router>
-        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/*" element={<Homepage />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignIn />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/confirm" element={<Confirmation />} />
+          <Route path="/verified" element={<Verified />} />
+          <Route path="/expired" element={<Expired />} />
+          <Route path="/update" element={<Update />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
-        <Contact />
-        <Footer />
+      
 
       </Router>
+      </Provider>
     </div>
   );
 }

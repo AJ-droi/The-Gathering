@@ -35,11 +35,11 @@ const NavbarDesktop = () => {
         <ul className='flex justify-between items-center text-[#fff] text-[16px] w-[25%]'>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to=" ">Gallery</Link></li>
+            <li><Link to="/gallery">Gallery</Link></li>
         </ul>
         <div className='flex justify-center items-center w-[20%]'>
-            <Button title="Sign In" classes="bg-[#fff] w-[35%] h-[4vh] mr-[5%]" />
-            <Button title="Sign Up" classes="bg-[#FF6E31] w-[35%] text-[#fff] h-[4vh]" />
+        <Link to={"/signin"} className="w-[35%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>
+                <Link to={"/signup"} className="w-[35%]"><Button title="Sign Up" classes="bg-[#FF6E31] w-[100%] text-[#fff] h-[4vh]" /></Link>
         </div>
     
 
@@ -60,11 +60,11 @@ const NavbarMobile= () => {
             <ul className='flex flex-col justify-between items-center text-[#fff] text-[16px] h-[15vh] my-[5%]'>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About Us</Link></li>
-                <li><Link to=" ">Gallery</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
             </ul>
             <div className='flex justify-center items-center pb-[5%]'>
-                <Button title="Sign In" classes="bg-[#fff] w-[30%] h-[4vh] mr-[5%]" />
-                <Button title="Sign Up" classes="bg-[#FF6E31] w-[30%] text-[#fff] h-[4vh]" />
+                <Link to={"/signin"} className="w-[30%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>
+                <Link to={"/signup"} className="w-[30%]"><Button title="Sign Up" classes="bg-[#FF6E31] w-[100%] text-[#fff] h-[4vh]" /></Link>
             </div>
         </div> : null}
 

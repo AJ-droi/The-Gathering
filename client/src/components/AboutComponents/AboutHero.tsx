@@ -19,7 +19,7 @@ const AboutHero = () => {
         ></Button>
       </div>
       <div className="flex justify-center absolute top-[15%] z-[5] w-[100%]">
-        <p className="text-[#fff] ">
+        <p className="text-[#fff]">
           Create <span className="text-[#FF6E31] ">Connect</span> Collab
         </p>
       </div>
