@@ -36,13 +36,13 @@ const Contact = () => {
         </div>
         <div className='w-[100%] lg:w-[50%]'>
             <div className='flex flex-col lg:flex-row justify-between '>
-                <Input type={''} placeholder={'First Name'} style={`h-[50px] w-[100%] lg:w-[auto] mt-[5%] lg:mt-[0%]`} />
-                <Input type={''} placeholder={'Last Name'} style={`h-[50px] w-[100%] lg:w-[auto] mt-[2%] lg:mt-[0%]`} />
+                <Input type={''} placeholder={'First Name'} signStyle={`h-[50px] w-[100%] lg:w-[auto] mt-[5%] lg:mt-[0%]`} />
+                <Input type={''} placeholder={'Last Name'} signStyle={`h-[50px] w-[100%] lg:w-[auto] mt-[2%] lg:mt-[0%]`} />
             </div>
        
-            <Input type={''} placeholder={'Email Address'} style={`w-[100%] lg:w-[70%] my-[3%] h-[50px]`} />
+            <Input type={''} placeholder={'Email Address'} signStyle={`w-[100%] lg:w-[70%] my-[3%] h-[50px]`} />
         
-            <Input type={''} placeholder={'message'} style={`w-[100%] h-[100px]`} />
+            <Input type={''} placeholder={'message'} signStyle={`w-[100%] h-[100px]`} />
             <Button title={'Send'} classes={'bg-[#FF6E31] w-[100%] my-[2%] h-[40px] my-[6%]'} />
                
         </div>

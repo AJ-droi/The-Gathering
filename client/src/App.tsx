@@ -9,12 +9,17 @@ import Verified from './pages/onboarding/Verified';
 import Expired from './pages/onboarding/Expired';
 import Update from './pages/onboarding/Update';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+
 import reducer from './redux/reducer';
 import Test from './pages/Test';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = configureStore({
+  reducer: reducer,
+  middleware: [thunk]
+});
+
 
 
 function App() {

@@ -1,7 +1,6 @@
 import React from "react";
-import sign from "../../assets/sign.png";
 import Button from "../../components/common/Button";
-import Input, { SignInput } from "../../components/common/Input";
+import  { SignInput } from "../../components/common/Input";
 import google from "../../assets/google.png";
 import facebook from "../../assets/Facebook.png";
 import OnboardingBg from "./OnboardingBg";
@@ -34,7 +33,7 @@ const Login = () => {
             caption={"Email"}
             type={"text"}
             placeholder={"Enter Your Email Address"}
-            style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
           />
 
           <div>
@@ -42,7 +41,7 @@ const Login = () => {
               caption={`Password`}
               type={"password"}
               placeholder={"........."}
-              style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+              signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
             />
             <p className="text-right underline  text-[#FF6E31] pr-[15%]">
               Forgot Password
@@ -93,28 +92,28 @@ const Login = () => {
             caption={"First Name"}
             type={"text"}
             placeholder={"Enter Your First Name"}
-            style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
           />
 
           <SignInput
             caption={"Last Name"}
             type={"text"}
             placeholder={"Enter Your Last Name"}
-            style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
           />
 
           <SignInput
             caption={"Email"}
             type={"text"}
             placeholder={"Enter Your Email Address"}
-            style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
           />
 
             <SignInput
                 caption={`Password`}
                 type={"password"}
                 placeholder={"........."}
-                style={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+                signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
             />
 
         <SignInput
@@ -127,7 +126,7 @@ const Login = () => {
             caption={"I agree to the Terms of Service and private policy"}
             type={"checkbox"}
             placeholder={"Enter Your Email Address"}
-            style={``}
+            signStyle={``}
           />            
 
           <Button
