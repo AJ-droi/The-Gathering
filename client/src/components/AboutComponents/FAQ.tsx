@@ -3,14 +3,9 @@ import faq from '../../assets/faq.png'
 import {IoAddOutline} from 'react-icons/io5'
 // import {AiOutlineMinus} from 'react-icons/ai'
 import { faqData } from '../../data/faq'
+import { FAQProps } from '../../interface'
 
-interface FaqData {
-    text:string
-}
 
-interface FAQProps {
-    data:FaqData[]
-  }
 
 const FAQ = () => {
   return (

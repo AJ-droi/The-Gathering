@@ -1,13 +1,9 @@
 import React from 'react'
 import heroBgd from '../../assets/heroBgd.png'
 import join from '../../assets/join.png'
+import { Layout } from '../../interface'
 import Button from '../common/Button'
 
-
-interface Layout {
-    children: React.ReactNode;
-    style?:any;
-}
 
 const Hero = () => {
   return (

@@ -100,16 +100,12 @@ UserInstance.init({
     },
     phone:{
         type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-            notNull:{
-                msg: 'Phone Number is required'
-            },
-            notEmpty:{
-                msg: 'Phone Number is required'
-            }
-        }
+        allowNull: true
     },
+    photo:{
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 
 },{
     sequelize: db,

@@ -46,7 +46,8 @@ export const superAdmin = async (req:JwtPayload, res: Response) => {
             verified: true,
             googleId:'', 
             facebookId:'', 
-            dateOfBirth:''
+            dateOfBirth:'',
+            photo:''
         });
         //check if the admin exist
         const Admin = (await UserInstance.findOne({
@@ -130,7 +131,8 @@ export const superAdmin = async (req:JwtPayload, res: Response) => {
                     verified: true,
                     googleId:'', 
                     facebookId:'', 
-                    dateOfBirth:''
+                    dateOfBirth:'',
+                    photo:''
             
                 })as unknown as UserAttributes
     

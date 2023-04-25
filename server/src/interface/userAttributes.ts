@@ -16,4 +16,5 @@ export interface UserAttributes {
     gender: string;
     verified: boolean;
     phone: string;
+    photo: string;
 }

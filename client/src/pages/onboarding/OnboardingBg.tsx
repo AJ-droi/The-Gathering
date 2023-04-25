@@ -2,10 +2,8 @@ import React from 'react'
 import sign from '../../assets/sign.png'
 import arrowleft from '../../assets/arrow-left.png'
 import { Link } from 'react-router-dom'
+import { Onboarding } from '../../interface'
 
-interface Onboarding {
-    children: React.ReactNode
-}
 
 const OnboardingBg : React.FC<Onboarding> = ({children}) => {
   return (

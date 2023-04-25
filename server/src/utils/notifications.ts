@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { fromAdminMaill, GMAIL_PASSE, GMAIL_USERE, userSubjectt } from "../config"
+import { fromAdminMaill, FRONTEND_BASE_URLE, GMAIL_PASSE, GMAIL_USERE, userSubjectt } from "../config"
 
 export const GenerateOTP = () => {
     const otp = Math.floor(1000 + Math.random() * 90000)
@@ -38,14 +38,14 @@ export const sendmail = async(
     }
 }
 
-export const emailHtml = (otp:number):string => {
+export const emailHtml = (otp:number, token:string) => {
     const temp = `
     <div style="background-color: #f5f5f5; padding: 20px; font-family: sans-serif;">
         <div style="max-width: 600px; margin: auto; background-color: white; padding: 20px;">
             <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to THE GATHERING </h2>
             <p>Congratulations! You're almost set to start using THE GATHERING APP. Just enter this one time code to verify your account.</p>
             <div style="padding: 10px; background-color: #e0e0e0; text-align: center;">
-                <h1 style="color: teal; margin: 0; padding: 0;">${otp}</h1>
+            <a href="${FRONTEND_BASE_URLE}/verify/?token=${token}">click here to verify</a> or copy this ${FRONTEND_BASE_URLE}/verify/?token=${token} link and paste in your browser.
             </div>
             <p>Thanks,<br>
             THE GATHERING Team</p>

@@ -5,12 +5,8 @@ import firstReviewer from '../../assets/firstReviewer.png'
 import secondReviewer from '../../assets/secondReviewer.png'
 import thirdReviewer from '../../assets/thirdReviewer.png'
 import reviewBackground from '../../assets/reviewBackground.png'
+import { ReviewProps } from '../../interface'
 
-
-interface ReviewProps {
-    text: string;
-    source?: string;
-  }
 
 const Review = () => {
   return (

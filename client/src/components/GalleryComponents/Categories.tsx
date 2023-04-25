@@ -1,13 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { catData } from '../../data/category';
+import { CategoryLayout } from '../../interface';
 
 
-interface CategoryLayout{
-    img:string;
-    text:string;
-    link?:string;
-}
 
 const Categories = () => {
   return (

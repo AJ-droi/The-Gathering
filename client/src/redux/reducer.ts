@@ -1,6 +1,6 @@
-import { Reducer } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface State {
+export interface State {
   data: any[];
   loading: boolean;
   error: string | null;
@@ -12,17 +12,25 @@ const initialState: State = {
   error: null,
 };
 
-const reducer: Reducer<State> = (state = initialState, action) => {
-  switch (action.type) {
-    case 'FETCH_DATA_START':
-      return { ...state, loading: true, error: null };
-    case 'FETCH_DATA_SUCCESS':
-      return { ...state, loading: false, data: action.payload };
-    case 'FETCH_DATA_FAILURE':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
+const dataSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    fetchDataStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchDataSuccess: (state, action: PayloadAction<any[]>) => {
+      state.loading = false;
+      state.data = action.payload;
+    },
+    fetchDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+  },
+});
 
-export default reducer;
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = dataSlice.actions;
+
+export default dataSlice.reducer;

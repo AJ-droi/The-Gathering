@@ -5,8 +5,17 @@ import google from "../../assets/google.png";
 import facebook from "../../assets/Facebook.png";
 import OnboardingBg from "./OnboardingBg";
 import { Link, useLocation } from "react-router-dom";
+import { loginUser, registerUser } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginData } from "../../interface";
+import { State } from "../../redux/reducer";
+import { getGoogleUrl } from "../../utils/getGoogleUrl";
+import { facebookLoginUrl } from "../../utils/facebook";
+
+
 
 const SignIn = () => {
+
   return (
     <div>
       <OnboardingBg children={<Login />} />
@@ -18,6 +27,53 @@ export default SignIn;
 
 const Login = () => {
   const path = useLocation().pathname;
+  const dispatch = useDispatch() as unknown as any;
+  const location = useLocation();
+  const from = location.pathname
+
+  
+  const [loginData, setLoginData] = React.useState<LoginData>({
+    email: "",
+    password: "",
+  })
+
+  const [registerData, setRegisterData] = React.useState<LoginData>({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if(path === '/signup') {
+      setRegisterData({ ...registerData, [name]: value });
+      console.log(registerData)
+    }else{
+      setLoginData({ ...loginData, [name]: value });
+      console.log(loginData)
+    }
+  
+  };
+
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(path === '/signup') {
+      dispatch(registerUser(registerData))
+    }else{
+    console.log(loginData)
+    dispatch(loginUser(loginData))
+    }
+  }
+
+ 
+
+  const { loading } = useSelector((state: State) => state);
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {path === "/signin" ? (
@@ -34,6 +90,9 @@ const Login = () => {
             type={"text"}
             placeholder={"Enter Your Email Address"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"email"}
+            value={loginData.email}
+            onchange={handleChange}
           />
 
           <div>
@@ -42,6 +101,9 @@ const Login = () => {
               type={"password"}
               placeholder={"........."}
               signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+              name={"password"}
+              value={loginData.password}
+              onchange={handleChange}
             />
             <p className="text-right underline  text-[#FF6E31] pr-[15%]">
               Forgot Password
@@ -51,14 +113,16 @@ const Login = () => {
           <Button
             title={"Sign In"}
             classes={
-              "bg-[#FCFCFC] w-[60%] text-[#FF6E31] text-[1.2rem] border border-[#FF6E31] h-[4vh] mx-[auto] hover:bg-[#FF6E31] "
+              "bg-[#FCFCFC] w-[60%] text-[#FF6E31] text-[1.2rem] border border-[#FF6E31] h-[4vh] mx-[auto] hover:bg-[#FF6E31] hover:text-[#fff] "
             }
             textStyle={` hover:text-[#fff]`}
+            onClick={handleSubmit}
           />
+
 
           <div>
             <h4 className="text-[1.4rem] ">Or</h4>
-            <Button
+            <Link to={getGoogleUrl(from)}><Button
               title={"Sign In With Google"}
               source={google}
               classes={
@@ -66,8 +130,8 @@ const Login = () => {
               }
               textStyle={`text-[0.8rem] md:text-[1rem] text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
-            />
-            <Button
+            /></Link>
+            <Link to={facebookLoginUrl}><Button
               title={"Sign In With Facebook"}
               source={facebook}
               classes={
@@ -75,7 +139,7 @@ const Login = () => {
               }
               textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
-            />
+            /></Link>
             <p className="text-[#8F8F8F] font-bold">Don't have an Account? <span className="text-[#FF6E31]"><Link to="/signup">Sign Up</Link></span></p>
           </div>
         </div>
@@ -93,6 +157,9 @@ const Login = () => {
             type={"text"}
             placeholder={"Enter Your First Name"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"firstName"}
+            value={registerData.firstName}
+            onchange={handleChange}
           />
 
           <SignInput
@@ -100,6 +167,9 @@ const Login = () => {
             type={"text"}
             placeholder={"Enter Your Last Name"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"lastName"}
+            value={registerData.lastName}
+            onchange={handleChange}
           />
 
           <SignInput
@@ -107,6 +177,9 @@ const Login = () => {
             type={"text"}
             placeholder={"Enter Your Email Address"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"email"}
+            value={registerData.email}
+            onchange={handleChange}
           />
 
             <SignInput
@@ -114,6 +187,9 @@ const Login = () => {
                 type={"password"}
                 placeholder={"........."}
                 signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+                name={"password"}
+                value={registerData.password}
+                onchange={handleChange}
             />
 
         <SignInput
@@ -135,11 +211,12 @@ const Login = () => {
               "bg-[#FCFCFC] w-[60%] text-[#FF6E31] text-[1.2rem] border border-[#FF6E31] h-[4vh] mx-[auto] hover:bg-[#FF6E31] "
             }
             textStyle={` hover:text-[#fff]`}
+            onClick={handleSubmit}
           />
 
           <div>
             <h4 className="text-[1.4rem] ">Or</h4>
-            <Button
+            <Link to={getGoogleUrl(from)}><Button
               title={"Sign Up With Google"}
               source={google}
               classes={
@@ -147,8 +224,9 @@ const Login = () => {
               }
               textStyle={`text-[0.8rem] md:text-[1rem] text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
-            />
-            <Button
+            /></Link>
+
+          <Link to={facebookLoginUrl}><Button
               title={"Sign Up With Facebook"}
               source={facebook}
               classes={
@@ -156,7 +234,7 @@ const Login = () => {
               }
               textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
-            />
+            /></Link>
             <p className="text-[#8F8F8F] font-bold">Already have an Account? <span className="text-[#FF6E31]"><Link to="/signin">Sign In</Link></span></p>
           </div>
         </div>
@@ -164,3 +242,4 @@ const Login = () => {
     </>
   );
 };
+

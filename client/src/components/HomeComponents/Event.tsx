@@ -6,12 +6,8 @@ import network from "../../assets/network.png"
 import meet from "../../assets/meet.png"
 import cube from "../../assets/cube.png"
 import divider from '../../assets/divider.png'
+import { EventProps } from "../../interface";
 
-interface EventProps {
-  header: string;
-  text: string;
-  source?: string;
-}
 
 const Event = () => {
   return (
