@@ -6,6 +6,7 @@ export const apiGet = (path:string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      'Access-Control-Allow-Origin': '*'
     },
   };
 
@@ -16,6 +17,7 @@ export const apiPost = async (path:string, data:any) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      'Access-Control-Allow-Origin': '*'
     },
   };
   return await axios.post(`${baseUrl}${path}`, data, config);
@@ -26,6 +28,7 @@ export const FormDataPost = async (path:string, data:any) => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
       "Content-Type": "multipart/form-data",
+      'Access-Control-Allow-Origin': '*'
     },
   };
   return await axios.post(`${baseUrl}${path}`, data, config);
@@ -35,6 +38,7 @@ export const apiPut = (path:string, data:object) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      'Access-Control-Allow-Origin': '*'
     },
   };
 
@@ -45,6 +49,7 @@ export const apiPatch = (path:string, data:object) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      'Access-Control-Allow-Origin': '*'
     },
   };
 
@@ -55,6 +60,7 @@ export const apiDelete = (path:string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      'Access-Control-Allow-Origin': '*'
     },
   };
 
