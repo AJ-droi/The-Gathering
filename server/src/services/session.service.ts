@@ -29,8 +29,6 @@ export const getGoogleOauthToken = async ({
     code,
     grant_type: "authorization_code",
   };
-
-  console.log(options)
  
   try {
     const { data } = await axios.post<any>(
@@ -77,8 +75,6 @@ interface GoogleUserResult {
           },
         }
       );
-
-      console.log(data)
   
       return data;
     } catch (err: any) {

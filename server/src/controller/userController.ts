@@ -355,8 +355,6 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     const code = req.query.code as string;
     const pathUrl = (req.query.state as string)
 
-    console.log('code', code)
-
     if (!code) {
       return res.status(401).json({
         status: "fail",
@@ -365,7 +363,6 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     }
 
     const { id_token, access_token } = await getGoogleOauthToken({ code });
-    console.log("hello")
 
     const {id, name, email, picture } = await getGoogleUser({
       id_token,
