@@ -44,9 +44,13 @@ app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/photographer', photoRouter)
 
+const corsOptions = {
+  origin: ['https://thegathering.netlify.app', "http://localhost:3000"]
+};
+
+app.use(cors(corsOptions));
 
 
-app.use(cors())
 
 app.get('/auth/facebook', authController.facebookLogin);
 app.get('/auth/facebook/callback', authController.facebookCallback);
