@@ -349,7 +349,7 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
 };
 
 export const googleOauthHandler = async (req: Request, res: Response) => {
-  const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string;
+  const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:5000"
 
   try {
     const code = req.query.code as string;
@@ -448,14 +448,14 @@ export const authController = {
   },
 
   async facebookCallback(req: Request, res: Response) {
-    const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string;
+    const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:5000"
     const { code } = req.query;
 
     try {
       const params = new URLSearchParams({
         client_id: process.env.FB_APP_ID!,
         client_secret: process.env.FB_APP_SECRET!,
-        redirect_uri: process.env.FB_REDIRECT!,
+        redirect_uri: process.env.FB_REDIRECT! || "http://localhost:5000/auth/facebook/callback",
         code: code as string
       });
 
