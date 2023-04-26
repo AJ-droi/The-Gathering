@@ -349,7 +349,7 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
 };
 
 export const googleOauthHandler = async (req: Request, res: Response) => {
-  const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:5000"
+  const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:3000"
 
   try {
     const code = req.query.code as string;
@@ -448,7 +448,7 @@ export const authController = {
   },
 
   async facebookCallback(req: Request, res: Response) {
-    const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:5000"
+    const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN as unknown as string || "http://localhost:3000"
     const { code } = req.query;
 
     try {
