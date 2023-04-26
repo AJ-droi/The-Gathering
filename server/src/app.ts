@@ -27,14 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger('dev'))
 
 
-app.use(session({
-  secret: "hello",
-  resave: false,
-  saveUninitialized: false,
-}));
-
-
-
 
 const port = process.env.PORT || 5000;
 
@@ -47,12 +39,7 @@ app.use('/photographer', photoRouter)
 
 
 app.use(
-  cors({
-    methods: ['GET', 'PATCH', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
-    origin: ['https://thegathering.netlify.app'],
-    credentials: true,
-  
-  })
+  cors()
 )
 
 app.get('/auth/facebook', authController.facebookLogin);
