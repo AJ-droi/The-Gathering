@@ -46,13 +46,7 @@ app.use('/photographer', photoRouter)
 
 
 
-app.use(
-  cors({
-    methods: ['GET', 'PATCH', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
-    origin: '*',
-    credentials: true
-  })
-)
+app.use(cors())
 
 app.get('/auth/facebook', authController.facebookLogin);
 app.get('/auth/facebook/callback', authController.facebookCallback);
