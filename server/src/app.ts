@@ -49,8 +49,9 @@ app.use('/photographer', photoRouter)
 app.use(
   cors({
     methods: ['GET', 'PATCH', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
-    origin: '*',
-    credentials: true
+    origin: ['https://thegathering.netlify.app'],
+    credentials: true,
+  
   })
 )
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = process.env.REACT_APP_BASE_URL!;
+const baseUrl = process.env.REACT_APP_BASE_URL! || "http://localhost:5000";
 
 export const apiGet = (path:string) => {
   const config = {
