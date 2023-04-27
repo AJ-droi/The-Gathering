@@ -22,14 +22,13 @@ db.sync().then(() => {
 
 const app = express();
 
+app.use(cors())
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(logger('dev'))
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+
 
 
 
@@ -42,12 +41,6 @@ app.use('/admin', adminRouter)
 app.use('/photographer', photoRouter)
 
 
-
-app.use(
-  cors({
-    "allowedHeaders":"*",
-  })
-)
 
 app.get('/auth/facebook', authController.facebookLogin);
 app.get('/auth/facebook/callback', authController.facebookCallback);
