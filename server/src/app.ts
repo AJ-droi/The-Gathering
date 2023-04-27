@@ -30,10 +30,7 @@ app.use(logger('dev'))
 
 
 
-
-
 const port = process.env.PORT || 5000;
-
 
 
 app.use('/user', userRouter)

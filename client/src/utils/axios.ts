@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl =  "http://localhost:5000";
+const baseUrl = "https://the-gathering.onrender.com";
 
 export const apiGet = (path:string) => {
   const config = {
