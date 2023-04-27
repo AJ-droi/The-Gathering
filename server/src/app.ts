@@ -39,7 +39,9 @@ app.use('/photographer', photoRouter)
 
 
 app.use(
-  cors()
+  cors({
+    "allowedHeaders":"*",
+  })
 )
 
 app.get('/auth/facebook', authController.facebookLogin);
