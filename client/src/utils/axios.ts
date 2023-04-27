@@ -1,12 +1,11 @@
 import axios from "axios";
 
-const baseUrl = "https://the-gathering.onrender.com" || "http://localhost:5000";
+const baseUrl =  "http://localhost:5000";
 
 export const apiGet = (path:string) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${localStorage.getItem("signature")}`
     },
   };
 
@@ -16,8 +15,7 @@ export const apiGet = (path:string) => {
 export const apiPost = async (path:string, data:any) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${localStorage.getItem("signature")}`
     },
   };
   return await axios.post(`${baseUrl}${path}`, data, config);
@@ -28,7 +26,6 @@ export const FormDataPost = async (path:string, data:any) => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("signature")}`,
       "Content-Type": "multipart/form-data",
-      'Access-Control-Allow-Origin': '*'
     },
   };
   return await axios.post(`${baseUrl}${path}`, data, config);
@@ -37,8 +34,7 @@ export const FormDataPost = async (path:string, data:any) => {
 export const apiPut = (path:string, data:object) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${localStorage.getItem("signature")}`
     },
   };
 
@@ -48,8 +44,7 @@ export const apiPut = (path:string, data:object) => {
 export const apiPatch = (path:string, data:object) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${localStorage.getItem("signature")}`
     },
   };
 
@@ -59,8 +54,7 @@ export const apiPatch = (path:string, data:object) => {
 export const apiDelete = (path:string) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${localStorage.getItem("signature")}`
     },
   };
 
