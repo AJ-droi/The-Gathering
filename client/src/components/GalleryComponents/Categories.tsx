@@ -7,9 +7,9 @@ import { CategoryLayout } from '../../interface';
 
 const Categories = () => {
   return (
-    <div className='py-[5%]'>
+    <div className='py-[5%] bg-[#fff]'>
         <h3 className='w-[100%] text-[2rem] shadow shadow-[#FF6E31]'>Categories</h3>
-        <div className='w-[100%] grid grid-cols-4 px-[3%] py-[5%]'>
+        <div className='w-[100%] flex flex-col lg:grid lg:grid-cols-4 px-[3%] py-[5%]'>
         {catData.map((elem,id) => (
            <Link to={`/gallery/${elem.link}`}><CatCard key={id} img={elem.img} text={elem.text} /></Link> 
              
