@@ -1,6 +1,7 @@
 import {DataTypes, Model} from 'sequelize';
 import {db} from '../config/index';
 import {UserAttributes} from '../interface/userAttributes';
+import { EventInstance } from './eventModel';
 
 
 export class UserInstance extends Model<UserAttributes> {}
@@ -105,9 +106,17 @@ UserInstance.init({
     photo:{
         type: DataTypes.STRING,
         allowNull: true
+    },
+    gallery:{
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true
     }
 
 },{
     sequelize: db,
     tableName: 'User',
 })
+
+UserInstance.hasMany(EventInstance, {foreignKey:'creatorId', as:'Events'})
+
+EventInstance.belongsTo(UserInstance, {foreignKey:'creatorId', as:'User'})

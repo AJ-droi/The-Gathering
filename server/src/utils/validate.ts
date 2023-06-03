@@ -37,6 +37,16 @@ export const photoSchema = Joi.object().keys({
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 })
 
+export const eventSchema = Joi.object().keys({
+    eventName: Joi.string().required(),
+    eventDate: Joi.date().required(),
+    eventLocation: Joi.string().required(),
+    eventDescription: Joi.string().optional(),
+    eventImages: Joi.array().optional(),
+})
+
+
+
 
 export const option = {
     abortEarly: false,
@@ -72,3 +82,17 @@ export const loginSchema = Joi.object().keys({
 export const validatePassword = async(enteredPassword:string, savedPassword:string, salt:string) => {
     return await GeneratePassword(enteredPassword,salt) === savedPassword
 }
+
+// Utility function to generate a random password
+export const generateRandomPassword = () => {
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let password = '';
+    
+    for (let i = 0; i < 8; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    
+    return password;
+  }
+  

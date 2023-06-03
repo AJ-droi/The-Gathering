@@ -6,6 +6,7 @@ import { HttpError } from "http-errors";
 import userRouter  from './routes/users';
 import adminRouter from './routes/admin';
 import photoRouter from './routes/photographer'
+import eventRouter from './routes/events'
 import cors from 'cors';
 import session from 'express-session';
 import { authController } from './controller/userController';
@@ -36,6 +37,7 @@ const port = process.env.PORT || 5000;
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/photographer', photoRouter)
+app.use('/event', eventRouter)
 
 
 

@@ -30,8 +30,11 @@ export const loginUser = createAsyncThunk(
     try {
       dispatch(fetchDataStart);
       const response = await apiPost("/user/login", formData);
-      toast.success(response.data.message);
+
+      console.log(response.data)
       localStorage.setItem("signature", response.data.signature);
+      localStorage.setItem("role", response.data.role);
+      toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
       setTimeout(() => {
         window.location.href = "/dashboard";
@@ -52,6 +55,7 @@ export const registerUser = createAsyncThunk(
       const response = await apiPost("/user/signup", formData);
       toast.success(response.data.message);
       localStorage.setItem("signature", response.data.signature);
+      localStorage.setItem("role", response.data.role);
       dispatch(fetchDataSuccess(response.data));
       setTimeout(() => {
         window.location.href = "/confirm";
@@ -102,3 +106,10 @@ export const resendverification = createAsyncThunk(
     }
   }
 );
+
+
+  /**==============Logout ======= **/
+  export const Logout = () => {
+    localStorage.clear();
+    window.location.href = "/signin";
+  };

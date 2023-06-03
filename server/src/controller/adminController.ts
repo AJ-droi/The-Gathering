@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import { v4 as uuidV4 } from "uuid";
+import { fromAdminMaill, userSubjectt } from "../config";
+import { EventAttributes } from "../interface/eventAttributes";
 import { PhotographerAttributes } from "../interface/photographerAttributes";
 import { UserAttributes } from "../interface/userAttributes";
+import { EventInstance } from "../model/eventModel";
 import { PhotographerInstance } from "../model/photographerModel";
 import { UserInstance } from "../model/userModel";
-import { GenerateOTP } from "../utils/notifications";
-import { adminSchema, GeneratePassword, GenerateSalt, Generatesignature, option, photoSchema, verifySignature } from "../utils/validate";
+import { GenerateOTP, photoHtml, sendmail } from "../utils/notifications";
+import { adminSchema, eventSchema, GeneratePassword, generateRandomPassword, GenerateSalt, Generatesignature, option, photoSchema, verifySignature } from "../utils/validate";
 
 export const superAdmin = async (req:JwtPayload, res: Response) => {
     try {
@@ -47,7 +50,8 @@ export const superAdmin = async (req:JwtPayload, res: Response) => {
             googleId:'', 
             facebookId:'', 
             dateOfBirth:'',
-            photo:''
+            photo:'',
+            gallery:[],
         });
         //check if the admin exist
         const Admin = (await UserInstance.findOne({
@@ -132,7 +136,8 @@ export const superAdmin = async (req:JwtPayload, res: Response) => {
                     googleId:'', 
                     facebookId:'', 
                     dateOfBirth:'',
-                    photo:''
+                    photo:'',
+                    gallery:[],
             
                 })as unknown as UserAttributes
     
@@ -169,7 +174,7 @@ export const superAdmin = async (req:JwtPayload, res: Response) => {
 
 export const createPhotographer = async(req:JwtPayload, res: Response) => {
   try{
-    const {name, brandName, phone, address, email, password} = req.body;
+    const {name, brandName, phone, address, email} = req.body;
     
     const id = req.user.id 
 
@@ -185,6 +190,7 @@ export const createPhotographer = async(req:JwtPayload, res: Response) => {
     
     //generate salt
     const salt = await GenerateSalt();
+    const password = generateRandomPassword()
     const vendorPassword = await GeneratePassword(password, salt);
 
     console.log("hello")
@@ -225,6 +231,10 @@ export const createPhotographer = async(req:JwtPayload, res: Response) => {
           verified: true,
           dateOfBirth:''
         });
+
+        //send mail to photgraphers
+      const html = photoHtml(email, password);
+      await sendmail(fromAdminMaill, email, userSubjectt, html);
   
         return res.status(201).json({
           message: "Photographer created successfully",
@@ -288,3 +298,4 @@ export const deletePhotographer = async(req:JwtPayload, res: Response) => {
   }
 
 }
+

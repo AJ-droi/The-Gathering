@@ -1,10 +1,12 @@
 import axios from "axios";
 import qs from "qs";
 
-const GOOGLE_OAUTH_CLIENT_ID = process.env.GOOGLE_OAUTH_CLIENT_ID as unknown as string;
-const GOOGLE_OAUTH_CLIENT_SECRET = process.env.GOOGLE_OAUTH_CLIENT_SECRET as unknown as string;
-const GOOGLE_OAUTH_REDIRECT = process.env.GOOGLE_OAUTH_REDIRECT as unknown as string;
-
+const GOOGLE_OAUTH_CLIENT_ID = process.env
+  .GOOGLE_OAUTH_CLIENT_ID as unknown as string;
+const GOOGLE_OAUTH_CLIENT_SECRET = process.env
+  .GOOGLE_OAUTH_CLIENT_SECRET as unknown as string;
+const GOOGLE_OAUTH_REDIRECT = process.env
+  .GOOGLE_OAUTH_REDIRECT as unknown as string;
 
 interface GoogleOauthToken {
   access_token: string;
@@ -16,7 +18,7 @@ interface GoogleOauthToken {
 }
 
 export const getGoogleOauthToken = async ({
-  code
+  code,
 }: {
   code: string;
 }): Promise<GoogleOauthToken> => {
@@ -29,17 +31,14 @@ export const getGoogleOauthToken = async ({
     code,
     grant_type: "authorization_code",
   };
- 
+
   try {
-    const { data } = await axios.post<any>(
-      rootURl,
-      qs.stringify(options),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    );
+    const { data } = await axios.post<any>(rootURl, qs.stringify(options), {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
     return data;
   } catch (err: any) {
     console.log("Failed to fetch Google Oauth Tokens");
@@ -47,39 +46,37 @@ export const getGoogleOauthToken = async ({
   }
 };
 
-
 interface GoogleUserResult {
-    id: string;
-    email: string;
-    verified_email: boolean;
-    name: string;
-    given_name: string;
-    family_name: string;
-    picture: string;
-    locale: string;
+  id: string;
+  email: string;
+  verified_email: boolean;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  locale: string;
+}
+
+export async function getGoogleUser({
+  id_token,
+  access_token,
+}: {
+  id_token: string;
+  access_token: string;
+}): Promise<GoogleUserResult> {
+  try {
+    const { data } = await axios.get<GoogleUserResult>(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
+      {
+        headers: {
+          Authorization: `Bearer ${id_token}`,
+        },
+      }
+    );
+
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    throw Error(err);
   }
-  
-  export async function getGoogleUser({
-    id_token,
-    access_token,
-  }: {
-    id_token: string;
-    access_token: string;
-  }): Promise<GoogleUserResult> {
-    try {
-      const { data } = await axios.get<GoogleUserResult>(
-        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${id_token}`,
-          },
-        }
-      );
-  
-      return data;
-    } catch (err: any) {
-      console.log(err);
-      throw Error(err);
-    }
-  }
-  
+}

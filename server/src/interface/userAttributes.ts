@@ -1,3 +1,5 @@
+import { Image } from "./eventAttributes";
+
 export interface UserAttributes {
     id: string;
     firstName: string;
@@ -17,4 +19,5 @@ export interface UserAttributes {
     verified: boolean;
     phone: string;
     photo: string;
+    gallery: Image[];
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://the-gathering.onrender.com";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const apiGet = (path:string) => {
   const config = {

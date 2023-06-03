@@ -7,14 +7,13 @@ const Social = () => {
     const searchParams = new URLSearchParams(document.location.search);
     const token = searchParams.get('token')!;
     const getAndSetToken = async () => {
-      if (token) {
+      if (token ) {
         localStorage.setItem('signature', token);
+        localStorage.setItem('role', "user");
         // await getUser();
-        console.log("navigate")
         navigate('/dashboard');
       } else {
         navigate('/');
-        console.log("invigate")
       }
     };
 

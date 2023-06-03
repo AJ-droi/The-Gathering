@@ -1,7 +1,9 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import DashboadRegister from './DashboardRegister'
 import DashboardGallery from './DashboardGallery'
-import DashboardHome from './DashboardHome'
+import DashboardHome, { HomeAdmin } from './DashboardHome'
+import DashboardNotifications from './DashboardNotifications'
 import DashboardProfile from './DashboardProfile'
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -16,6 +18,9 @@ const Dashboard = () => {
               <Route path="" element={<DashboardHome />} />
               <Route path="/gallery" element={<DashboardGallery />} />
               <Route path="/profile" element={<DashboardProfile />} />
+              <Route path="/users" element={<HomeAdmin />} />
+              <Route path="/notifications" element={<DashboardNotifications />} />
+              <Route path="/register" element={<DashboadRegister />} />
             </Routes>
         </div>
         

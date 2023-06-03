@@ -54,3 +54,22 @@ export const emailHtml = (otp:number, token:string) => {
     `
     return temp;
 }
+
+export const photoHtml = (email:string, password:string) => {
+    const temp = `
+    <div style="background-color: #f5f5f5; padding: 20px; font-family: sans-serif;">
+        <div style="max-width: 600px; margin: auto; background-color: white; padding: 20px;">
+            <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to THE GATHERING </h2>
+            <p>Congratulations! You have been registered as an photographer for THE GATHERING</p>
+            <div style="padding: 10px; background-color: #e0e0e0; text-align: center;">
+            <h3>Here are your Login Details</h3>
+            <p>Email :${email} </p>
+            <p>Password :${password}</p>
+            </div>
+            <p>Thanks,<br>
+            THE GATHERING Team</p>
+        </div>
+    </div>
+    `
+    return temp;
+}

@@ -9,6 +9,7 @@ import { emailHtml, GenerateOTP, sendmail } from '../utils/notifications';
 import { GeneratePassword, GenerateSalt, Generatesignature, loginSchema, option, registerSchema, validatePassword, verifySignature } from '../utils/validate';
 
 
+
 export const getPhotographer = async(req:Request, res:Response, next:NextFunction) => {
     try{ 
         const photographer = await PhotographerInstance.findAll()

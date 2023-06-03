@@ -21,6 +21,10 @@ import {
 } from "../utils/validate";
 import { getGoogleOauthToken, getGoogleUser } from "../services/session.service";
 import axios from "axios";
+import { EventInstance } from "../model/eventModel";
+import { EventAttributes, Image } from "../interface/eventAttributes";
+import { PhotographerInstance } from "../model/photographerModel";
+import { PhotographerAttributes } from "../interface/photographerAttributes";
 
 export const Signup = async (
   req: Request,
@@ -67,7 +71,8 @@ export const Signup = async (
         googleId: "",
         facebookId: "",
         dateOfBirth: "",
-        photo:""
+        photo:"",
+        gallery:[]
       });
 
 
@@ -163,7 +168,39 @@ export const Login = async (
       where: { email: email },
     })) as unknown as UserAttributes;
 
-    if (User.verified) {
+    if(!User){
+      const Photographer = (await PhotographerInstance.findOne({
+      where: { email: email },
+    })) as unknown as PhotographerAttributes;
+
+    if (Photographer.verified ) {
+      const validation = await validatePassword(
+        password,
+        Photographer.password,
+        Photographer.salt
+      );
+
+      if (validation) {
+        let signature = await Generatesignature({
+          id: Photographer.id,
+          email: Photographer.email,
+          verified: Photographer.verified,
+        });
+        console.log("hello");
+        return res.status(200).json({
+          message: "You have Successfully logged In",
+          signature,
+          email: Photographer.email,
+          verified: Photographer.verified,
+          role: Photographer.role,
+        });
+      }
+    }
+    }
+
+    
+
+    if (User.verified ) {
       const validation = await validatePassword(
         password,
         User.password,
@@ -363,6 +400,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     }
 
     const { id_token, access_token } = await getGoogleOauthToken({ code });
+  
 
     const {id, name, email, picture } = await getGoogleUser({
       id_token,
@@ -373,6 +411,12 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     const user= await UserInstance.findOne({
       where: { googleId: id },
     }) as unknown as UserAttributes;
+
+
+
+    if(user === null){
+      return res.redirect(`${FRONTEND_ORIGIN}/signin`);
+    }
 
     if(!user){
 
@@ -398,8 +442,12 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
           googleId: id,
           facebookId: '',
           dateOfBirth: "",
-          photo: picture
+          photo: picture,
+          gallery:[]
       }) as unknown as UserAttributes;
+
+      console.log("new", newUser)
+      
 
       const token = await Generatesignature({
         id: newUser.id,
@@ -494,7 +542,8 @@ export const authController = {
           googleId: "",
           facebookId: id,
           dateOfBirth: "",
-          photo: picture.data.url
+          photo: picture.data.url,
+          gallery:[]
       }) as unknown as UserAttributes;
     
       const token = await Generatesignature({
@@ -523,3 +572,47 @@ export const authController = {
 };
 
 
+export const addImage = async (req: JwtPayload, res: Response) => {
+  try{
+
+    const userId = req.user.id
+
+    const user = await UserInstance.findOne({
+      where:{ id : userId },
+    }) as unknown as UserAttributes;
+
+    if(!user){
+      return res.status(404).json({
+        message: "User not found, Kindly SignUp or Login",
+      });
+    }
+
+    const { id, imageId} = req.query as any
+
+    const event = await EventInstance.findOne({
+      where:{ id : id },
+    }) as unknown as EventAttributes;
+
+    if(!event){
+      return res.status(404).json({
+        message: "Event not found",
+      });
+    }
+
+    let img = event.eventImages.find((image) => image.id === imageId) as Image
+
+    await UserInstance.update({
+      gallery: [...user.gallery, img]
+    },{
+      where: { id: userId },
+    }) as unknown as UserAttributes;
+
+    return res.status(200).json({
+      message: "Image found"
+    });
+  }catch(err){
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
