@@ -1,11 +1,10 @@
-import React from 'react'
 import dashprofile from '../../assets/dashprofile.png'
 import camera from "../../assets/Camera.png"
 import profileCard from "../../assets/profileCard.png"
 import { Link } from 'react-router-dom'
 
 const DashboardProfile = () => {
-    const role = localStorage.getItem('role')
+
   return (
     <div className='bg-[#E0E0E0] h-[100vh]'>
         <div className='flex flex-col items-center py-[3%]'>

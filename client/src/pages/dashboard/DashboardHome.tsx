@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import avatar from "../../assets/avatar.png";
 import nature from "../../assets/nature.png";
 import info from "../../assets/info.png";
-import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import addPhoto from "../../assets/addPhoto.png";
 import search from "../../assets/search.png";
 import { IoCall } from "react-icons/io5";
-import {GrAdd, GrMail} from "react-icons/gr"
+import {GrMail} from "react-icons/gr"
 import { Link, useLocation } from "react-router-dom";
-import calendar from "../../assets/calendar.png";
 import HomePhotographer from "./HomePhotographer";
 
 const DashboardHome = () => {
