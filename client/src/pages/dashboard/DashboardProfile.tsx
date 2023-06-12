@@ -1,8 +1,11 @@
 import React from 'react'
 import dashprofile from '../../assets/dashprofile.png'
 import camera from "../../assets/Camera.png"
+import profileCard from "../../assets/profileCard.png"
+import { Link } from 'react-router-dom'
 
 const DashboardProfile = () => {
+    const role = localStorage.getItem('role')
   return (
     <div className='bg-[#E0E0E0] h-[100vh]'>
         <div className='flex flex-col items-center py-[3%]'>
@@ -27,6 +30,7 @@ const DashboardProfile = () => {
                 <input type={'tel'} placeholder={'Sonia'} value={'+2347062639647'} className={'border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] xl:mt-[-3%]'} />
             </div>
 
+            <Link to="/dashboard/card"><img src={profileCard} alt="" className='h-[20vh] mt-[5%] ml-[5%]' /></Link>
         </div>
     </div>
   )

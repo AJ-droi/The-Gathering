@@ -69,14 +69,14 @@ export const SidebarDesktop = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center">
                 {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
                 Notifications
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event" className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -110,7 +110,7 @@ export const SidebarDesktop = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event" className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -124,12 +124,12 @@ export const SidebarDesktop = () => {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/dashboard/gallery" className="flex items-center">
                 <img src={gallery} alt="" className="mr-[22%]" />
                 Gallery
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/dashboard/profile" className="flex items-center">
                 <img src={profile} alt="" className="mr-[22%]" />
@@ -137,14 +137,14 @@ export const SidebarDesktop = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center">
                 {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
                 Notifications
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event" className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -160,9 +160,11 @@ export const SidebarDesktop = () => {
               Settings
             </Link>
           </li>
-          <li className="mb-[15%] flex items-center" onClick={Logout}>
+          <li className="mb-[15%] flex items-center" >
+          <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
             Logout
+            </Link>
           </li>
         </ul>
       </div>
@@ -299,7 +301,9 @@ export const SidebarMobile = () => {
             </Link>
           </li>
           <li className="mb-[15%] flex items-center" onClick={Logout}>
+          <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
+            </Link>
           </li>
         </ul>
       </div>

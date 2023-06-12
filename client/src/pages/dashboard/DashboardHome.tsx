@@ -7,8 +7,10 @@ import Button from "../../components/common/Button";
 import addPhoto from "../../assets/addPhoto.png";
 import search from "../../assets/search.png";
 import { IoCall } from "react-icons/io5";
-import {GrMail} from "react-icons/gr"
+import {GrAdd, GrMail} from "react-icons/gr"
 import { Link, useLocation } from "react-router-dom";
+import calendar from "../../assets/calendar.png";
+import HomePhotographer from "./HomePhotographer";
 
 const DashboardHome = () => {
   const role = localStorage.getItem('role')
@@ -17,7 +19,7 @@ const DashboardHome = () => {
   return (
     <>
 
-    {role === "user" ? <HomeUsers /> : role === "admin" || role === "superadmin" ?<HomeAdmin /> : null}
+    {role === "user" ? <HomeUsers /> : role === "admin" || role === "superadmin" ?<HomeAdmin /> : role === "photographer" ? <HomePhotographer /> : null}
     </>
   );
 };
@@ -191,6 +193,8 @@ const UpcomingEvents = () => {
   );
 };
 
+
+
 const Rings = () => {
     const [ringInfo, setRingInfo] = useState(false)
   return (
@@ -211,3 +215,5 @@ const Rings = () => {
     </div>
   );
 };
+
+
