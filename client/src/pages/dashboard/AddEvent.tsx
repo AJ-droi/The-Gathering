@@ -1,9 +1,34 @@
 import { SignInput } from "../../components/common/Input"
 import addPhoto from "../../assets/addPhoto.png"
 import Button from "../../components/common/Button"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { createEvent } from "../../redux/actions"
 
 
 const AddEvent = () => {
+
+  const [formData, setFormData] = useState({
+    eventName: '',
+    eventDate: '',
+    eventLocation: '',
+    eventDescription: '',
+    ticketPrice: '',
+  })
+
+  const dispatch = useDispatch() as unknown as any
+
+  const handleChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async(e: any) => {
+    e.preventDefault()
+    dispatch(createEvent(formData))
+  }
   return (
     <div> 
     <div className="w-[70%] h-[80vh] py-[7%] flex flex-col justify-start  md:justify-evenly">
@@ -19,8 +44,9 @@ const AddEvent = () => {
         type={"text"}
         placeholder={"Enter Your Name of Event"}
         signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
-        name={"firstName"}
-        value={''}
+        name={"eventName"}
+        value={formData?.eventName}
+        onchange={handleChange}
         />
 
         <SignInput
@@ -28,20 +54,41 @@ const AddEvent = () => {
         type={"date"}
         placeholder={"Enter Your Last Name"}
         signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
-        name={"lastName"}
-        value={''}
+        name={"eventDate"}
+        value={formData?.eventDate}
+        onchange={handleChange}
         />
+
+      <SignInput
+            caption={`Venue of Event`}
+            type={"text"}
+            placeholder={"Enter the venue of the event"}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"eventLocation"}
+            value={formData?.eventLocation}
+            onchange={handleChange}
+        />      
+
+      <SignInput
+            caption={`Description of Event`}
+            type={"text"}
+            placeholder={"Enter the details of the event"}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"eventDescription"}
+            value={formData?.eventDescription}
+            onchange={handleChange}
+        />   
 
         <SignInput
             caption={`Ticket Price`}
             type={"number"}
             placeholder={"Enter Your Price"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
-            name={"phone"}
-            value={''}
-
+            name={"ticketPrice"}
+            value={formData?.ticketPrice}
+            onchange={handleChange}
         />
-        <Button title={"Add New Event"} source={addPhoto} classes={"bg-[#FF6E31] flex-row-reverse w-[30%] mx-auto py-[2%] px-[5%] text-[#fff]"} />
+        <Button title={"Add New Event"} source={addPhoto} classes={"bg-[#FF6E31] flex-row-reverse w-[30%] mx-auto py-[2%] px-[5%] text-[#fff]"} onClick={handleSubmit} />
         </div>
     </div>
   )

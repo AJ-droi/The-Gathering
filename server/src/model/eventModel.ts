@@ -35,6 +35,14 @@ EventInstance.init({
         type: DataTypes.UUID,
         allowNull: false,
     },
+    attendees:{
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true,
+    },
+    ticketPrice:{
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    }
 
 },{
     sequelize: db,

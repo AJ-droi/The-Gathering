@@ -217,7 +217,7 @@ export const SidebarMobile = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event" className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -244,14 +244,14 @@ export const SidebarMobile = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center">
                 {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
                 Notifications
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event"  className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -278,14 +278,14 @@ export const SidebarMobile = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center">
                 {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
                 Notifications
               </Link>
             </li>
             <li>
-              <Link to="/about" className="flex items-center">
+              <Link to="/dashboard/event"className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
                 Event
               </Link>
@@ -295,11 +295,11 @@ export const SidebarMobile = () => {
       </div>
       <div className="border-t-[1px] border-black">
         <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[20vh] mx-[auto] ">
-          <li className="mt-[25%]">
+          {/* <li className="mt-[25%]">
             <Link to="/" className="flex items-center">
               <img src={setting} alt="" className="mr-[22%]" />
             </Link>
-          </li>
+          </li> */}
           <li className="mb-[15%] flex items-center" onClick={Logout}>
           <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />

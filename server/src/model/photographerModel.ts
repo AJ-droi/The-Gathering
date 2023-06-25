@@ -15,6 +15,7 @@ PhotographerInstance.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
+    
     brandName: {
         type: DataTypes.STRING,
         allowNull: false,

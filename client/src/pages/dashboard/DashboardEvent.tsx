@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import search from '../../assets/search.png'
 import addPhoto from '../../assets/addPhoto.png'
 import Button from '../../components/common/Button'
 import calendar from '../../assets/calendar.png'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getEvents } from '../../redux/actions'
 
 const DashboardEvent = () => {
   const role = localStorage.getItem('role')
@@ -17,6 +20,14 @@ const DashboardEvent = () => {
 export default DashboardEvent
 
 const AdminEvent = () => {
+  const events = useSelector((state:any) => state.data.events)
+
+  console.log(events)
+  const dispatch = useDispatch() as unknown as any
+
+  useEffect(() => {
+    dispatch(getEvents())
+  }, [])
   return (
     <div>
       <div className='flex justify-between items-center px-[5%] my-[7%]'>
@@ -38,30 +49,14 @@ const AdminEvent = () => {
             </tr>
           </thead>  
           <tbody>
+            {events?.map((event:any, id:number) => (
             <tr className='h-[7vh] border border-b-[#fff] border-b-[2px] text-[#4C4C4C]'> 
-              <td>BonFire Night</td>
-              <td className='text-[#FF6E31]'>#FF6E31</td>
-              <td>400</td>
-              <td>520</td>
-            </tr>
-            <tr className='h-[7vh] border border-b-[#fff] border-b-[2px] text-[#4C4C4C]'> 
-              <td>BonFire Night</td>
-              <td className='text-[#FF6E31]'>#FF6E31</td>
-              <td>400</td>
-              <td>520</td>
-            </tr>
-            <tr className='h-[7vh] border border-b-[#fff] border-b-[2px] text-[#4C4C4C]'> 
-              <td>BonFire Night</td>
-              <td className='text-[#FF6E31]'>#FF6E31</td>
-              <td>400</td>
-              <td>520</td>
-            </tr>
-            <tr className='h-[7vh] border border-b-[#fff] border-b-[2px] text-[#4C4C4C]'> 
-              <td>BonFire Night</td>
-              <td className='text-[#FF6E31]'>#FF6E31</td>
-              <td>400</td>
-              <td>520</td>
-            </tr>
+              <td>{event.eventName}</td>
+              <td className='text-[#FF6E31]'>{(`${new Date(event.eventDate)}`).slice(0,16)}</td>
+              <td>{event.attendees.length}</td>
+              <td>{event.ticketPrice || 0}</td>
+            </tr>))}
+            
           </tbody>
 
         </table>
@@ -88,33 +83,43 @@ const AdminEvent = () => {
 }
 
 const UserEvent = () => {
+  const events = useSelector((state:any) => state.data.events)
+
+  const dispatch = useDispatch() as unknown as any
+
+  useEffect(() => {
+    dispatch(getEvents())
+  }, [])
+
+  console.log(events)
+
+
   return (
     <div className='grid grid-cols-2 px-[5%] my-[7%] '>
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
+      {events?.map((event:any, id:number) => (
+      <EventCard name={event.eventName} date={event.eventDate} id={event.id} />
+      ))}
+     
 
     </div>
   )
 }
 
-export const EventCard = () => { 
+export const EventCard = ({name, date, id}:any) => { 
+  const location = useLocation()
+  
   return(
     <div className="flex h-[20vh] items-center  my-[3%] border rounded-[15px] shadow w-[70%] bg-[#fff] mx-[auto] ">
       <div className="w-[5%] bg-[#3F2776] h-[inherit] rounded-l-[15px]">
 
       </div>
       <div className="pl-[5%] flex flex-col justify-evenly h-[inherit]">
-        <h3 className="text-[0.8rem] text-left">Nature meets Culture</h3>
+        <h3 className="text-[0.8rem] text-left">{name}</h3>
         <div className="flex items-center">
           <img src={calendar} alt="" />
-          <p>02/10/2023</p>
+          <p>{date}</p>
         </div>
-        <p className="text-[0.8rem]">Will you be attending this event?</p>
-        <Link to="/dashboard/buy-ticket"><Button title={"Yes"}  classes={" flex-row-reverse text-[#fff] py-[5%] bg-[#FF6E31] w-[30%]"} /></Link>
+        {location.pathname === "/dashboard/event"?<> <Link to={`/dashboard/buy-ticket/${id}`}><p className="text-[0.8rem]">Will you be attending this event?</p><Button title={"Yes"}  classes={" flex-row-reverse text-[#fff] py-[5%] bg-[#FF6E31] w-[30%]"} /></Link></>  : null}
       </div>
       
 

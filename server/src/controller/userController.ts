@@ -198,8 +198,6 @@ export const Login = async (
     }
     }
 
-    
-
     if (User.verified ) {
       const validation = await validatePassword(
         password,
@@ -217,7 +215,7 @@ export const Login = async (
         return res.status(200).json({
           message: "You have Successfully logged In",
           signature,
-          email: User.email,
+          id: User.id,
           verified: User.verified,
           role: User.role,
         });
@@ -312,16 +310,21 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getSingleUser = async (
-  req: Request,
+  req:JwtPayload,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const id = req.params.id;
+    const id = req.user.id;
+
+    const {limit, offset} = req.query;
+
 
     const User = (await UserInstance.findOne({
       where: { id: id },
     })) as unknown as UserAttributes;
+
+    const gallery = User.gallery.slice(offset, limit);
 
     if (User) {
       return res.status(200).json({
@@ -335,10 +338,59 @@ export const getSingleUser = async (
   }
 };
 
+export const getGallery = async (
+  req:JwtPayload,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.user.id;
+
+    const {limit, offset} = req.query;
+    let start = 0;
+    let end=10
+
+    if(offset > 1){
+      start = offset * limit - 9;
+      end = offset * limit;
+    }
+
+
+    const User = (await UserInstance.findOne({
+      where: { id: id },
+    })) as unknown as UserAttributes;
+
+    
+
+    const gallery = User.gallery.slice(start, end);
+
+    if (User) {
+      return res.status(200).json({
+        gallery
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({
+      Error: "Internal Server Error",
+    });
+  }
+};
+
 export const updateUserProfile = async (req: JwtPayload, res: Response) => {
   try {
     const id = req.user.id;
-    const { firstName, lastName, address, phone } = req.body;
+   
+    const { firstName, lastName, address, phone, photo } = req.body;
+
+    req.body.photo = req.file.path;
+
+    if(req.body.photo === ''){
+      return res.status(400).json({
+        Error: "Please upload a photo",
+      });
+    }
+
+  
 
     const validateResult = await updateSchema.validate(req.body, option);
     if (validateResult.error) {
@@ -346,6 +398,8 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
         Error: validateResult.error.details[0].message,
       });
     }
+    
+
 
     const User = (await UserInstance.findOne({
       where: { id: id },
@@ -353,16 +407,18 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
 
     if (!User) {
       return res.status(400).json({
-        Error: "Not authorised to upfate your profile",
+        Error: "Not authorised to update your profile",
       });
     }
+    
 
     const updatedUser = (await UserInstance.update(
       {
         firstName,
         lastName,
-        address,
+        address: address || User.address,
         phone,
+        photo: req.file.path 
       },
       { where: { id: id } }
     )) as unknown as UserAttributes;
@@ -587,7 +643,50 @@ export const addImage = async (req: JwtPayload, res: Response) => {
       });
     }
 
-    const { id, imageId} = req.query as any
+    const {images} = req.body 
+
+    console.log("img", images)
+
+    let img = [] as unknown as string[]
+
+    images.forEach((image:string) => {
+      img.push(image)
+    })
+
+    await UserInstance.update({
+      gallery: [...user.gallery, ...img]
+    },{
+      where: { id: userId },
+    }) as unknown as UserAttributes;
+
+    return res.status(200).json({
+      message: "Image Saved Successfully",
+    });
+  }catch(err){
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
+
+export const registerEvent = async (req: JwtPayload, res: Response) => {
+  try{
+
+    const userId = req.user.id
+
+    const {fullname, email, phone, numberOfTickets} = req.body
+
+    const user = await UserInstance.findOne({
+      where:{ id : userId },
+    }) as unknown as UserAttributes;
+
+    if(!user){
+      return res.status(404).json({
+        Error: "User not found, Kindly SignUp or Login",
+      });
+    }
+
+    const { id } = req.query as any
 
     const event = await EventInstance.findOne({
       where:{ id : id },
@@ -595,24 +694,35 @@ export const addImage = async (req: JwtPayload, res: Response) => {
 
     if(!event){
       return res.status(404).json({
-        message: "Event not found",
+        Error: "Event not found",
       });
     }
 
-    let img = event.eventImages.find((image) => image.id === imageId) as Image
+    let eventIndex = event.attendees.findIndex((attendee) => attendee.email === user.email)
 
-    await UserInstance.update({
-      gallery: [...user.gallery, img]
+    if(eventIndex !== -1){
+      return res.status(400).json({
+        Error: "You have already registered for this event",
+      });
+    }
+
+    await EventInstance.update({
+      attendees: [...event.attendees, {
+        fullname,
+        email,
+        phone,
+        numberOfTickets
+      }]
     },{
-      where: { id: userId },
-    }) as unknown as UserAttributes;
+      where: { id: id },
+    }) as unknown as EventAttributes;
 
     return res.status(200).json({
-      message: "Image found"
+      message: "You have succesfully registered for this event"
     });
   }catch(err){
     return res.status(500).json({
-      message: "Internal server error",
+      Error: "Internal server error",
     });
   }
 }

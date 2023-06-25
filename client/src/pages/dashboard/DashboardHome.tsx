@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatar from "../../assets/avatar.png";
-import nature from "../../assets/nature.png";
+import calendar from "../../assets/calendar.png";
 import info from "../../assets/info.png";
 import Button from "../../components/common/Button";
 import addPhoto from "../../assets/addPhoto.png";
@@ -9,23 +9,31 @@ import { IoCall } from "react-icons/io5";
 import {GrMail} from "react-icons/gr"
 import { Link, useLocation } from "react-router-dom";
 import HomePhotographer from "./HomePhotographer";
+import { getEvents, getPhotographers, getUsers } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const DashboardHome = () => {
   const role = localStorage.getItem('role')
 
- 
+  const events = useSelector((state:any) => state.data.events) || []
+  const dispatch = useDispatch() as unknown as any
+
+
+  useEffect(() => {
+    dispatch(getEvents())
+  }, [])
+
   return (
     <>
-
-    {role === "user" ? <HomeUsers /> : role === "admin" || role === "superadmin" ?<HomeAdmin /> : role === "photographer" ? <HomePhotographer /> : null}
+    {role === "user" ? <HomeUsers events={events} /> : role === "admin" || role === "superadmin" ?<HomeAdmin /> : role === "photographer" ? <HomePhotographer /> : null}
     </>
   );
 };
 
 export default DashboardHome;
 
-const HomeUsers = () => {
- 
+const HomeUsers = ({events}:any) => {
+
     return (
       <div className="bg-[#E0E0E0]">
         <div className="flex justify-end">
@@ -40,7 +48,10 @@ const HomeUsers = () => {
         <div className="flex flex-col md:flex-row justify-between px-[5%] pb-[2%]">
           <RecommendedBooks />
           <div className=" w-[100%] md:w-[35%] flex flex-col justify-between my-[2%] md:my-[0%] ">
-            <UpcomingEvents />
+            <h3>Upcoming Events</h3>
+            {events?.slice(events.length-3, events.length)?.map((elem:any, id:number) => (
+            <UpcomingEvents key={id} name={elem?.eventName} date={`${new Date(elem?.eventDate)}`.slice(0,16)} id={''} />
+            ))}
             <Rings />
           </div>
         </div>
@@ -51,9 +62,36 @@ const HomeUsers = () => {
 
 export const HomeAdmin= () => {
   const location = useLocation()
+
+  const dispatch = useDispatch() as unknown as any 
+  
+  const photographer = useSelector((state:any) => state.photographer.photographer)
+  // const users = useSelector((state:any) => state.data.Users)
+
+  // console.log(photographers)
+
+  const [page, setPage] = useState(1)
+
+  const prev = () => {
+    setPage(page - 1)
+  }
+
+  const next = () => {
+    setPage(page + 1)
+  }
+
+  const NoOfItems = 7
+  const lastIndex = page * NoOfItems
+  const firstIndex = lastIndex - NoOfItems
+
+  const photographers = photographer?.slice(firstIndex, lastIndex)
+
+  useEffect(() =>{
+    dispatch(getPhotographers())
+  }, [])
  
   return (
-    <div className="bg-[#E0E0E0] px-[5%]">
+    <div className="bg-[#E0E0E0] px-[5%] h-[50vh]">
       <div className="flex justify-end my-[2%]">
         <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%]">
           <img src={search} alt="" className="h-[2vh]" />
@@ -65,27 +103,80 @@ export const HomeAdmin= () => {
       </div>
       <div className="w-[100%]">
         <h3>{location.pathname === "/dashboard/users" ? "Users" : "Photographers"}</h3>
-        <div className="grid grid-cols-4 grid-rows-3 w-[100%]">
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-        <PhotographerCard />
-
+        <div className="grid grid-cols-4 w-[100%] ">
+        {photographers?.map((elem:any, id:number) => (
+          <PhotographerCard key={id}  name={elem.name} phone={elem.phone} email={elem.email} />
+        ))}
         </div>
-        <div className="flex justify-between items-center my-[5%]">
-          <p>Showing 1-10 from 46 data</p>
+        <div className="flex justify-between items-center my-[5%] ">
+          <p>Showing {firstIndex}-{lastIndex > photographers?.length ? photographers?.length : lastIndex } from {photographers?.length} data</p>
           <div className="flex w-[50%] justify-end">
-            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md"> {"<"} </p>
-            <p className="bg-[#FF6E31]  w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> 1 </p>
-            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md"> {">"} </p>
+            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
+            <p className="bg-[#FF6E31]  w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> {page} </p>
+            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === photographer?.length  ? next : () => null}> {">"} </p>
+          </div>
+        </div>
+      
+      </div>
+      
+    </div>
+  );
+
+}
+
+export const AdminUsers = () => {
+  const location = useLocation()
+
+  const dispatch = useDispatch() as unknown as any 
+  
+  const user = useSelector((state:any) => state.data.user)
+
+  const [page, setPage] = useState(1)
+
+  const prev = () => {
+    setPage(page - 1)
+  }
+
+  const next = () => {
+    setPage(page + 1)
+  }
+
+  const NoOfItems = 7
+  const lastIndex = page * NoOfItems
+  const firstIndex = lastIndex - NoOfItems
+
+  const users = user?.slice(firstIndex, lastIndex)
+
+
+
+  useEffect(() =>{
+    dispatch(getUsers())
+  }, [])
+ 
+  return (
+    <div className="bg-[#E0E0E0] px-[5%]">
+      <div className="flex justify-end my-[2%]">
+        <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%]">
+          <img src={search} alt="" className="h-[2vh]" />
+          <input type="text" placeholder="Search here" className="pl-[4%]" />
+        </div>
+        
+        {location.pathname === "/dashboard/users" ? null :<Link to="/dashboard/register" className="w-[20%] bg-[#FF6E31] flex items-center justify-center rounded-md"><Button title={"Add user"} source={addPhoto} classes={" flex-row-reverse text-[#fff]"} /></Link>}
+       
+      </div>
+      <div className="w-[100%]">
+        <h3>{location.pathname === "/dashboard/users" ? "Users" : "Photographers"}</h3>
+        <div className="grid grid-cols-4  w-[100%]">
+        {users?.map((elem:any, id:number) => (
+          <PhotographerCard key={id}  name={elem.firstName + ' ' + elem.lastName } phone={elem.phone} email={elem.email} />
+        ))}
+        </div>
+        <div className="flex justify-between items-center my-[5%] ">
+          <p>Showing {firstIndex}-{lastIndex > users?.length ? users?.length : lastIndex } from {users?.length} data</p>
+          <div className="flex w-[50%] justify-end">
+            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
+            <p className="bg-[#FF6E31]  w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> {page} </p>
+            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === user?.length  ? next : () => null}> {">"} </p>
           </div>
         </div>
       
@@ -101,21 +192,21 @@ const PhotographerCard = ({name, phone, email}:any) => {
     <div className="bg-[#fff] rounded-md px-[4%] text-left py-[7%] text-[#212121] mx-[3%] my-[3%] ">
       <div className="text-center flex flex-col items-center">
         <img src={avatar} alt="" className="w-[100%] rounded-md h-[12vh] w-[12vh]" />
-        <h3 className="font-semibold">Angela Moss</h3>
+        <h3 className="font-semibold">{name}</h3>
       </div>
       <div className="mt-[15%]">
         <div className="flex items-center my-[5%]">
           <div className="bg-[#FFE2D6] w-[10%] flex justify-center py-[2%] rounded-md">
             <IoCall className="text-[#FF6E31]  " />
           </div>
-          <p className="pl-[5%] text-[0.8rem]">+12 345 6789 0</p>
+          <p className="pl-[5%] text-[0.8rem]">{phone}</p>
         </div>
 
         <div className="flex items-center">
           <div className="bg-[#FFE2D6] w-[10%] flex justify-center py-[2%] rounded-md">
             <GrMail className="text-[#FF6E31]  " />
           </div>
-          <p className="pl-[5%] text-[0.8rem]">+12 345 6789 0</p>
+          <p className="pl-[5%] text-[0.8rem]">{email}</p>
         </div>
        
       </div>
@@ -180,16 +271,27 @@ const RecommendedBooks = () => {
   );
 };
 
-const UpcomingEvents = () => {
-  return (
-    <div className="bg-[#fff] rounded-md flex flex-col items-center pt-[2%]  ">
-      <h3>Upcoming Events</h3>
-      <img src={nature} alt="" />
-      <img src={nature} alt="" />
-      <img src={nature} alt="" />
+const UpcomingEvents = ({name, date, id}:any) => { 
+  
+  return(
+    <div className="flex h-[16vh] items-center  my-[3%] border rounded-[15px] shadow w-[100%] bg-[#fff] mx-[auto] ">
+      <div className="w-[5%] bg-[#3F2776] h-[inherit] rounded-l-[15px]">
+
+      </div>
+      <div className="pl-[5%] flex flex-col justify-evenly h-[inherit]">
+        <h3 className="text-[0.8rem] text-left">{name}</h3>
+        <div className="flex items-center">
+          <img src={calendar} alt="" />
+          <p>{date}</p>
+        </div>
+        {/* {location.pathname === "/dashboard/event"?<> <Link to={`/dashboard/buy-ticket/${id}`}><p className="text-[0.8rem]">Will you be attending this event?</p><Button title={"Yes"}  classes={" flex-row-reverse text-[#fff] py-[5%] bg-[#FF6E31] w-[30%]"} /></Link></>  : null} */}
+      </div>
+      
+
     </div>
-  );
-};
+
+  )}
+
 
 
 

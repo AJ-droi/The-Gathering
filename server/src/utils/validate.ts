@@ -25,7 +25,8 @@ export const updateSchema = Joi.object().keys({
     phone: Joi.string().required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
-    address: Joi.string().required(),
+    address: Joi.string().optional(),
+    photo: Joi.string().required(),
 })
 
 export const photoSchema = Joi.object().keys({
@@ -43,6 +44,7 @@ export const eventSchema = Joi.object().keys({
     eventLocation: Joi.string().required(),
     eventDescription: Joi.string().optional(),
     eventImages: Joi.array().optional(),
+    ticketPrice: Joi.number().optional(),
 })
 
 

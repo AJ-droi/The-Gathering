@@ -34,7 +34,8 @@ export const FormDataPost = async (path:string, data:any) => {
 export const apiPut = (path:string, data:object) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`
+      Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      "Content-Type": [ "application/json"]
     },
   };
 
@@ -44,7 +45,8 @@ export const apiPut = (path:string, data:object) => {
 export const apiPatch = (path:string, data:object) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("signature")}`
+      Authorization: `Bearer ${localStorage.getItem("signature")}`,
+      "Content-Type": [  "multipart/form-data", "application/json"]
     },
   };
 

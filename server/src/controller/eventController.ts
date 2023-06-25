@@ -12,7 +12,7 @@ import { PhotographerAttributes } from "../interface/photographerAttributes";
 export const createEvent = async (req: JwtPayload, res: Response) => {
   try {
     const id = req.user.id;
-    const { eventName, eventDescription, eventLocation, eventDate } = req.body;
+    const { eventName, eventDescription, eventLocation, eventDate, ticketPrice } = req.body;
     const uuidEvent = uuidV4();
 
     const validateResult = eventSchema.validate(req.body, option);
@@ -36,6 +36,8 @@ export const createEvent = async (req: JwtPayload, res: Response) => {
         eventDate,
         eventImages: [],
         creatorId: Admin.id,
+        attendees: [],
+        ticketPrice: ticketPrice,
       })) as unknown as EventAttributes;
 
       return res.status(201).json({
@@ -52,14 +54,17 @@ export const createEvent = async (req: JwtPayload, res: Response) => {
 };
 
 
+
 export const uploadEventPhotos = async (req: JwtPayload, res: Response) => {
   try {
     const id = req.user.id;
+    
     const { eventId } = req.body;
 
     const photographer = await PhotographerInstance.findOne({
-      where: { id },
-    });
+      where: { id:id },
+    }) as unknown as PhotographerAttributes;
+
 
     if (!photographer) {
       return res.status(400).json({
@@ -67,9 +72,12 @@ export const uploadEventPhotos = async (req: JwtPayload, res: Response) => {
       });
     }
 
+    console.log("id", eventId)
     const event = await EventInstance.findOne({
       where: { id: eventId },
     }) as unknown as EventAttributes;
+
+ 
 
     if (!event) {
       return res.status(400).json({
@@ -94,10 +102,13 @@ export const uploadEventPhotos = async (req: JwtPayload, res: Response) => {
       }
     });
 
+    const newImageUrls = newImages.map((image:any) => image.url);
+
     await EventInstance.update(
-      { eventImages: [...eventImages, ...newImages] },
+      { eventImages: [...eventImages, ...newImageUrls] },
       { where: { id: eventId } }
     );
+    
 
     const updatedEvent = await EventInstance.findOne({
       where: { id: eventId },
@@ -116,8 +127,9 @@ export const uploadEventPhotos = async (req: JwtPayload, res: Response) => {
   }
 };
 
-export const getEvents = async (req: Request, res: Response) => {
+export const getEvents = async (req: JwtPayload, res: Response) => {
   try {
+   
     const events = await EventInstance.findAll();
 
     return res.status(200).json({
@@ -165,6 +177,63 @@ export const deleteEvent = async (req: JwtPayload, res: Response) => {
       message: "Event Deleted Successfully",
     });
   } catch (err) {
+    return res.status(500).json({
+      Error: "Internal server Error",
+      route: "/events",
+    });
+  }
+}
+
+export const deletePhotos = async (req: JwtPayload, res: Response) => {
+  try{
+    const {eventId, url} = req.query;
+
+    const {id} = req.user
+
+    const photographer = await PhotographerInstance.findOne({
+      where: {id},
+    }) as unknown as PhotographerAttributes;
+
+    if(!photographer){
+      return res.status(400).json({
+        message: "Photographer Not Found",
+      });
+    }
+
+    const event = await EventInstance.findOne({
+      where: {id: eventId},
+    }) as unknown as EventAttributes;
+
+    if(!event){
+      return res.status(400).json({
+        message: "Event Not Found",
+      });
+    }
+
+    const eventImages = event.eventImages || [];
+
+    const newEventImages = eventImages.filter((image) => image.split("/").reverse()[0] !== `${url}`);
+
+    console.log(newEventImages)
+
+    await EventInstance.update(
+      {eventImages: newEventImages},
+      {where: {id: eventId}}
+    );
+
+    const updatedEvent = await EventInstance.findOne({
+      where: {id: eventId},
+    });
+
+    console.log(updatedEvent)
+
+    return res.status(200).json({
+      message: "Event Photos Deleted Successfully",
+      event: updatedEvent,
+    });
+
+
+  }catch(err){
     return res.status(500).json({
       Error: "Internal server Error",
       route: "/events",

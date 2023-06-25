@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/common/Button'
 import { SignInput } from '../../components/common/Input'
 import addPhoto from '../../assets/addPhoto.png'
+import { createPhotographer } from '../../redux/actions'
+import { useDispatch } from 'react-redux'
 
 const DashboardRegister = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        brandName: '',
+        email: '',
+        phone: '',
+        address: '',
+    })
+
+    const handleChange = (e: any) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const dispatch = useDispatch() as unknown as any
+
+    const handleSubmit = async(e: any) => {
+        e.preventDefault()
+        dispatch(createPhotographer(formData))
+
+    }
   return (
     <div> 
     <div className="w-[50%] h-[70vh] py-[3%] flex flex-col justify-start mx-auto md:justify-evenly">
@@ -15,21 +39,23 @@ const DashboardRegister = () => {
         </div>
 
         <SignInput
-        caption={"First Name"}
+        caption={"Name"}
         type={"text"}
-        placeholder={"Enter Your First Name"}
+        placeholder={"Enter Your Full Name"}
         signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
-        name={"firstName"}
-        value={''}
+        name={"name"}
+        value={formData?.name}
+        onchange={handleChange}
         />
 
         <SignInput
-        caption={"Last Name"}
+        caption={"Brand Name"}
         type={"text"}
-        placeholder={"Enter Your Last Name"}
+        placeholder={"Enter Your Brand Name"}
         signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
-        name={"lastName"}
-        value={''}
+        name={"brandName"}
+        value={formData?.brandName}
+        onchange={handleChange}
         />
 
         <SignInput
@@ -38,7 +64,8 @@ const DashboardRegister = () => {
         placeholder={"Enter Your Email Address"}
         signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
         name={"email"}
-        value={''}
+        value={formData?.email}
+        onchange={handleChange}
         />
 
         <SignInput
@@ -47,10 +74,22 @@ const DashboardRegister = () => {
             placeholder={"Enter Your Phone Number"}
             signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
             name={"phone"}
-            value={''}
+            value={formData?.phone}
+            onchange={handleChange}
 
         />
-        <Button title={"Add Photographer"} source={addPhoto} classes={"bg-[#FF6E31] flex-row-reverse w-[50%] mx-auto py-[2%] px-[5%] text-[#fff]"} />
+
+        <SignInput
+            caption={`Address`}
+            type={"text"}
+            placeholder={"Enter Your Address"}
+            signStyle={`rounded-xl border border-[#FF6E31] border-[2px] outline-none px-[20px] text-[#000] w-[100%] h-[5vh]`}
+            name={"address"}
+            value={formData?.address}
+            onchange={handleChange}
+
+        />
+        <Button title={"Add Photographer"} source={addPhoto} classes={"bg-[#FF6E31] flex-row-reverse w-[50%] mx-auto py-[2%] px-[5%] text-[#fff]"} onClick={handleSubmit}/>
         </div>
     </div>
     )

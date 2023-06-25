@@ -2,16 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { catData } from '../../data/category';
 import { CategoryLayout } from '../../interface';
+import lens from "../../assets/lens.jpeg"
 
 
-
-const Categories = () => {
+const Categories = ({event}:any) => {
   return (
     <div className='py-[5%] bg-[#fff]'>
         <h3 className='w-[100%] text-[2rem] shadow shadow-[#FF6E31]'>Categories</h3>
         <div className='w-[100%] flex flex-col lg:grid lg:grid-cols-4 px-[3%] py-[5%]'>
-        {catData.map((elem,id) => (
-           <Link to={`/gallery/${elem.link}`}><CatCard key={id} img={elem.img} text={elem.text} /></Link> 
+        {event?.map((elem:any,id:number) => (
+           <Link to={`/gallery/${elem.id}`}><CatCard key={id} img={elem?.eventImages[0]?.url || lens} text={elem.eventName} /></Link> 
              
         ))}
         </div>

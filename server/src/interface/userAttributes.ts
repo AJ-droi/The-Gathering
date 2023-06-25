@@ -19,5 +19,5 @@ export interface UserAttributes {
     verified: boolean;
     phone: string;
     photo: string;
-    gallery: Image[];
+    gallery: string[];
 }
