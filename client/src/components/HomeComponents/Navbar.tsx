@@ -58,9 +58,9 @@ const NavbarMobile= () => {
          
        {isOpen ?<div>
             <ul className='flex flex-col justify-between items-center text-[#fff] text-[16px] h-[15vh] my-[5%]'>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">About Us</Link></li>
-                <li><Link to="/gallery">Gallery</Link></li>
+                <li onClick={() => setIsOpen(!isOpen)}><Link to="/">Home</Link></li>
+                <li onClick={() => setIsOpen(!isOpen)}><Link to="/about">About Us</Link></li>
+                <li onClick={() => setIsOpen(!isOpen)}><Link to="/gallery">Gallery</Link></li>
             </ul>
             <div className='flex justify-center items-center pb-[5%]'>
                 <Link to={"/signin"} className="w-[30%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>

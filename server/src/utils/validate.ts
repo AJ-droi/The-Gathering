@@ -38,6 +38,15 @@ export const photoSchema = Joi.object().keys({
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 })
 
+export const photoUpdateSchema = Joi.object().keys({
+    name: Joi.string().required(),  
+    brandName: Joi.string().required(), 
+    phone: Joi.string().required(), 
+    email: Joi.string().optional(), 
+    address: Joi.string().optional(), 
+    photo:Joi.string().optional()
+})
+
 export const eventSchema = Joi.object().keys({
     eventName: Joi.string().required(),
     eventDate: Joi.date().required(),

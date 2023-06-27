@@ -52,15 +52,15 @@ const BuyTicket = () => {
 
 
   return (
-    <div>
-      <div className="w-[50%] mt-[7%]">
-        <h3 className="text-[#FF6E31] text-left ml-[15%] font-[500] text-[1.5rem]">
+    <div className="py-[5%] px-[5%]">
+      <div className="w-[80%] lg:w-[50%] mt-[16%] lg:mt-[7%] ">
+        <h3 className="text-[#FF6E31] text-left lg:ml-[15%] font-[500] text-[1.2rem] lg:text-[1.5rem]">
           Buy Tickets
         </h3>
         <EventCard name={ticket?.eventName} date={ticket?.eventDate} />
       </div>
 
-      <div className="grid grid-cols-2 justify-center pl-[3%] py-[2%] ">
+      <div className="flex flex-col lg:grid grid-cols-2 justify-center pl-[3%] py-[2%] ">
         <div className="w-[100%] flex flex-col items-start my-[1%]">
           <label className="my-[2%]">Full Name</label>
           <br />
@@ -69,7 +69,7 @@ const BuyTicket = () => {
             name={"fullname"}
             placeholder={"Enter Your Full Name"}
             className={
-              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] xl:mt-[-3%]"
+              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] md:mt-[-3%] xl:mt-[-3%]"
             }
             value={formData?.fullname}
             onChange={handleChange}
@@ -83,7 +83,7 @@ const BuyTicket = () => {
             name={"email"}
             placeholder={"Enter Your Email Address"}
             className={
-              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] xl:mt-[-3%]"
+              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] md:mt-[-3%] xl:mt-[-3%]"
             }
             value={formData?.email}
             onChange={handleChange}
@@ -98,7 +98,7 @@ const BuyTicket = () => {
             name={"phone"}
             placeholder={"Enter Your Phone Number"}
             className={
-              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] xl:mt-[-3%]"
+              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] md:mt-[-3%] xl:mt-[-3%]"
             }
             value={formData?.phone}
             onChange={handleChange}
@@ -112,7 +112,7 @@ const BuyTicket = () => {
             name={"numberOfTickets"}
             placeholder={"Enter the Number"}
             className={
-              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] xl:mt-[-3%]"
+              "border border-[#FF6E31] rounded-xl w-[90%] py-[2%] pl-[2%] mt-[-8%] md:mt-[-3%] xl:mt-[-3%]"
             }
             value={formData?.numberOfTickets}
             onChange={handleChange}

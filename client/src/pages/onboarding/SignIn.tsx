@@ -140,7 +140,7 @@ const Login = () => {
               textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
             /></Link>
-            <p className="text-[#8F8F8F] font-bold">Don't have an Account? <span className="text-[#FF6E31]"><Link to="/signup">Sign Up</Link></span></p>
+            <p className="text-[#8F8F8F] text-[0.8rem] font-bold">Don't have an Account? <span className="text-[#FF6E31]"><Link to="/signup">Sign Up</Link></span></p>
           </div>
         </div>
       ) : (
@@ -235,7 +235,7 @@ const Login = () => {
               textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
               imgHeight={`lg:h-[3vh]`}
             /></Link>
-            <p className="text-[#8F8F8F] font-bold">Already have an Account? <span className="text-[#FF6E31]"><Link to="/signin">Sign In</Link></span></p>
+            <p className="text-[#8F8F8F]  font-bold">Already have an Account? <span className="text-[#FF6E31]"><Link to="/signin">Sign In</Link></span></p>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef} from 'react'
 import { Button } from 'react-bootstrap'
 import { GrAdd } from 'react-icons/gr'
 import download from '../../assets/download.png'
@@ -55,30 +55,33 @@ const DashboardGallery = () => {
 
   const currentItems = gallery?.slice(firstIndex, lastIndex)
 
-
-
   return (
-    <div className='px-[5%] pb-[5%]'>
-        {role === "photographer" ?<Button className='bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]' onClick={toggleShow}>Add Photo</Button> : null}
+    <div className='px-[5%] pb-[5%] pt-[15%] lg:pt-[0%]'>
         {show ?<AddPhotos click={toggleShow}/> : null}
-        <Button className='bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]' onClick={() => window.location.href = "/gallery"}>View gallery</Button>
-         <div className="bg-[#E0E0E0] grid grid-cols-3 lg:grid-cols-4  pt-[5%] pr-[1%] ">
-            {role === 'photographer' ? ticket?.eventImages.map((image:any, idx:number) => (
-            <div key={idx}>
-                <img src={image} alt="" className='w-[300px] h-[200px]' />
-                <div className='flex justify-end '>
-                    <img src={download} alt="" className='mt-[-29%] xl:mt-[-15%] h-[4vh] ' />
-                    <button onClick={() => dispatch(deletePhotos({eventId:id, url:`${image.split('/').reverse()[0]}`}))}><BsTrashFill /></button>
-                </div> 
-            </div>)) : currentItems?.map((image:any, idx:number) => (
-            <div key={idx}>
-                <img src={image} alt="" className='w-[300px] h-[200px]' />
-                <div className='flex justify-end '>
-                <button className="text-[#fff] mt-[-15%] text-[1.5rem] "><BsDownload /></button>
-                    <button onClick={() => dispatch(deletePhotos({eventId:id, url:`${image.split('/').reverse()[0]}`}))} className="text-[#fff] mt-[-15%] text-[1.5rem] ml-[5%]"><BsTrashFill /></button>
-                </div>
-            </div>))}
-            
+        <div className="flex justify-end w-[100%]">
+          {role === "photographer" ?<Button className='bg-[#FF6E31] flex-row-reverse lg:w-[25%]  py-[1%] px-[5%] text-[#fff]  rounded-md mt-[3%] mr-[5%]' onClick={toggleShow}>Add Photo</Button> : null}
+          <Button className='bg-[#FF6E31] flex-row-reverse lg:w-[25%] py-[1%] px-[5%] text-[#fff] rounded-md mt-[3%]' onClick={() => window.location.href = "/gallery"}>View gallery</Button>
+        </div>
+
+         <div className='overflow-scroll'>
+          <div className="bg-[#E0E0E0] grid grid-cols-3 md:grid-cols-4  pt-[5%] pr-[1%] w-[180%] lg:w-[100%] ">
+              {role === 'photographer' ? ticket?.eventImages.map((image:any, idx:number) => (
+              <div key={idx}>
+                  <img src={image} alt="" className='w-[300px] h-[200px]' />
+                  <div className='flex justify-end '>
+                      <img src={download} alt="" className='mt-[-29%] xl:mt-[-15%] h-[3vh] mr-[-8%] md:mr-[-7%] lg:mr-[0%]' />
+                      <button onClick={() => dispatch(deletePhotos({eventId:id, url:`${image.split('/').reverse()[0]}`}))} className="text-[#fff] mt-[-18%] mr-[4%]"><BsTrashFill /></button>
+                  </div> 
+              </div>)) : currentItems?.map((image:any, idx:number) => (
+              <div key={idx}>
+                  <img src={image} alt="" className='w-[300px] h-[200px]' />
+                  <div className='flex justify-end '>
+                  <button className="text-[#fff] mt-[-15%] text-[1.5rem]"><BsDownload /></button>
+                      <button onClick={() => dispatch(deletePhotos({eventId:id, url:`${image.split('/').reverse()[0]}`}))} className="text-[#fff] mt-[-15%] text-[1.5rem] ml-[5%]"><BsTrashFill /></button>
+                  </div>
+              </div>))}
+              
+          </div>
         </div>
         <PaginationBar prev={prev} next={next} page={page} />
         
@@ -113,15 +116,21 @@ const AddPhotos = ({click}:any) => {
       dispatch(uploadPhotos(formData));
     });
 
-   
+  };
+
+  const fileInputRef = useRef<any>(null);
+
+
+  const handleButtonClick = () => {
+      fileInputRef.current.click();
   };
 
   return(
     <div className='fixed bg-[#000000A5] w-[100%] h-[100vh] top-[0%] left-[0%] flex flex-col items-center justify-center'>
-      <div className="bg-[#fff] flex flex-col justify-center items-center w-[50%] rounded-md py-[3%] border border-dashed border-[4px] ">
-        <GrAdd className="text-[#FF6E31] text-[3rem]"/>
-        <input type="file" name="images" multiple  onChange={handleChange} ></input><p className="text-[1.3rem] my-[2%]">Drag and Drop or <span className="text-[#FF6E31] underline">Browse</span></p>
-        <HiXMark className='absolute text-[2.2rem] right-[27%] top-[39%]' onClick={click} />
+      <div className="bg-[#fff] flex flex-col justify-center items-center w-[90%] lg:w-[50%] rounded-md py-[3%] border border-dashed border-[4px] ">
+        <GrAdd className="text-[#FF6E31] text-[3rem]" onClick={handleButtonClick} />
+        <input type="file" name="images" multiple  onChange={handleChange} className="hidden" ref={fileInputRef}/><p className="text-[1.3rem] my-[2%] ">Drag and Drop or <span className="text-[#FF6E31] underline">Browse</span></p>
+        <HiXMark className='absolute text-[2.2rem] right-[7%] lg:right-[27%] top-[39%] md:top-[36%] lg:top-[39%]' onClick={click} />
         <Button className='bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]' onClick={handleSubmit}>Upload</Button>
       </div>
 

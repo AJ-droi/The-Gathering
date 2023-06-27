@@ -5,10 +5,10 @@ import { InputProps } from '../../interface'
 
 
 
-const Input: React.FC<InputProps> = ({type, placeholder, signStyle}) => {
+const Input: React.FC<InputProps> = ({type, placeholder, name, signStyle, value, onchange}) => {
   return (
     <div>
-        <input type={type} placeholder={placeholder} className={`${signStyle} rounded-lg border border-[#E5E5E5] outline-none px-[20px] text-[#000]`} />
+        <input type={type} placeholder={placeholder} name={name} value={value} className={`${signStyle} rounded-lg border border-[#E5E5E5] outline-none px-[20px] text-[#000]`} onChange={onchange} />
     </div>
   )
 }
@@ -31,7 +31,7 @@ export const SignInput: React.FC<InputProps> = ({type, placeholder, signStyle, c
     <label className='text-[#606060]'>{caption}</label>
     <div>
       <input type={showPassword ? 'password' : 'text'} name={name} value={value} placeholder={placeholder} className={`${signStyle} `} onChange={onchange} />
-      <img src={showPassword ? show : hide} alt={showPassword ? show : hide} className="absolute right-[15%] md:right-[10%] mt-[-7%] md:mt-[-4%] lg:mt-[-2.3%] " onClick={() => setShowPassword(!showPassword)} />
+      <img src={showPassword ? show : hide} alt={showPassword ? show : hide} className="absolute right-[15%] md:right-[10%] mt-[-7.5%] md:mt-[-4%] lg:mt-[-2.3%] " onClick={() => setShowPassword(!showPassword)} />
     </div>
     
   </div>  : <div className='w-[70%] text-left mx-auto'>

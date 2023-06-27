@@ -12,14 +12,9 @@ import { Provider} from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import reducer from './redux/reducer';
-import Test from './pages/Test';
 import { ToastContainer } from 'react-toastify';
 import Dashboard from './pages/dashboard/Dashboard';
 import Social from './pages/Social';
-
-
-
-
 
 
 const store = configureStore({
@@ -45,7 +40,6 @@ function App() {
           <Route path="/verified" element={<Verified />} />
           <Route path="/expired" element={<Expired />} />
           <Route path="/update" element={<Update />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/auth/social/*" element={<Social />} />
  

@@ -1,4 +1,5 @@
 import express, {Request, Response, NextFunction} from 'express';
+import { JwtPayload } from 'jsonwebtoken';
 import {v4 as uuidV4} from 'uuid';
 import { fromAdminMaill, userSubjectt } from '../config';
 import { PhotographerAttributes } from '../interface/photographerAttributes';
@@ -6,7 +7,7 @@ import { UserAttributes } from '../interface/userAttributes';
 import { PhotographerInstance } from '../model/photographerModel';
 import { UserInstance} from '../model/userModel';
 import { emailHtml, GenerateOTP, sendmail } from '../utils/notifications';
-import { GeneratePassword, GenerateSalt, Generatesignature, loginSchema, option, registerSchema, validatePassword, verifySignature } from '../utils/validate';
+import { GeneratePassword, GenerateSalt, Generatesignature, loginSchema, option, photoUpdateSchema, registerSchema, updateSchema, validatePassword, verifySignature } from '../utils/validate';
 
 
 
@@ -24,9 +25,11 @@ export const getPhotographer = async(req:Request, res:Response, next:NextFunctio
     }
 }
 
-export const getSinglePhotographer = async(req:Request, res:Response, next:NextFunction) => {
+export const getSinglePhotographer = async(req:JwtPayload, res:Response, next:NextFunction) => {
     try{
-        const id = req.params.id
+        const id = req.user.id
+
+        console.log(id)
 
         const photographer = await PhotographerInstance.findOne({where:{id:id}}) as unknown as PhotographerAttributes
 
@@ -41,6 +44,73 @@ export const getSinglePhotographer = async(req:Request, res:Response, next:NextF
         })
     }
 }
+
+export const updateProfile = async (req: JwtPayload, res: Response) => {
+    try {
+      const id = req.user.id;
+     
+      const { name, brandName, address, phone, photo } = req.body;
+
+ 
+      req.body.photo = req.file.path
+
+      if(!req.body.photo){
+        return res.status(400).json({
+          Error: "Please upload a photo",
+        });
+      }
+
+  
+      const validateResult = await photoUpdateSchema.validate(req.body, option);
+
+      if (validateResult.error) {
+        return res.status(400).json({
+          Error: validateResult.error.details[0].message,
+        });
+      }
+      
+      
+      const User = (await PhotographerInstance.findOne({
+        where: { id: id },
+      })) as unknown as PhotographerAttributes;
+  
+      if (!User) {
+        return res.status(400).json({
+          Error: "Not authorised to update your profile",
+        });
+      }
+
+      console.log(photo)
+      
+  
+      const updatedUser = (await PhotographerInstance.update(
+        {
+          name,
+          brandName,
+          address: address || User.address,
+          phone,
+          coverImage: req.file.path
+        },
+        { where: { id: id } }
+      )) as unknown as PhotographerAttributes;
+  
+      if (updatedUser) {
+        return res.status(200).json({
+          message: "You have successfully updated your profile",
+          User,
+        });
+      }
+  
+      return res.status(400).json({
+        message: "Error updating your profile",
+      });
+    } catch (err) {
+      res.status(500).json({
+        Error: "Internal server Error",
+        route: "/users/update-profile",
+      });
+    }
+  };
 
 
 

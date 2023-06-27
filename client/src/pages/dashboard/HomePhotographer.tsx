@@ -17,8 +17,8 @@ const HomePhotographer = () => {
     dispatch(getEvents())
   }, [])
   return (
-    <div className='my-[7%] grid grid-cols-3 gap-5 px-[8%]'>
-      {events.map((event:any, id:number) => (
+    <div className='my-[15%] lg:my-[7%] flex flex-col lg:grid grid-cols-3 gap-5 px-[8%] '>
+      {events?.map((event:any, id:number) => (
         <UploadCard name={event.eventName} id={event.id} />
       ))}
     </div>

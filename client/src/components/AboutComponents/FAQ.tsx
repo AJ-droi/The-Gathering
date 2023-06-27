@@ -15,7 +15,7 @@ const FAQ = () => {
         </div>
         <div>
             <h3 className='text-[1.5rem] lg:text-[2rem]'><span className='underline'>Frequently Asked</span> <span className='text-[#FF6E31] underline'>Questions</span></h3>
-            <p className='px-[5%] lg:px-[0%] lg:w-[40%] mx-auto'>If you are not sure whether The Gathering is suitable for you or not, do not worry, We are here to explain everything you might want to know.</p>
+            <p className='px-[5%] lg:px-[0%] lg:w-[40%] mx-auto text-[0.8rem] lg:text-[1rem]'>If you are not sure whether The Gathering is suitable for you or not, do not worry, We are here to explain everything you might want to know.</p>
         </div>
         <FAQBox data={faqData} />
 

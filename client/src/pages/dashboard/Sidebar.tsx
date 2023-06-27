@@ -7,9 +7,8 @@ import gallery from "../../assets/gallery.png";
 import profile from "../../assets/profile.png";
 import notification from "../../assets/notification.png";
 import event from "../../assets/events.png";
-import setting from "../../assets/setting.png";
 import logout from "../../assets/logout.png";
-import { Logout } from "../../redux/actions";
+
 
 const Sidebar = () => {
   const myRef = useRef<any>(null);
@@ -154,12 +153,6 @@ export const SidebarDesktop = () => {
       </div>
       <div className="border-t-[1px] border-black">
         <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[20vh] mx-[auto] ">
-          <li className="mt-[25%]">
-            <Link to="/" className="flex items-center">
-              <img src={setting} alt="" className="mr-[22%]" />
-              Settings
-            </Link>
-          </li>
           <li className="mb-[15%] flex items-center" >
           <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
@@ -194,32 +187,26 @@ export const SidebarMobile = () => {
             <li>
               <Link to="/dashboard" className="flex items-center">
                 <img src={home} alt="" className="mr-[22%]" />
-                Home
               </Link>
             </li>
             <li>
               <Link to="/dashboard/gallery" className="flex items-center">
                 <img src={gallery} alt="" className="mr-[22%]" />
-                Gallery
               </Link>
             </li>
             <li>
               <Link to="/dashboard/profile" className="flex items-center">
                 <img src={profile} alt="" className="mr-[22%]" />
-                Profile
               </Link>
             </li>
             <li>
               <Link to="/dashboard/notifications" className="flex items-center">
-                {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
-                Notifications
               </Link>
             </li>
             <li>
               <Link to="/dashboard/event" className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
-                Event
               </Link>
             </li>
           </ul>
@@ -228,32 +215,26 @@ export const SidebarMobile = () => {
             <li>
               <Link to="/dashboard" className="flex items-center">
                 <img src={home} alt="" className="mr-[22%]" />
-            Photographers
               </Link>
             </li>
             <li>
               <Link to="/dashboard/users" className="flex items-center">
                 <img src={gallery} alt="" className="mr-[22%]" />
-               Users
               </Link>
             </li>
             <li>
               <Link to="/dashboard/profile" className="flex items-center">
                 <img src={profile} alt="" className="mr-[22%]" />
-                Profile
               </Link>
             </li>
             <li>
               <Link to="/dashboard/notifications" className="flex items-center">
-                {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
-                Notifications
               </Link>
             </li>
             <li>
               <Link to="/dashboard/event"  className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
-                Event
               </Link>
             </li>
           </ul>
@@ -262,45 +243,29 @@ export const SidebarMobile = () => {
             <li>
               <Link to="/dashboard" className="flex items-center">
                 <img src={home} alt="" className="mr-[22%]" />
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard/gallery" className="flex items-center">
-                <img src={gallery} alt="" className="mr-[22%]" />
-                Gallery
               </Link>
             </li>
             <li>
               <Link to="/dashboard/profile" className="flex items-center">
                 <img src={profile} alt="" className="mr-[22%]" />
-                Profile
               </Link>
             </li>
             <li>
               <Link to="/dashboard/notifications" className="flex items-center">
-                {" "}
                 <img src={notification} alt="" className="mr-[15%]" />
-                Notifications
               </Link>
             </li>
             <li>
               <Link to="/dashboard/event"className="flex items-center">
                 <img src={event} alt="" className="mr-[22%]" />
-                Event
               </Link>
             </li>
           </ul>
         )}
       </div>
       <div className="border-t-[1px] border-black">
-        <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[20vh] mx-[auto] ">
-          {/* <li className="mt-[25%]">
-            <Link to="/" className="flex items-center">
-              <img src={setting} alt="" className="mr-[22%]" />
-            </Link>
-          </li> */}
-          <li className="mb-[15%] flex items-center" onClick={Logout}>
+        <ul className="flex flex-col justify-between items-start text-[16px] w-[65%]  mx-[auto] my-[10%] ">
+          <li className="mb-[15%] flex items-center" >
           <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
             </Link>

@@ -25,7 +25,7 @@ const AboutHero = () => {
       </div>
       <div className="px-[5%] lg:px-[0%] lg:pl-[10%]">
         <h3 className="text-[2rem] text-left underline text-[#FF6E31]">Our Story</h3>
-        <p className="text-[1.2rem] lg:text-[1.4rem] text-justify lg:text-left pt-[2%]">The Gathering is a creative nest, a home for creatives from different sectors of the creative sectors, including photography, arts & crafts, fashion, music, film, performance art, TV/Radio hosting, writing/publishing. We are a creative ecosystem that enable creatives create, collab & connect. We're more than a group, it's a culture, it's a tribe, it's a movement.</p>
+        <p className="text-[0.9rem] lg:text-[1.4rem] text-justify lg:text-left pt-[2%]">The Gathering is a creative nest, a home for creatives from different sectors of the creative sectors, including photography, arts & crafts, fashion, music, film, performance art, TV/Radio hosting, writing/publishing. We are a creative ecosystem that enable creatives create, collab & connect. We're more than a group, it's a culture, it's a tribe, it's a movement.</p>
       </div>
     </div>
   );

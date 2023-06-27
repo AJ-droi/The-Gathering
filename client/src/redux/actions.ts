@@ -1,28 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { LoginData } from "../interface";
 import { apiDelete, apiGet, apiPatch, apiPost, apiPut } from "../utils/axios";
 import { fetchDataFailure, fetchDataPhoto, fetchDataStart, fetchDataSuccess, fetchDataUser } from "./reducer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Lawyer
-export const fetchData = createAsyncThunk(
-  "user/loginLawyer",
-  async (_, { dispatch }) => {
-    try {
-      dispatch(fetchDataStart);
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      toast.success(response.data.message);
-      dispatch(fetchDataSuccess(response.data));
-    } catch (error: any) {
-      toast.error(error.response.data.Error);
-      dispatch(fetchDataFailure(error.response.data.error));
-    }
-  }
-);
 
 export const loginUser = createAsyncThunk(
   "loginUser",
@@ -229,6 +211,23 @@ export const saveImages = createAsyncThunk(
     }
   );
 
+    /**==============Get Photographers======= **/
+    export const getSinglePhotographer = createAsyncThunk(
+      "getSinglePhotographer",
+      async (_, { dispatch }) => {
+        try {
+          dispatch(fetchDataStart);
+          const response = await apiGet(`/photographer/get-singlephotographer`);
+          toast.success(response.data.message);
+          dispatch(fetchDataPhoto(response.data));
+        } catch (error: any) {
+          console.log(error.response.data.error);
+          toast.error(error.response.data.Error);
+          dispatch(fetchDataFailure(error.response.data.error));
+        }
+      }
+    );
+
     /**==============Get All Users ========= **/
     export const getUsers= createAsyncThunk(
       "getUsers",
@@ -296,7 +295,24 @@ export const saveImages = createAsyncThunk(
       }
     }
   );
-    
+
+
+  /**==============Update Photographers Profile=======  **/
+  export const updatePhotoProfile = createAsyncThunk(
+    "updateProfile",
+    async (formData:any, { dispatch }) => {
+      try {
+        dispatch(fetchDataStart);
+        const response = await apiPatch(`/photographer/update`, formData);
+        toast.success(response.data.message);
+        dispatch(fetchDataSuccess(response.data));
+      } catch (error: any) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.Error);
+        dispatch(fetchDataFailure(error.response.data.error));
+      }
+    }
+  );
 
 
   /**==============Logout ======= **/

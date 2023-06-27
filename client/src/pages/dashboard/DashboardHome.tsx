@@ -91,29 +91,33 @@ export const HomeAdmin= () => {
   }, [])
  
   return (
-    <div className="bg-[#E0E0E0] px-[5%] h-[50vh]">
-      <div className="flex justify-end my-[2%]">
+    <div className="bg-[#E0E0E0] px-[5%] h-[50vh] my-[20%]">
+      <div className="flex flex-col lg:flex-row lg:justify-end my-[2%]">
         <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%]">
           <img src={search} alt="" className="h-[2vh]" />
-          <input type="text" placeholder="Search here" className="pl-[4%]" />
+          <input type="text" placeholder="Search here" className="pl-[4%] bg-[transparent]" />
         </div>
         
-        {location.pathname === "/dashboard/users" ? null :<Link to="/dashboard/register" className="w-[20%] bg-[#FF6E31] flex items-center justify-center rounded-md"><Button title={"Add Photographer"} source={addPhoto} classes={" flex-row-reverse text-[#fff]"} /></Link>}
+        {location.pathname === "/dashboard/users" ? null :<Link to="/dashboard/register" className="w-[94%] lg:w-[20%] bg-[#FF6E31] flex items-center justify-center rounded-md my-[4%] lg:my-[0%]"><Button title={"Add Photographer"} source={addPhoto} classes={" flex-row-reverse text-[#fff]"} /></Link>}
        
       </div>
       <div className="w-[100%]">
         <h3>{location.pathname === "/dashboard/users" ? "Users" : "Photographers"}</h3>
-        <div className="grid grid-cols-4 w-[100%] ">
-        {photographers?.map((elem:any, id:number) => (
-          <PhotographerCard key={id}  name={elem.name} phone={elem.phone} email={elem.email} />
-        ))}
+        <div className="overflow-scroll">
+          <div className="grid grid-cols-4 w-[300%] md:w-[200%] lg:w-[100%] ">
+          {photographers?.map((elem:any, id:number) => (
+            <PhotographerCard key={id}  name={elem.name} phone={elem.phone} email={elem.email} />
+          ))}
+          </div>
+
         </div>
+       
         <div className="flex justify-between items-center my-[5%] ">
-          <p>Showing {firstIndex}-{lastIndex > photographers?.length ? photographers?.length : lastIndex } from {photographers?.length} data</p>
+          <p>Showing {firstIndex+1}-{lastIndex > photographers?.length ? photographers?.length : lastIndex + 1 } from {photographers?.length} data</p>
           <div className="flex w-[50%] justify-end">
-            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
-            <p className="bg-[#FF6E31]  w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> {page} </p>
-            <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === photographer?.length  ? next : () => null}> {">"} </p>
+            <p className="bg-[##C2C2C2] border border-[black] lg:w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
+            <p className="bg-[#FF6E31]  lg:w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> {page} </p>
+            <p className="bg-[##C2C2C2] border border-[black] lg:w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === photographer?.length  ? next : () => null}> {">"} </p>
           </div>
         </div>
       
@@ -154,9 +158,9 @@ export const AdminUsers = () => {
   }, [])
  
   return (
-    <div className="bg-[#E0E0E0] px-[5%]">
+    <div className="bg-[#E0E0E0] px-[5%] my-[17%] lg:my-[0%]">
       <div className="flex justify-end my-[2%]">
-        <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%]">
+        <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%] w-[80%] lg:w-[auto]">
           <img src={search} alt="" className="h-[2vh]" />
           <input type="text" placeholder="Search here" className="pl-[4%]" />
         </div>
@@ -166,14 +170,16 @@ export const AdminUsers = () => {
       </div>
       <div className="w-[100%]">
         <h3>{location.pathname === "/dashboard/users" ? "Users" : "Photographers"}</h3>
-        <div className="grid grid-cols-4  w-[100%]">
-        {users?.map((elem:any, id:number) => (
-          <PhotographerCard key={id}  name={elem.firstName + ' ' + elem.lastName } phone={elem.phone} email={elem.email} />
-        ))}
+        <div className="overflow-scroll">
+          <div className="grid grid-cols-4 w-[300%] md:w-[200%] lg:w-[100%]">
+          {users?.map((elem:any, id:number) => (
+            <PhotographerCard key={id}  name={elem.firstName + ' ' + elem.lastName } phone={elem.phone} email={elem.email} />
+          ))}
+          </div>
         </div>
         <div className="flex justify-between items-center my-[5%] ">
           <p>Showing {firstIndex}-{lastIndex > users?.length ? users?.length : lastIndex } from {users?.length} data</p>
-          <div className="flex w-[50%] justify-end">
+          <div className="flex w-[70%] lg:w-[50%] justify-end">
             <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
             <p className="bg-[#FF6E31]  w-[5%] flex justify-center rounded-md px-[4%] py-[2%] text-[#fff] flex justify-center items-center mx-[2%]"> {page} </p>
             <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === user?.length  ? next : () => null}> {">"} </p>

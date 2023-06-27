@@ -14,7 +14,7 @@ const Review = () => {
          <div >
             <img src={reviewBackground} alt="reviewBackground" className='h-[80vh] absolute w-[100%] ' />
             <div className='relative z-[2] text-[#fff] pt-[3%]'>
-                <h3 className='text-[1.2rem] lg:text-[1.8rem]'>Community Members Stories</h3>
+                <h3 className='text-[1.2rem] lg:text-[1.8rem] font-[600]'>Community Members Stories</h3>
                 <p className='text-[0.8rem] md:text-[1rem]'>Here is what some of our Community members have to say.</p>
             </div>
             <div className='flex flex-col lg:grid lg:grid-cols-3 my-[5%] relative gap-0 place-items-center px-[15%]'>

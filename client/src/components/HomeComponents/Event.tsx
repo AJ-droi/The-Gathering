@@ -20,17 +20,17 @@ const Event = () => {
           source={instagram}
         />
          <EventCard
-          header="Event 1"
+          header="Event 2"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl."
           source={network}
         />
         <EventCard
-          header="Event 1"
+          header="Event 3"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl."
           source={meet}
         />
          <EventCard
-          header="Event 1"
+          header="Event 4"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl."
           source={cube}
         />
@@ -50,10 +50,10 @@ const EventCard: React.FC<EventProps> = ({ header, text, source }) => {
         <img src={source} alt={source} className="h-[3vh] " />
       </div>
       
-      <p className=" text-[0.6rem] lg:text-[0.8rem] text-left w-[80%] px-[3%] py-[1%]">{text}</p>
+      <p className=" text-[0.6rem] lg:text-[0.8rem] text-left w-[80%] px-[3%] py-[1%] mt-[5%] md:mt-[0%]">{text}</p>
       <div className="flex justify-between">
-        <img src={ellipseOne} alt="ellipseOne" className=" h-[7vh] mt-[11%] lg:mt-[6%] " />
-        <img src={ellipseTwo} alt="ellipseTwo" className=" h-[7vh] mt-[11%] lg:mt-[6%]"  />
+        <img src={ellipseOne} alt="ellipseOne" className=" h-[7vh] mt-[3.6%] md:mt-[5.5%] lg:mt-[4.5%] " />
+        <img src={ellipseTwo} alt="ellipseTwo" className=" h-[7vh] mt-[3.6%] md:mt-[5.5%] lg:mt-[4.5%]"  />
       </div>
     </div>
   );
