@@ -1,7 +1,12 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
-const { DB_NAME, DB_USERNAME, DB_PASSWORD,DB_HOST, APP_SECRET, GMAIL_USER, GMAIL_PASS, fromAdminMail, userSubject, FRONTEND_ORIGIN, GOOGLE_CLIENT_ID} = process.env;
+import config from './dbconfig'
+
+const {DB_NAME} = config
+const { DB_USERNAME, DB_PASSWORD,DB_HOST, APP_SECRET, GMAIL_USER, GMAIL_PASS, fromAdminMail, userSubject, FRONTEND_ORIGIN, GOOGLE_CLIENT_ID} = process.env;
+
+
 
 export const db = new Sequelize(
   DB_NAME!,
