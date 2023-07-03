@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import logo from '../../assets/logo.png'
 import Button from '../common/Button'
 import {HiOutlineMenuAlt1} from "react-icons/hi"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
     const myRef = useRef<any>(null)
@@ -29,13 +29,14 @@ const Navbar = () => {
 }
 
 const NavbarDesktop = () => {
+    const location = useLocation().pathname
   return (
     <div className='bg-[#212121] flex justify-evenly relative z-[2]'>
-        <img src={logo} alt="logo" />
+       <Link to="/"><img src={logo} alt="logo" /></Link> 
         <ul className='flex justify-between items-center text-[#fff] text-[16px] w-[25%]'>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
+            <li className={location === "/" ?`text-[#FF6E31]` : ``}><Link to="/">Home</Link></li>
+            <li className={location === "/about" ?`text-[#FF6E31]` : ``}><Link to="/about">About Us</Link></li>
+            <li className={location === "/gallery" ?`text-[#FF6E31]` : ``}><Link to="/gallery">Gallery</Link></li>
         </ul>
         <div className='flex justify-center items-center w-[20%]'>
         <Link to={"/signin"} className="w-[35%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>
@@ -49,18 +50,19 @@ const NavbarDesktop = () => {
 
 const NavbarMobile= () => {
     const [isOpen, setIsOpen] = React.useState(false)
+    const location = useLocation().pathname
     return (
       <div className='bg-[#212121] flex flex-col justify-evenly relative z-[15]'>
         <div className='w-[100%] flex justify-between items-center'>
-            <img src={logo} alt="logo" />
+        <Link to="/"><img src={logo} alt="logo" /></Link> 
             <HiOutlineMenuAlt1 className='text-[#fff] text-[4rem] pr-[5%]' onClick={() => setIsOpen(!isOpen)} />
         </div>
          
        {isOpen ?<div>
             <ul className='flex flex-col justify-between items-center text-[#fff] text-[16px] h-[15vh] my-[5%]'>
-                <li onClick={() => setIsOpen(!isOpen)}><Link to="/">Home</Link></li>
-                <li onClick={() => setIsOpen(!isOpen)}><Link to="/about">About Us</Link></li>
-                <li onClick={() => setIsOpen(!isOpen)}><Link to="/gallery">Gallery</Link></li>
+                <li className={location === "/" ?`text-[#FF6E31]` : ``} onClick={() => setIsOpen(!isOpen)}><Link to="/">Home</Link></li>
+                <li className={location === "/about" ?`text-[#FF6E31]` : ``} onClick={() => setIsOpen(!isOpen)}><Link to="/about">About Us</Link></li>
+                <li className={location === "/gallery" ?`text-[#FF6E31]` : ``} onClick={() => setIsOpen(!isOpen)}><Link to="/gallery">Gallery</Link></li>
             </ul>
             <div className='flex justify-center items-center pb-[5%]'>
                 <Link to={"/signin"} className="w-[30%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>

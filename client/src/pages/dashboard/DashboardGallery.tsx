@@ -129,7 +129,10 @@ const AddPhotos = ({click}:any) => {
     <div className='fixed bg-[#000000A5] w-[100%] h-[100vh] top-[0%] left-[0%] flex flex-col items-center justify-center'>
       <div className="bg-[#fff] flex flex-col justify-center items-center w-[90%] lg:w-[50%] rounded-md py-[3%] border border-dashed border-[4px] ">
         <GrAdd className="text-[#FF6E31] text-[3rem]" onClick={handleButtonClick} />
-        <input type="file" name="images" multiple  onChange={handleChange} className="hidden" ref={fileInputRef}/><p className="text-[1.3rem] my-[2%] ">Drag and Drop or <span className="text-[#FF6E31] underline">Browse</span></p>
+        <input type="file" name="images" multiple  onChange={handleChange} className="hidden" ref={fileInputRef}/><p className="text-[1.3rem] my-[2%] ">Drag and Drop or <span className="text-[#FF6E31] underline" onClick={handleButtonClick}>Browse</span></p>
+        {images.map((elem:any, id:number) => (
+          <span key={id}>{elem?.name}</span>
+        ))}
         <HiXMark className='absolute text-[2.2rem] right-[7%] lg:right-[27%] top-[39%] md:top-[36%] lg:top-[39%]' onClick={click} />
         <Button className='bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]' onClick={handleSubmit}>Upload</Button>
       </div>

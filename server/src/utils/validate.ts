@@ -22,11 +22,11 @@ export const adminSchema = Joi.object().keys({
 })
 
 export const updateSchema = Joi.object().keys({
-    phone: Joi.string().required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
+    firstName: Joi.string().optional(),
+    lastName: Joi.string().optional(),
     address: Joi.string().optional(),
-    photo: Joi.string().required(),
+    photo: Joi.string().optional(),
+    phone: Joi.string().optional(),
 })
 
 export const photoSchema = Joi.object().keys({
@@ -39,9 +39,9 @@ export const photoSchema = Joi.object().keys({
 })
 
 export const photoUpdateSchema = Joi.object().keys({
-    name: Joi.string().required(),  
-    brandName: Joi.string().required(), 
-    phone: Joi.string().required(), 
+    name: Joi.string().optional(),  
+    brandName: Joi.string().optional(), 
+    phone: Joi.string().optional(), 
     email: Joi.string().optional(), 
     address: Joi.string().optional(), 
     photo:Joi.string().optional()
@@ -55,8 +55,6 @@ export const eventSchema = Joi.object().keys({
     eventImages: Joi.array().optional(),
     ticketPrice: Joi.number().optional(),
 })
-
-
 
 
 export const option = {

@@ -382,47 +382,37 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
    
     const { firstName, lastName, address, phone, photo } = req.body;
 
-    req.body.photo = req.file.path;
-
-    if(req.body.photo === ''){
-      return res.status(400).json({
-        Error: "Please upload a photo",
-      });
-    }
-
-  
-
-    const validateResult = await updateSchema.validate(req.body, option);
-    if (validateResult.error) {
-      return res.status(400).json({
-        Error: validateResult.error.details[0].message,
-      });
-    }
-    
-
 
     const User = (await UserInstance.findOne({
       where: { id: id },
     })) as unknown as UserAttributes;
 
+
     if (!User) {
       return res.status(400).json({
         Error: "Not authorised to update your profile",
       });
+    }else{
+
+   
+
+    if(User.photo === ''){
+      return res.status(400).json({
+        Error: "Please upload a photo",
+      });
     }
     
+    console.log("hello")
 
-    const updatedUser = (await UserInstance.update(
+
+const updatedUser = (await UserInstance.update(
       {
-        firstName,
-        lastName,
-        address: address || User.address,
-        phone,
+        phone:phone || User.phone,
         photo: req.file.path 
       },
       { where: { id: id } }
     )) as unknown as UserAttributes;
-
+ 
     if (updatedUser) {
       return res.status(200).json({
         message: "You have successfully updated your profile",
@@ -433,6 +423,7 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
     return res.status(400).json({
       message: "Error updating your profile",
     });
+  }
   } catch (err) {
     res.status(500).json({
       Error: "Internal server Error",
@@ -447,6 +438,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
   try {
     const code = req.query.code as string;
     const pathUrl = (req.query.state as string)
+
 
     if (!code) {
       return res.status(401).json({
@@ -463,16 +455,31 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       access_token,
     });
 
+    console.log('id', id)
+
 
     const user= await UserInstance.findOne({
-      where: { googleId: id },
+      where: { email: email },
     }) as unknown as UserAttributes;
 
 
+    if(user && user !== null){
+      await UserInstance.update({
+        googleId:id
+      }, {where:{
+        email:email
+      }}) as unknown as UserAttributes;
 
-    if(user === null){
-      return res.redirect(`${FRONTEND_ORIGIN}/signin`);
+      const token = await Generatesignature({
+        id: user.id,
+        email: user.email,
+        verified: user.verified, 
+      })
+    
+    return res.redirect(`${FRONTEND_ORIGIN}/auth/social/?token=${token}`);
     }
+
+
 
     if(!user){
 
@@ -515,13 +522,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
      
     }
 
-     const token = await Generatesignature({
-        id: user.id,
-        email: user.email,
-        verified: user.verified, 
-      })
-    
-    return res.redirect(`${FRONTEND_ORIGIN}/auth/social/?token=${token}`);
+
 
       
     } catch (err: any) {

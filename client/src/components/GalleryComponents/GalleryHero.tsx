@@ -12,8 +12,9 @@ const GalleryHero = () => {
                 </p>
             </div>
             <img src={logo} alt="" className="lg:h-[40vh] md:h-[20vh] mt-[35%] md:mt-[10%] lg:mt-[0%]" />
-            <h3 className='text-[#fff] text-[2.2rem] bg-[#545761] w-[100%] '>GALLERY</h3>
+            
         </HeroModal> 
+        <h3 className='text-[#fff] text-[2.2rem] bg-[#545761] w-[100%] '>GALLERY</h3>
 
     </div>
   )

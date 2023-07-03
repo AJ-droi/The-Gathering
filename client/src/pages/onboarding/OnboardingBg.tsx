@@ -10,7 +10,7 @@ const OnboardingBg : React.FC<Onboarding> = ({children}) => {
     <div className='flex justify-between'>
         <div className='flex items-center justify-center bg-[#FCFCFC] w-[30%] md:w-[50%] h-[100vh]'>
             <img src={sign} alt="" className='md:h-[70vh]'/>
-            <Link to=""><img src={arrowleft} alt="" className=' absolute top-[2%] left-[2%]' /></Link>
+            <Link to="/"><img src={arrowleft} alt="" className=' absolute top-[2%] left-[2%]' /></Link>
         </div>
         <div className=' w-[70%] md:w-[50%] '>
             {children}

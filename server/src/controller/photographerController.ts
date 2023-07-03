@@ -52,22 +52,17 @@ export const updateProfile = async (req: JwtPayload, res: Response) => {
       const { name, brandName, address, phone, photo } = req.body;
 
  
-      req.body.photo = req.file.path
 
-      if(!req.body.photo){
-        return res.status(400).json({
-          Error: "Please upload a photo",
-        });
-      }
 
+      
   
-      const validateResult = await photoUpdateSchema.validate(req.body, option);
+      // const validateResult = await photoUpdateSchema.validate(req.body, option);
 
-      if (validateResult.error) {
-        return res.status(400).json({
-          Error: validateResult.error.details[0].message,
-        });
-      }
+      // if (validateResult.error) {
+      //   return res.status(400).json({
+      //     Error: validateResult.error.details[0].message,
+      //   });
+      // }
       
       
       const User = (await PhotographerInstance.findOne({
@@ -80,15 +75,18 @@ export const updateProfile = async (req: JwtPayload, res: Response) => {
         });
       }
 
-      console.log(photo)
+      if(User.coverImage === ''){
+        return res.status(400).json({
+          Error: "Please upload a photo",
+        });
+      }
+
+      console.log('hello')
       
   
       const updatedUser = (await PhotographerInstance.update(
         {
-          name,
-          brandName,
-          address: address || User.address,
-          phone,
+          phone:phone || User.phone,
           coverImage: req.file.path
         },
         { where: { id: id } }

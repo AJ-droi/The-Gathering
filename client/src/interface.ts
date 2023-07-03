@@ -14,7 +14,8 @@ export interface InputProps {
     caption?:string,
     name?:string,
     value?:string,
-    onchange?: any
+    onchange?: any,
+    error?: boolean
 }
 
 export interface EventProps {

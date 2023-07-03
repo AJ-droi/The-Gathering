@@ -24,6 +24,8 @@ const Gallery = () => {
 
   const dispatch = useDispatch() as unknown as any
 
+  const role = localStorage.getItem("role")
+
   useEffect(() => {
     dispatch(getEvents())
   }, [])
@@ -68,7 +70,7 @@ const Gallery = () => {
 
         
         <GalleryHero />
-        {events ?<Categories event={events} /> : <p className='bg-[#fff] pt-[5%] pb-[1%] text-[#FF6E31] text-[1.5rem] '>Kindly Sign In to view Gallery Photos</p>}
+        {role !== null && events ?<Categories event={events} /> : <p className='bg-[#fff] pt-[5%] pb-[1%] text-[#FF6E31] text-[1.5rem] '>Kindly Sign In to view Gallery Photos</p>}
 
     </div>
   )

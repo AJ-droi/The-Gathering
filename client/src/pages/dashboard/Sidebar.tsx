@@ -153,7 +153,7 @@ export const SidebarDesktop = () => {
       </div>
       <div className="border-t-[1px] border-black">
         <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[20vh] mx-[auto] ">
-          <li className="mb-[15%] flex items-center" >
+          <li className="my-[15%] flex items-center" >
           <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
             Logout
@@ -265,7 +265,7 @@ export const SidebarMobile = () => {
       </div>
       <div className="border-t-[1px] border-black">
         <ul className="flex flex-col justify-between items-start text-[16px] w-[65%]  mx-[auto] my-[10%] ">
-          <li className="mb-[15%] flex items-center" >
+          <li className="my-[15%] flex items-center" >
           <Link to="/dashboard/logout" className="flex items-center">
             <img src={logout} alt="" className="mr-[22%]" />
             </Link>

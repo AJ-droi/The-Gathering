@@ -6,6 +6,7 @@ import lens from "../../assets/lens.jpeg"
 
 
 const Categories = ({event}:any) => {
+
   return (
     <div className='py-[5%] bg-[#fff]'>
         <h3 className='w-[100%] text-[2rem] shadow shadow-[#FF6E31]'>Categories</h3>

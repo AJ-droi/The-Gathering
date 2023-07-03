@@ -15,6 +15,7 @@ import reducer from './redux/reducer';
 import { ToastContainer } from 'react-toastify';
 import Dashboard from './pages/dashboard/Dashboard';
 import Social from './pages/Social';
+import { ProtectRoute } from './components/ProtectedRoute';
 
 
 const store = configureStore({
@@ -40,7 +41,7 @@ function App() {
           <Route path="/verified" element={<Verified />} />
           <Route path="/expired" element={<Expired />} />
           <Route path="/update" element={<Update />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<ProtectRoute><Dashboard /></ProtectRoute>} />
           <Route path="/auth/social/*" element={<Social />} />
  
         </Routes>

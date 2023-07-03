@@ -42,7 +42,7 @@ const BuyTicket = () => {
 
   const events = useSelector((state:any) => state.data.events)
 
-  const ticket = events.find((event:any) => event.id === id)
+  const ticket = events?.find((event:any) => event.id === id)
 
   console.log(ticket)
 

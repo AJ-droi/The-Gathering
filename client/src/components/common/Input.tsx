@@ -5,10 +5,11 @@ import { InputProps } from '../../interface'
 
 
 
-const Input: React.FC<InputProps> = ({type, placeholder, name, signStyle, value, onchange}) => {
+const Input: React.FC<InputProps> = ({type, placeholder, name, signStyle, value, onchange, error}) => {
   return (
     <div>
-        <input type={type} placeholder={placeholder} name={name} value={value} className={`${signStyle} rounded-lg border border-[#E5E5E5] outline-none px-[20px] text-[#000]`} onChange={onchange} />
+        <input type={type} placeholder={placeholder} name={name} value={value} className={`${signStyle} rounded-lg border border-[#E5E5E5] outline-none px-[20px] text-[#000]`} onChange={onchange} required/>
+        {value === '' && onchange ? <p className='text-[red]'>{name} is required </p>: null}
     </div>
   )
 }

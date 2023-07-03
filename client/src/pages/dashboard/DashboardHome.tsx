@@ -11,6 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import HomePhotographer from "./HomePhotographer";
 import { getEvents, getPhotographers, getUsers } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios'
 
 const DashboardHome = () => {
   const role = localStorage.getItem('role')
@@ -33,22 +34,48 @@ const DashboardHome = () => {
 export default DashboardHome;
 
 const HomeUsers = ({events}:any) => {
+  const [quotes, setQuotes] = useState<any>([])
 
+const getQuotes = async() => {
+  try{
+    const response = await axios.get('https://api.api-ninjas.com/v1/quotes', {
+    params: {
+      category: "inspirational"
+    },
+    headers: {
+      'X-Api-Key': 'uAERFAGTRqKiVzjOphETnA==YYZmcQPd9Xq2MRJb'
+    }
+  })
+
+  const data = await response.data
+  setQuotes(data)
+  console.log(quotes)
+}catch(err){
+  console.log(err);
+  
+}
+
+}
+
+useEffect(() => {
+  getQuotes()
+}, [])
+ 
     return (
       <div className="bg-[#E0E0E0]">
         <div className="flex justify-end">
           <div className="petit text-[#FF6E31] bg-[#fff] w-[70%] text-[0.8rem] md:text-[1.2rem] font-bold px-[2%] py-[2%] mr-[4%] md:mr-[2%] my-[2%] rounded-lg">
             <p>
-              “oofficia consequat duis enim velit mollit. Exercitation veniam
-              consequat sunt nostrud amet.”
+              " {quotes[0]?.quote} "
             </p>
-            <p>-John Claire.</p>
+            <p>-{quotes[0]?.author}</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between px-[5%] pb-[2%]">
           <RecommendedBooks />
           <div className=" w-[100%] md:w-[35%] flex flex-col justify-between my-[2%] md:my-[0%] ">
             <h3>Upcoming Events</h3>
+            <p>{events.length === 0 ? "No Event" : null}</p>
             {events?.slice(events.length-3, events.length)?.map((elem:any, id:number) => (
             <UpcomingEvents key={id} name={elem?.eventName} date={`${new Date(elem?.eventDate)}`.slice(0,16)} id={''} />
             ))}
