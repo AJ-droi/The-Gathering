@@ -8,6 +8,7 @@ import { PhotographerInstance } from '../model/photographerModel';
 import { UserInstance} from '../model/userModel';
 import { emailHtml, GenerateOTP, sendmail } from '../utils/notifications';
 import { GeneratePassword, GenerateSalt, Generatesignature, loginSchema, option, photoUpdateSchema, registerSchema, updateSchema, validatePassword, verifySignature } from '../utils/validate';
+import {  } from '../model/notificationModel';
 
 
 
@@ -51,19 +52,6 @@ export const updateProfile = async (req: JwtPayload, res: Response) => {
      
       const { name, brandName, address, phone, photo } = req.body;
 
- 
-
-
-      
-  
-      // const validateResult = await photoUpdateSchema.validate(req.body, option);
-
-      // if (validateResult.error) {
-      //   return res.status(400).json({
-      //     Error: validateResult.error.details[0].message,
-      //   });
-      // }
-      
       
       const User = (await PhotographerInstance.findOne({
         where: { id: id },
@@ -80,8 +68,6 @@ export const updateProfile = async (req: JwtPayload, res: Response) => {
           Error: "Please upload a photo",
         });
       }
-
-      console.log('hello')
       
   
       const updatedUser = (await PhotographerInstance.update(

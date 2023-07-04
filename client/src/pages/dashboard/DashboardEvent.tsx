@@ -6,6 +6,7 @@ import calendar from '../../assets/calendar.png'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getEvents } from '../../redux/actions'
+import { PaginationBar } from './DashboardNotifications'
 
 const DashboardEvent = () => {
   const role = localStorage.getItem('role')
@@ -46,6 +47,8 @@ const AdminEvent = () => {
 
   const users = events?.slice(firstIndex, lastIndex)
 
+  
+
   return (
     <div className='my-[17%] lg:my-[0%]' >
       <div className='flex flex-col lg:flex-row justify-between items-center px-[5%] my-[7%]'>
@@ -79,7 +82,7 @@ const AdminEvent = () => {
 
         </table>
 
-        <div className="flex justify-between items-center my-[5%] w-[400%] ">
+        <div className="flex justify-between items-center my-[5%] w-[100%] ">
           <p>Showing {firstIndex}-{lastIndex > users?.length ? users?.length : lastIndex } from {users?.length} data</p>
           <div className="flex w-[30%] justify-end">
             <p className="bg-[##C2C2C2] border border-[black] w-[5%] px-[4%] py-[2%] flex justify-center rounded-md" onClick={firstIndex > 1 ?prev : () => null} > {"<"} </p>
@@ -92,6 +95,8 @@ const AdminEvent = () => {
           <Link to="/dashboard/add-event" className="w-[50%] lg:w-[20%] bg-[#FF6E31] flex items-center justify-center rounded-md"><Button title={"Add Event"} source={addPhoto} classes={" flex-row-reverse text-[#fff] py-[5%]"} /></Link>
         </div>
       </div>
+
+
       
         
       </div>
@@ -109,16 +114,36 @@ const UserEvent = () => {
     dispatch(getEvents())
   }, [])
 
-  console.log(events)
+
+  const [page, setPage] = useState(1)
+
+ 
+  const NoOfItems = 6
+  const lastIndex = page * NoOfItems
+  const firstIndex = lastIndex - NoOfItems
+
+  const currentItems = events?.slice(firstIndex, lastIndex)
+
+  const prev = () => {
+    page > 1 ? setPage(page - 1) : setPage(1);
+  };
+
+  const next = () => {
+    if (currentItems.length / NoOfItems >= 1) {
+      setPage(page + 1);
+    }
+  };
+
 
 
   return (
-    <div className='flex flex-col lg:grid grid-cols-2 px-[5%] lg:my-[7%] my-[16%] '>
-      {events?.map((event:any, id:number) => (
+    <div>
+    <div className='flex flex-col lg:grid grid-cols-2 px-[5%] lg:my-[7%] my-[10%] '>
+      {currentItems?.map((event:any, id:number) => (
       <EventCard name={event.eventName} date={event.eventDate} id={event.id} />
       ))}
-     
-
+    </div>
+    <PaginationBar prev={prev} next={next} page={page} />
     </div>
   )
 }

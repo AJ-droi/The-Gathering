@@ -10,6 +10,10 @@ import { PhotographerInstance } from "../model/photographerModel";
 import { UserInstance } from "../model/userModel";
 import { GenerateOTP, photoHtml, sendmail } from "../utils/notifications";
 import { adminSchema, eventSchema, GeneratePassword, generateRandomPassword, GenerateSalt, Generatesignature, option, photoSchema, verifySignature } from "../utils/validate";
+import { bookMovieAttributes } from "../interface/bookMovieAttributes";
+import { BookInstance } from "../model/bookModel";
+import { MovieInstance } from "../model/movieModel";
+import { NotifyInstance } from "../model/notificationModel";
 
 export const superAdmin = async (req:JwtPayload, res: Response) => {
     try {
@@ -299,3 +303,92 @@ export const deletePhotographer = async(req:JwtPayload, res: Response) => {
 
 }
 
+export const UploadBooks = async(req:JwtPayload, res:Response) => {
+  try{
+    const {id} = req.user
+
+    const {title} = req.body
+
+    const user = await UserInstance.findOne({
+      where:{id:id}
+    }) as unknown as UserAttributes
+
+    if(user.role === "admin" || user.role === "superadmin"){
+      await BookInstance.create({
+        id: uuidV4(),
+        title,
+        coverImage: req.file.path
+      }) as unknown as bookMovieAttributes
+
+      return res.status(200).json({
+        message:"Book Uploaded Successfully"
+      })
+    }
+
+    return res.status(400).json({
+      message:"Error Uploading Book"
+    })
+
+  }catch(err){
+    res.status(500).json({
+      Error: "Internal server Error",
+      route: "/admin/upload-books",
+    });
+
+  }
+}
+
+
+export const UploadMovies = async(req:JwtPayload, res:Response) => {
+  try{
+    const {id} = req.user
+
+    const {title} = req.body
+
+    const user = await UserInstance.findOne({
+      where:{id:id}
+    }) as unknown as UserAttributes
+
+    if(user.role === "admin" || user.role === "superadmin"){
+      await MovieInstance.create({
+        id: uuidV4(),
+        title,
+        coverImage:req.file.path
+      }) as unknown as bookMovieAttributes
+
+      return res.status(200).json({
+        message:"Movie Uploaded Successfully"
+      })
+    }
+
+    return res.status(400).json({
+      message:"Error Uploading Movie"
+    })
+
+  }catch(err){
+    res.status(500).json({
+      Error: "Internal server Error",
+      route: "/admin/upload-movies",
+    });
+
+  }
+}
+
+export const getNotifications = async(req:Request, res:Response) => {
+  try{
+    const notifications = await NotifyInstance.findAll({
+      where:{
+        recipient:"admin"
+      }
+    }) 
+
+    return res.status(200).json({
+      notifications
+    })
+
+  }catch(err){
+    return res.status(500).json({
+      Error: "Internal server error",
+    });
+  }
+}

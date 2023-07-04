@@ -8,6 +8,8 @@ import { eventSchema, option } from "../utils/validate";
 import { v4 as uuidV4 } from "uuid";
 import { PhotographerInstance } from "../model/photographerModel";
 import { PhotographerAttributes } from "../interface/photographerAttributes";
+import { NotifyInstance } from "../model/notificationModel";
+import { NotificationAttributes } from "../interface/notificationAttributes";
 
 export const createEvent = async (req: JwtPayload, res: Response) => {
   try {
@@ -39,6 +41,12 @@ export const createEvent = async (req: JwtPayload, res: Response) => {
         attendees: [],
         ticketPrice: ticketPrice,
       })) as unknown as EventAttributes;
+
+      await NotifyInstance.create({
+        id:uuidV4(),
+        message: `A new event has been added, view event to register `,
+        recipient: "all"
+      }) as unknown as NotificationAttributes
 
       return res.status(201).json({
         message: "Event created successfully",
@@ -112,7 +120,13 @@ export const uploadEventPhotos = async (req: JwtPayload, res: Response) => {
 
     const updatedEvent = await EventInstance.findOne({
       where: { id: eventId },
-    });
+    }) as unknown as EventAttributes
+
+    await NotifyInstance.create({
+      id:uuidV4(),
+      message: `Photos from ${updatedEvent?.eventName} are ready now, view your gallery folder`,
+      recipient: "admin"
+    }) as unknown as NotificationAttributes
 
     return res.status(200).json({
       message: "Event Photos Uploaded Successfully",

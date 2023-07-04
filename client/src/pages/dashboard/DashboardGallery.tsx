@@ -55,6 +55,7 @@ const DashboardGallery = () => {
 
   const currentItems = gallery?.slice(firstIndex, lastIndex)
 
+
   return (
     <div className='px-[5%] pb-[5%] pt-[15%] lg:pt-[0%]'>
         {show ?<AddPhotos click={toggleShow}/> : null}

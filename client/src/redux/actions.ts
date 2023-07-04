@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginData } from "../interface";
-import { apiDelete, apiGet, apiPatch, apiPost, apiPut } from "../utils/axios";
-import { fetchDataFailure, fetchDataPhoto, fetchDataStart, fetchDataSuccess, fetchDataUser } from "./reducer";
+import { FormDataPost, apiDelete, apiGet, apiPatch, apiPost, apiPut } from "../utils/axios";
+import { fetchBooks, fetchDataFailure, fetchDataPhoto, fetchDataStart, fetchDataSuccess, fetchDataUser, fetchMovies, fetchNotifications } from "./reducer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -262,7 +262,7 @@ export const saveImages = createAsyncThunk(
     }
   );
 
-    /**==============Create Event======= **/
+  /**==============Create Event======= **/
     export const createEvent = createAsyncThunk(
       "createEvent",
       async (formData :any, { dispatch }) => {
@@ -313,6 +313,93 @@ export const saveImages = createAsyncThunk(
       }
     }
   );
+
+  /**==============Upload Movies======= **/
+    export const uploadMovies = createAsyncThunk(
+      "uploadMovies",
+      async (formData :any, { dispatch }) => {
+        try {
+          dispatch(fetchDataStart);
+          const response = await FormDataPost(`/admin/upload-movies`, formData);
+          toast.success(response.data.message);
+          dispatch(fetchDataSuccess(response.data));
+        } catch (error: any) {
+          console.log(error.response.data.error);
+          toast.error(error.response.data.Error);
+          dispatch(fetchDataFailure(error.response.data.error));
+        }
+      }
+    );
+
+   /**==============Upload Books======= **/
+   export const uploadBooks = createAsyncThunk(
+    "uploadBooks",
+    async (formData :any, { dispatch }) => {
+      try {
+        dispatch(fetchDataStart);
+        const response = await FormDataPost(`/admin/upload-books`, formData);
+        toast.success(response.data.message);
+        dispatch(fetchDataSuccess(response.data));
+      } catch (error: any) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.Error);
+        dispatch(fetchDataFailure(error.response.data.error));
+      }
+    }
+  );
+
+  /**==============Get Books ========= **/
+      export const getBooks = createAsyncThunk(
+        "getBooks",
+        async (_, { dispatch }) => {
+          try {
+            dispatch(fetchDataStart);
+            const response = await apiGet(`/user/get-books`);
+            toast.success(response.data.message);
+            console.log('resp', response)
+            dispatch(fetchBooks(response.data));
+          } catch (error: any) {
+            console.log(error.response.data.error);
+            toast.error(error.response.data.Error);
+            dispatch(fetchDataFailure(error.response.data.error));
+          }
+        }
+      );
+
+  /**==============Get Movies ========= **/
+    export const getMovies = createAsyncThunk(
+    "getMovies",
+    async (_, { dispatch }) => {
+      try {
+        dispatch(fetchDataStart);
+        const response = await apiGet(`/user/get-movies`);
+        toast.success(response.data.message);
+        dispatch(fetchMovies(response.data));
+      } catch (error: any) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.Error);
+        dispatch(fetchDataFailure(error.response.data.error));
+      }
+    }
+  );
+
+
+/**============== Notifications ========= **/
+    export const notifications = createAsyncThunk(
+      "notifications",
+      async (_, { dispatch }) => {
+        try {
+          dispatch(fetchDataStart);
+          const response = await apiGet(`/user/notifications`);
+          toast.success(response.data.message);
+          dispatch(fetchNotifications(response.data));
+        } catch (error: any) {
+          console.log(error.response.data.error);
+          toast.error(error.response.data.Error);
+          dispatch(fetchDataFailure(error.response.data.error));
+        }
+      }
+    );
 
 
   /**==============Logout ======= **/

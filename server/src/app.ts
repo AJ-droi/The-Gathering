@@ -15,7 +15,7 @@ import { authController } from './controller/userController';
 
 dotenv.config();
 
-db.sync({alter:true}).then(() => {
+db.sync({}).then(() => {
     console.log('Database is connected');
     }).catch((err:HttpError) => {
     console.log(err);

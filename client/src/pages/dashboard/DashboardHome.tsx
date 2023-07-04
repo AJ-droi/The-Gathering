@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import avatar from "../../assets/avatar.png";
 import calendar from "../../assets/calendar.png";
 import info from "../../assets/info.png";
@@ -6,12 +6,16 @@ import Button from "../../components/common/Button";
 import addPhoto from "../../assets/addPhoto.png";
 import search from "../../assets/search.png";
 import { IoCall } from "react-icons/io5";
-import {GrMail} from "react-icons/gr"
+import {GrAdd, GrMail} from "react-icons/gr"
 import { Link, useLocation } from "react-router-dom";
 import HomePhotographer from "./HomePhotographer";
-import { getEvents, getPhotographers, getUsers } from "../../redux/actions";
+import { getBooks, getEvents, getMovies, getPhotographers, getUsers, uploadBooks, uploadMovies } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
+import { HiXMark } from "react-icons/hi2";
+import profile1 from "../../assets/profile1.png"
+
+
 
 const DashboardHome = () => {
   const role = localStorage.getItem('role')
@@ -73,7 +77,7 @@ useEffect(() => {
         </div>
         <div className="flex flex-col md:flex-row justify-between px-[5%] pb-[2%]">
           <RecommendedBooks />
-          <div className=" w-[100%] md:w-[35%] flex flex-col justify-between my-[2%] md:my-[0%] ">
+          <div className=" w-[100%] md:w-[35%] flex flex-col justify-between my-[2%] md:my-[0%]">
             <h3>Upcoming Events</h3>
             <p>{events.length === 0 ? "No Event" : null}</p>
             {events?.slice(events.length-3, events.length)?.map((elem:any, id:number) => (
@@ -97,6 +101,17 @@ export const HomeAdmin= () => {
 
   // console.log(photographers)
 
+  const [isBook, setIsBook] = useState(false)
+  const  [isMovie, setIsMovie] = useState(false)
+
+  const toggleBook = () =>{
+    setIsBook(!isBook)
+  }
+
+  const toggleMovie = () => {
+    setIsMovie(!isMovie)
+  }
+
   const [page, setPage] = useState(1)
 
   const prev = () => {
@@ -118,7 +133,11 @@ export const HomeAdmin= () => {
   }, [])
  
   return (
-    <div className="bg-[#E0E0E0] px-[5%] h-[50vh] my-[20%]">
+    <div className="bg-[#E0E0E0] px-[5%] h-[50vh] my-[20%] md:my-[10%]">
+       <div className="flex flex-row lg:justify-end my-[4%] md:my-[2%]">
+        <Button title={"Upload Movie"} source={addPhoto} classes={" flex-row-reverse text-[#fff] bg-[#FF6E31] h-[5vh] mr-[2%]"} onClick={toggleMovie} />
+        <Button title={"Upload Books"} source={addPhoto} classes={" flex-row-reverse text-[#fff] bg-[#FF6E31] h-[5vh]"} onClick={toggleBook} />
+      </div>
       <div className="flex flex-col lg:flex-row lg:justify-end my-[2%]">
         <div className="flex items-center bg-[#fff] py-[1%] px-[1%] rounded-md mr-[5%]">
           <img src={search} alt="" className="h-[2vh]" />
@@ -147,6 +166,8 @@ export const HomeAdmin= () => {
             <p className="bg-[##C2C2C2] border border-[black] lg:w-[5%] px-[4%] py-[2%] flex items-center justify-center rounded-md" onClick={lastIndex === photographer?.length  ? next : () => null}> {">"} </p>
           </div>
         </div>
+        {isMovie ?<UploadMovies click={toggleMovie} /> : null}
+        {isBook ? <UploadBooks click={toggleBook} /> : null}
       
       </div>
       
@@ -224,7 +245,7 @@ const PhotographerCard = ({name, phone, email}:any) => {
   return(
     <div className="bg-[#fff] rounded-md px-[4%] text-left py-[7%] text-[#212121] mx-[3%] my-[3%] ">
       <div className="text-center flex flex-col items-center">
-        <img src={avatar} alt="" className="w-[100%] rounded-md h-[12vh] w-[12vh]" />
+        <img src={profile1} alt="" className="w-[100%] rounded-md h-[12vh] w-[12vh]" />
         <h3 className="font-semibold">{name}</h3>
       </div>
       <div className="mt-[15%]">
@@ -249,56 +270,42 @@ const PhotographerCard = ({name, phone, email}:any) => {
   )}
 
 const RecommendedBooks = () => {
+  const books = useSelector((state:any) => state.books.books)
+  const movies = useSelector((state:any) => state.movies.movies)
+
+  const dispatch = useDispatch() as unknown as any
+
+  useEffect(() => {
+    dispatch(getBooks())
+  }, [])
+
+  useEffect(() =>{
+    dispatch(getMovies())
+  }, [])
+
+  console.log('books', books)
+
   return (
-    <div className="bg-[#fff] md:w-[63%] rounded-md px-[2%] text-left py-[2%] text-[#212121]">
+    <div className="bg-[#fff] md:w-[63%] rounded-md px-[2%] text-left py-[2%] text-[#212121] ">
       <div>
         <h3 className="text-[0.9rem] text-[#212121] py-[2%]">Recommended Movies Of The Month</h3>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
+        {movies?.map((elem:any, id:number) =>(
+        <div className="flex my-[2%] items-center" key={id}>
+          <img src={elem?.coverImage} alt="" className="w-[50px] h-[50px] rounded-[8px]"/>
           <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
+            {elem?.title}
           </p>
-        </div>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
-          <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
-          </p>
-        </div>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
-          <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
-          </p>
-        </div>
+        </div>))}
       </div>
-
-      <div className=" border-t-[3px] border-[#B4B4B4]">
+      <div className=" border-t-[3px] border-[#B4B4B4] ">
         <h3 className="text-[0.9rem] text-[#212121] py-[2%]">Recommended Books Of The Month</h3>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
+        {books?.map((elem:any, id:number) =>(
+        <div className="flex my-[2%] items-center" key={id}>
+          <img src={elem?.coverImage} alt="" className="w-[50px] h-[50px] rounded-[8px]"/>
           <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
+            {elem?.title}
           </p>
-        </div>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
-          <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
-          </p>
-        </div>
-        <div className="flex my-[2%] items-center">
-          <img src={avatar} alt="" />
-          <p className="text-left px-[2%]">
-            Avatar: The Way of Water <br />
-            2023
-          </p>
-        </div>
+        </div>))}
       </div>
     </div>
   );
@@ -348,5 +355,118 @@ const Rings = () => {
     </div>
   );
 };
+
+
+
+const UploadMovies = ({click}:any) => {
+
+
+  const dispatch = useDispatch() as unknown as any;
+
+  const [formData, setFormData] = useState<any>({
+    title: "",
+  });
+
+  const [images, setImages] = useState('');
+
+  const handleChange = (e: any) => {
+    if(e.target.name === "coverImage"){
+      setImages(e.target.files[0].name)
+      setFormData({
+        ...formData,
+        [e.target.name] : e.target.files[0]
+      })
+    }else{
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    await dispatch(uploadMovies(formData))
+
+  };
+
+  const fileInputRef = useRef<any>(null);
+
+
+  const handleButtonClick = () => {
+      fileInputRef.current.click();
+  };
+
+  return(
+    <div className='fixed bg-[#000000A5] w-[100%] h-[100vh] top-[0%] left-[0%] flex flex-col items-center justify-center'>
+      <div className="bg-[#fff] flex flex-col justify-center items-center w-[90%] lg:w-[50%] rounded-md py-[3%] border border-dashed border-[4px] ">
+        <input placeholder="Enter Title Of Movie" name="title" value={formData?.title} className="w-[50%] my-[2%] py-[1%] border border-[#FF6E31] border-[2px] pl-[2%] rounded-md" onChange={handleChange} />
+        <input type="file" name="coverImage"  onChange={handleChange} className="hidden" ref={fileInputRef}/><p className="text-[1.1rem] my-[2%] "><span className="text-[#FF6E31] underline" onClick={handleButtonClick}>Click to upload movie coverImage</span></p>
+
+          <span>{images}</span>
+
+        <HiXMark className='absolute text-[2.2rem] right-[7%] lg:right-[27%] top-[39%] md:top-[36%] lg:top-[34%]' onClick={click} />
+        <Button classes={'bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]'} onClick={handleSubmit} title={`upload`} />
+      </div>
+
+    </div>
+
+  )}
+
+
+const UploadBooks = ({click}:any) => {
+
+  const dispatch = useDispatch() as unknown as any;
+
+  const [formData, setFormData] = useState<any>({
+    title:''
+  });
+
+  const [images, setImages] = useState('');
+
+  const handleChange = (e: any) => {
+    if(e.target.name === "coverImage"){
+      setImages(e.target.files[0].name)
+      setFormData({
+        ...formData,
+        [e.target.name] : e.target.files[0]
+      })
+    }else{
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+  };
+
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    await dispatch(uploadBooks(formData))
+  };
+
+  const fileInputRef = useRef<any>(null);
+
+
+  const handleButtonClick = () => {
+      fileInputRef.current.click();
+  };
+
+  return(
+    <div className='fixed bg-[#000000A5] w-[100%] h-[100vh] top-[0%] left-[0%] flex flex-col items-center justify-center'>
+      <div className="bg-[#fff] flex flex-col justify-center items-center w-[90%] lg:w-[50%] rounded-md py-[3%] border border-dashed border-[4px] ">
+        <input placeholder="Enter Title Of Book" name="title" value={formData?.title} className="w-[50%] my-[2%] py-[1%] border border-[#FF6E31] border-[2px] pl-[2%] rounded-md" onChange={handleChange} />
+        <input type="file" name="coverImage" onChange={handleChange} className="hidden" ref={fileInputRef}/><p className="text-[1.1rem] my-[2%] "><span className="text-[#FF6E31] underline" onClick={handleButtonClick}>Click to upload book coverImage</span></p>
+          <span>{images}</span>
+
+        <HiXMark className='absolute text-[2.2rem] right-[7%] lg:right-[27%] top-[39%] md:top-[36%] lg:top-[34%]' onClick={click} />
+        <Button classes={'bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]'} onClick={handleSubmit} title={`upload`} />
+      </div>
+
+    </div>
+
+  )}
+
 
 

@@ -25,6 +25,11 @@ import { EventInstance } from "../model/eventModel";
 import { EventAttributes, Image } from "../interface/eventAttributes";
 import { PhotographerInstance } from "../model/photographerModel";
 import { PhotographerAttributes } from "../interface/photographerAttributes";
+import { UUIDV4 } from "sequelize";
+import { NotifyInstance } from "../model/notificationModel";
+import { NotificationAttributes } from "../interface/notificationAttributes";
+import { BookInstance } from "../model/bookModel";
+import { MovieInstance } from "../model/movieModel";
 
 export const Signup = async (
   req: Request,
@@ -75,6 +80,8 @@ export const Signup = async (
         gallery:[]
       });
 
+   
+
 
       //Send OTP to user
       // await onRequestOTP(otp, phone)
@@ -94,6 +101,12 @@ export const Signup = async (
       //send mail to users
       const html = emailHtml(otp, signature);
       await sendmail(fromAdminMaill, email, userSubjectt, html);
+
+      await NotifyInstance.create({
+        id:uuidV4(),
+        message: `A new User with id:${uuidUser} just joined the gathering`,
+        recipient: "admin"
+      }) as unknown as NotificationAttributes
 
       return res.status(201).json({
         message:
@@ -721,6 +734,52 @@ export const registerEvent = async (req: JwtPayload, res: Response) => {
     return res.status(200).json({
       message: "You have succesfully registered for this event"
     });
+  }catch(err){
+    return res.status(500).json({
+      Error: "Internal server error",
+    });
+  }
+}
+
+export const getBooks = async(req:Request, res:Response) => {
+  try{
+    const books = await BookInstance.findAll() 
+
+    return res.status(200).json({
+      books
+    })
+
+  }catch(err){
+    return res.status(500).json({
+      Error: "Internal server error",
+    });
+  }
+}
+
+
+export const getMovies = async(req:Request, res:Response) => {
+  try{
+    const movies = await MovieInstance.findAll() 
+
+    return res.status(200).json({
+      movies
+    })
+
+  }catch(err){
+    return res.status(500).json({
+      Error: "Internal server error",
+    });
+  }
+}
+
+export const getNotifications = async(req:Request, res:Response) => {
+  try{
+    const notifications = await NotifyInstance.findAll() 
+
+    return res.status(200).json({
+      notifications
+    })
+
   }catch(err){
     return res.status(500).json({
       Error: "Internal server error",

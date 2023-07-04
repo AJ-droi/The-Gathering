@@ -24,7 +24,7 @@ const ConfirmationChild = () => {
                 <div className='px-[5%]'>
                 <img src={confirmation} alt="" className='h-[20vh] lg:h-[auto]'/>
                 </div>
-                <p className='lg:text-[1.2rem] mt-[4%] px-[5%]'>A verification email has been sent to your email <span className='text-[#FF6E31]'>soniaakpati7@gmail.com</span>. Please check your email and click the link provided in the email to complete your account registration.  </p>
+                <p className='lg:text-[1.2rem] mt-[4%] px-[5%]'>A verification email has been sent to your email. Please check your email and click the link provided in the email to complete your account registration.  </p>
             </div>
             <div className='flex flex-col items-center '>
                 <p className='lg:text-[1.2rem] mb-[4%] px-[5%]'>If you do not receive the email within the next five minutes, please check your spam folder. If you still haven’t received it, use the button below to resend verification email.</p>
