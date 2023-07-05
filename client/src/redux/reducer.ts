@@ -26,8 +26,8 @@ const dataSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetchDataStart: (state) => {
-      state.loading = true;
+    fetchDataStart: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
       state.error = null;
     },
     fetchDataSuccess: (state, action: PayloadAction<any[]>) => {

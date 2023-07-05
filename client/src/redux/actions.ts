@@ -10,7 +10,7 @@ export const loginUser = createAsyncThunk(
   "loginUser",
   async (formData: LoginData, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiPost("/user/login", formData);
       console.log(response.data.id)
       localStorage.setItem("userId", response.data.id);
@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk(
   "registerUser",
   async (formData: LoginData, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiPost("/user/signup", formData);
       toast.success(response.data.message);
       localStorage.setItem("signature", response.data.signature);
@@ -54,7 +54,7 @@ export const verifyUser = createAsyncThunk(
   "verifyUser",
   async (token: string, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiPatch(`/user/verify/?token=${token}`, {});
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
@@ -74,7 +74,7 @@ export const resendverification = createAsyncThunk(
   "resendverification",
   async (token: string, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiGet(`/user/resendverification/${token}`);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
@@ -95,7 +95,7 @@ export const singleUser = createAsyncThunk(
   "singleUser",
   async (_, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiGet("/user/get-singleuser");
       dispatch(fetchDataUser(response.data));
     } catch (error: any) {
@@ -111,7 +111,7 @@ export const getEvents = createAsyncThunk(
   "getEvents",
   async (_, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiGet("/event/getEvents");
       dispatch(fetchDataSuccess(response.data));
     } catch (error: any) {
@@ -128,7 +128,7 @@ export const registerEvent = createAsyncThunk(
   "registerEvent",
   async ({formData , id}:any, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       const response = await apiPatch(`/user/register-event?id=${id}`, formData);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
@@ -145,7 +145,7 @@ export const uploadPhotos = createAsyncThunk(
   "uploadPhotos",
   async (formData:any, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       console.log(formData)
       const response = await apiPatch(`/photographer/upload-photos`, formData);
       toast.success(response.data.message);
@@ -163,7 +163,7 @@ export const saveImages = createAsyncThunk(
   "saveImages",
   async (formData:any, { dispatch }) => {
     try {
-      dispatch(fetchDataStart);
+      dispatch(fetchDataStart(true));
       console.log(formData)
       const response = await apiPut(`/user/save-image`, formData);
       toast.success(response.data.message);
@@ -181,7 +181,7 @@ export const saveImages = createAsyncThunk(
     "deletePhotos",
     async ({eventId, url}:any, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiDelete(`/photographer/delete-photos?eventId=${eventId}&url=${url}`);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
@@ -199,7 +199,7 @@ export const saveImages = createAsyncThunk(
     "getPhotographers",
     async (_, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiGet(`/photographer/get-photographer`);
         toast.success(response.data.message);
         dispatch(fetchDataPhoto(response.data));
@@ -216,7 +216,7 @@ export const saveImages = createAsyncThunk(
       "getSinglePhotographer",
       async (_, { dispatch }) => {
         try {
-          dispatch(fetchDataStart);
+          dispatch(fetchDataStart(true));
           const response = await apiGet(`/photographer/get-singlephotographer`);
           toast.success(response.data.message);
           dispatch(fetchDataPhoto(response.data));
@@ -233,7 +233,7 @@ export const saveImages = createAsyncThunk(
       "getUsers",
       async (_, { dispatch }) => {
         try {
-          dispatch(fetchDataStart);
+          dispatch(fetchDataStart(true));
           const response = await apiGet(`/user/get-users`);
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
@@ -250,7 +250,7 @@ export const saveImages = createAsyncThunk(
     "createPhotographer",
     async (formData :any, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiPost(`/admin/create-photographer`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
@@ -267,7 +267,7 @@ export const saveImages = createAsyncThunk(
       "createEvent",
       async (formData :any, { dispatch }) => {
         try {
-          dispatch(fetchDataStart);
+          dispatch(fetchDataStart(true));
           const response = await apiPost(`/admin/create-event`, formData);
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
@@ -284,7 +284,7 @@ export const saveImages = createAsyncThunk(
     "updateProfile",
     async (formData:any, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiPatch(`/user/update`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
@@ -302,7 +302,7 @@ export const saveImages = createAsyncThunk(
     "updateProfile",
     async (formData:any, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiPatch(`/photographer/update`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
@@ -319,7 +319,7 @@ export const saveImages = createAsyncThunk(
       "uploadMovies",
       async (formData :any, { dispatch }) => {
         try {
-          dispatch(fetchDataStart);
+          dispatch(fetchDataStart(true));
           const response = await FormDataPost(`/admin/upload-movies`, formData);
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
@@ -336,7 +336,7 @@ export const saveImages = createAsyncThunk(
     "uploadBooks",
     async (formData :any, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await FormDataPost(`/admin/upload-books`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
@@ -353,7 +353,7 @@ export const saveImages = createAsyncThunk(
         "getBooks",
         async (_, { dispatch }) => {
           try {
-            dispatch(fetchDataStart);
+            dispatch(fetchDataStart(true));
             const response = await apiGet(`/user/get-books`);
             toast.success(response.data.message);
             console.log('resp', response)
@@ -371,7 +371,7 @@ export const saveImages = createAsyncThunk(
     "getMovies",
     async (_, { dispatch }) => {
       try {
-        dispatch(fetchDataStart);
+        dispatch(fetchDataStart(true));
         const response = await apiGet(`/user/get-movies`);
         toast.success(response.data.message);
         dispatch(fetchMovies(response.data));
@@ -389,7 +389,7 @@ export const saveImages = createAsyncThunk(
       "notifications",
       async (_, { dispatch }) => {
         try {
-          dispatch(fetchDataStart);
+          dispatch(fetchDataStart(true));
           const response = await apiGet(`/user/notifications`);
           toast.success(response.data.message);
           dispatch(fetchNotifications(response.data));

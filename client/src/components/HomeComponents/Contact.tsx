@@ -71,7 +71,7 @@ const Contact = () => {
             <img src={map} alt="" />
             <p>Office Address</p>
           </div>
-          <p>6391 Elgin St. Celina, Delaware 10299</p>
+          <p>No.2a Ibiye drive off woji road , woji , PHC , Rivers state</p>
         </div>
         <div>
           <div className="flex items-center">

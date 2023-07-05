@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Homepage from './pages/Homepage';
@@ -8,30 +8,31 @@ import Confirmation from './pages/onboarding/Confimation';
 import Verified from './pages/onboarding/Verified';
 import Expired from './pages/onboarding/Expired';
 import Update from './pages/onboarding/Update';
-import { Provider} from 'react-redux';
+import { Provider, useDispatch, useSelector} from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import reducer from './redux/reducer';
+import reducer, { fetchDataStart } from './redux/reducer';
 import { ToastContainer } from 'react-toastify';
 import Dashboard from './pages/dashboard/Dashboard';
 import Social from './pages/Social';
 import { ProtectRoute } from './components/ProtectedRoute';
+import Loader from './components/common/Loader';
 
 
-const store = configureStore({
-  reducer: reducer,
-  middleware: [thunk]
-});
+
 
 
 
 function App() {
+  const loading = useSelector((state:any) => state.loading)
+ 
 
   return (
     <div className="App">
-      <Provider store={store}>
+
       <ToastContainer />
       <Router>
+      {loading? <Loader /> : null}
         <Routes>
           <Route path="/*" element={<Homepage />} />
           <Route path="/signin" element={<SignIn />} />
@@ -48,7 +49,7 @@ function App() {
       
 
       </Router>
-      </Provider>
+
     </div>
   );
 }

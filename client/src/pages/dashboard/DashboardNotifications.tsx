@@ -11,10 +11,9 @@ const DashboardNotifications = () => {
   const dispatch = useDispatch() as unknown as any;
 
   useEffect(() => {
-    {
       dispatch(notifications());
-    }
-  });
+    
+  },[]);
 
   const [page, setPage] = useState(1);
 
