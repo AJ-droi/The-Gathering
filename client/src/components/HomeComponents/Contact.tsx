@@ -18,11 +18,47 @@ const Contact = () => {
     body: "",
   });
 
+  const [error, setError] = React.useState<any>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    message:""
+  })
+
   const handleChange = (e: any) => {
+    const {name,value} = e.target
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    if(value === '' && name === "firstName"){
+      setError({
+        ...error,
+        firstName: `${name} is required`
+      })
+    }else if(value === '' && name === "lastName"){
+      setError({
+        ...error,
+        lastName: `${name} is required`
+      })
+    } else if(value === '' && name === "email"){
+      setError({
+        ...error,
+        email: `${name} is required`
+      })
+    } else if(value === '' && name === "message"){
+      setError({
+        ...error,
+        message: `${name} is required`
+      })
+    } else{
+      setError({
+        ...error
+      })
+    }
+
+
 
     console.log(formData);
 
@@ -35,7 +71,7 @@ const Contact = () => {
       body: body.props.children,
     });
 
-    console.log(mail);
+
   };
 
   const handleSubmit = (e: any) => {
@@ -97,7 +133,9 @@ const Contact = () => {
             value={formData.firstName}
             signStyle={`h-[50px] w-[100%] lg:w-[auto] mt-[5%] lg:mt-[0%]`}
             onchange={handleChange}
+            error={error.firstName}
           />
+          
           <Input
             type={"text"}
             name={"lastName"}
@@ -105,7 +143,9 @@ const Contact = () => {
             value={formData.lastName}
             signStyle={`h-[50px] w-[100%] lg:w-[auto] mt-[2%] lg:mt-[0%]`}
             onchange={handleChange}
+            error={error.lastName}
           />
+
         </div>
 
         <Input
@@ -115,8 +155,9 @@ const Contact = () => {
           value={formData.email}
           signStyle={`w-[100%] lg:w-[70%] my-[3%] h-[50px]`}
           onchange={handleChange}
+          error={error.email}
         />
-
+     
         <Input
           type={"text"}
           name={"message"}
@@ -124,7 +165,9 @@ const Contact = () => {
           value={formData.message}
           signStyle={`w-[100%] h-[100px]`}
           onchange={handleChange}
+          error={error.message}
         />
+ 
 
         <Button
           title={"Send"}

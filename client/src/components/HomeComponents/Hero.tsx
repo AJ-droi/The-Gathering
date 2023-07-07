@@ -20,7 +20,7 @@ const Hero = () => {
                 <p className='text-[0.7rem] lg:text-[1.2rem] lg:w-[70%]'>
                 A home for creatives and aspiring creatives from various fields such as photography, arts and crafts, fashion, music, film, performance art, TV/Radio hosting, and writing/publishing.
                 </p>
-                <Link to={'https://chat.whatsapp.com/CfQyBkJn9BxHaUiKojBzyK'} target="_blank"><Button title={`Join The Community`} classes="bg-[#FF6E31] w-[70%] md:w-[50%] lg:w-[25%] text-[#fff] h-[4vh] my-[4%] lg:mt-[2%] mx-auto lg:mx-[0%] px-[6%] lg:px-[3%]" source={join}></Button></Link>
+                <Link to={'/signup'} ><Button title={`Join The Community`} classes="bg-[#FF6E31] w-[70%] md:w-[50%] lg:w-[25%] text-[#fff] h-[4vh] my-[4%] lg:mt-[2%] mx-auto lg:mx-[0%] px-[6%] lg:px-[3%]" source={join}></Button></Link>
             </div>
         </HeroModal>
         <div className='flex justify-center absolute top-[15%] z-[5] w-[100%]'>

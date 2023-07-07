@@ -134,7 +134,7 @@ const [page, setPage] = useState(1)
     setPage(page + 1)
   }
 
-  const NoOfItems = 7
+  const NoOfItems = 8
   const lastIndex = page * NoOfItems
   const firstIndex = lastIndex - NoOfItems
 
@@ -142,7 +142,6 @@ const [page, setPage] = useState(1)
 
  return (
    <div className='px-[9%] pb-[5%]'>
-       {role === "photographer" ?<Button className='bg-[#FF6E31] flex-row-reverse w-[25%]  py-[1%] px-[5%] text-[#fff] mx-[auto] rounded-md mt-[3%]' onClick={toggleShow}>Add Photo</Button> : null}
        <div className='flex justify-end'>
          <Button className='bg-[#FF6E31] flex-row-reverse w-[45%] lg:w-[25%]  py-[1%] px-[5%] text-[#fff]  rounded-md mt-[3%]' onClick={() => setCheck(!check)}>Select More</Button>
          <Button className='bg-[#FF6E31] flex-row-reverse w-[45%] lg:w-[25%] py-[1%] px-[5%] text-[#fff] ml-[3%] rounded-md mt-[3%]' onClick={handleSubmit}>Save </Button>

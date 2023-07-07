@@ -1,4 +1,5 @@
 export interface FaqData {
+    answer: string;
     text:string
 }
 

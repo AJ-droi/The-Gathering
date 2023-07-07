@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import logoblack from "../../assets/logoblack.png";
 import sidenav from "../../assets/sidenav.png";
@@ -16,7 +16,7 @@ const Sidebar = () => {
 
   const handleRef = async () => {
     const width = await myRef?.current.offsetParent.clientWidth;
-    console.log(myRef);
+
     if (width > 769) {
       setIsMobile(false);
     } else {
@@ -41,12 +41,10 @@ export const SidebarDesktop = () => {
   return (
     <div className="w-[20%] bg-[#F5F5F5] flex flex-col justify-between h-[100vh] fixed ">
       <div className="px-[5%]">
-        <div className="flex justify-start items-center w-[100%] ">
+        <Link to="/"><div className="flex justify-start items-center w-[100%] ">
           <img src={logoblack} alt="" className="h-[17vh]" />
-        </div>
-        <div className="flex items-center justify-end pb-[25%">
-          <img src={sidenav} alt="" />
-        </div>
+        </div></Link>
+      
         {role === "user" ? (
           <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
             <li>
@@ -165,47 +163,57 @@ export const SidebarDesktop = () => {
   );
 };
 
-export const SidebarMobile = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+export const SidebarMobile =() => {
+  const [showNav, setShowNav] = useState(false)
 
-  const handleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleNav = () => {
+    setShowNav(!showNav)
+  }
+
+  return(
+    <>
+    {showNav ? <SidebarMobile1 click={toggleNav} /> :<SidebarMobile2 click={toggleNav} />}
+    </>
+  )
+}
+
+export const SidebarMobile1 = ({click}:any) => {
+
 
   const role = localStorage.getItem("role");
   return (
     <div className="w-[10%] bg-[#F5F5F5] flex flex-col justify-between h-[100vh] fixed overflow-[none] ">
       <div className="px-[5%]">
-        <div className="flex justify-start items-center w-[100%] ">
+        <Link to={'/'}><div className="flex justify-start items-center w-[100%] ">
           <img src={logoblack} alt="" className="h-[17vh]" />
-        </div>
+        </div></Link>
         <div className="flex items-center w-[65%] mx-[auto] pb-[25%]">
-          <img src={sidenav} alt="" onClick={handleSidebar} />
+          <img src={sidenav} alt="" onClick={click} />
         </div>
         {role === "user" ? (
           <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
             <li>
-              <Link to="/dashboard" className="flex items-center">
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
                 <img src={home} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/gallery" className="flex items-center">
+              <Link to="/dashboard/gallery" className="flex items-center" onClick={click}>
                 <img src={gallery} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/profile" className="flex items-center">
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
                 <img src={profile} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/notifications" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
                 <img src={notification} alt="" className="mr-[15%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/event" className="flex items-center">
+              <Link to="/dashboard/event" className="flex items-center" onClick={click}>
                 <img src={event} alt="" className="mr-[22%]" />
               </Link>
             </li>
@@ -213,27 +221,27 @@ export const SidebarMobile = () => {
         ) : role === "admin" || role === "superadmin" ? (
           <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
             <li>
-              <Link to="/dashboard" className="flex items-center">
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
                 <img src={home} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/users" className="flex items-center">
+              <Link to="/dashboard/users" className="flex items-center" onClick={click}>
                 <img src={gallery} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/profile" className="flex items-center">
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
                 <img src={profile} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/notifications" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
                 <img src={notification} alt="" className="mr-[15%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/event"  className="flex items-center">
+              <Link to="/dashboard/event"  className="flex items-center" onClick={click}>
                 <img src={event} alt="" className="mr-[22%]" />
               </Link>
             </li>
@@ -241,22 +249,22 @@ export const SidebarMobile = () => {
         ) : (
           <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
             <li>
-              <Link to="/dashboard" className="flex items-center">
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
                 <img src={home} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/profile" className="flex items-center">
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
                 <img src={profile} alt="" className="mr-[22%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/notifications" className="flex items-center">
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
                 <img src={notification} alt="" className="mr-[15%]" />
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/event"className="flex items-center">
+              <Link to="/dashboard/event"className="flex items-center" onClick={click}>
                 <img src={event} alt="" className="mr-[22%]" />
               </Link>
             </li>
@@ -265,9 +273,138 @@ export const SidebarMobile = () => {
       </div>
       <div className="border-t-[1px] border-black">
         <ul className="flex flex-col justify-between items-start text-[16px] w-[65%]  mx-[auto] my-[10%] ">
-          <li className="my-[15%] flex items-center" >
-          <Link to="/dashboard/logout" className="flex items-center">
+          <li className="my-[15%] flex items-center" onClick={click} >
+          <Link to="/dashboard/logout" className="flex items-center" onClick={click}>
             <img src={logout} alt="" className="mr-[22%]" />
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export const SidebarMobile2 = ({click}:any) => {
+  const role = localStorage.getItem("role");
+  return (
+    <div className="w-[50%] bg-[#F5F5F5] flex flex-col justify-between h-[100vh] fixed ">
+      <div className="px-[5%]">
+        <Link to="/"><div className="flex justify-start items-center w-[100%] ">
+          <img src={logoblack} alt="" className="h-[17vh]" />
+        </div></Link>
+        <div className="flex items-center justify-end pb-[25%">
+          <img src={sidenav} alt="" onClick={click} />
+        </div>
+        {role === "user" ? (
+          <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
+            <li>
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
+                <img src={home} alt="" className="mr-[22%]" />
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/gallery" className="flex items-center" onClick={click}>
+                <img src={gallery} alt="" className="mr-[22%]" />
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
+                <img src={profile} alt="" className="mr-[22%]" />
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
+                {" "}
+                <img src={notification} alt="" className="mr-[15%]" />
+                Notifications
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/event" className="flex items-center" onClick={click}>
+                <img src={event} alt="" className="mr-[22%]" />
+                Event
+              </Link>
+            </li>
+          </ul>
+        ) : role === "admin" || role === "superadmin" ? (
+          <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
+            <li>
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
+                <img src={home} alt="" className="mr-[22%]" />
+            Photographers
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/users" className="flex items-center" onClick={click}>
+                <img src={gallery} alt="" className="mr-[22%]" />
+               Users
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
+                <img src={profile} alt="" className="mr-[22%]" />
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
+                {" "}
+                <img src={notification} alt="" className="mr-[15%]" />
+                Notifications
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/event" className="flex items-center" onClick={click}>
+                <img src={event} alt="" className="mr-[22%]" />
+                Event
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[40vh] mx-[auto] pt-[5%] ">
+            <li>
+              <Link to="/dashboard" className="flex items-center" onClick={click}>
+                <img src={home} alt="" className="mr-[22%]" />
+                Home
+              </Link>
+            </li>
+            {/* <li>
+              <Link to="/dashboard/gallery" className="flex items-center" onClick={click}>
+                <img src={gallery} alt="" className="mr-[22%]" />
+                Gallery
+              </Link>
+            </li> */}
+            <li>
+              <Link to="/dashboard/profile" className="flex items-center" onClick={click}>
+                <img src={profile} alt="" className="mr-[22%]" />
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/notifications" className="flex items-center" onClick={click}>
+                {" "}
+                <img src={notification} alt="" className="mr-[15%]" />
+                Notifications
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/event" className="flex items-center" onClick={click}>
+                <img src={event} alt="" className="mr-[22%]" />
+                Event
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div className="border-t-[1px] border-black">
+        <ul className="flex flex-col justify-between items-start text-[16px] w-[65%] h-[20vh] mx-[auto] ">
+          <li className="my-[15%] flex items-center"  >
+          <Link to="/dashboard/logout" className="flex items-center" onClick={click} >
+            <img src={logout} alt="" className="mr-[22%]" />
+            Logout
             </Link>
           </li>
         </ul>

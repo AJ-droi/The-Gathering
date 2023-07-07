@@ -205,13 +205,16 @@ const DashboardProfile = () => {
             >
               Update Profile
             </Button>
-            <Link to="/dashboard/profile" className="flex justify-center">
-              <img
-                src={profileCard}
-                alt=""
-                className="h-[20vh] mt-[5%] ml-[5%]"
-              />
-            </Link>
+            <div className="mt-[5%]"> 
+              <h3 className="underline">Coming Soon</h3>
+              <Link to="/dashboard/profile" className="flex justify-center">
+                <img
+                  src={profileCard}
+                  alt=""
+                  className="h-[20vh] mt-[2%] ml-[5%]"
+                />
+              </Link>
+            </div>
           </div>
         </>
       ) : (
@@ -321,13 +324,16 @@ const DashboardProfile = () => {
             >
               Update Profile
             </Button>
-            <Link to="/dashboard/profile" className="flex justify-center">
-              <img
-                src={profileCard}
-                alt=""
-                className="h-[20vh] mt-[5%] ml-[5%]"
-              />
-            </Link>
+            <div className="mt-[5%]"> 
+              <h3 className="underline">Coming Soon</h3>
+              <Link to="/dashboard/profile" className="flex justify-center">
+                <img
+                  src={profileCard}
+                  alt=""
+                  className="h-[20vh] mt-[2%] ml-[5%]"
+                />
+              </Link>
+            </div>
           </div>
         </>
       )}

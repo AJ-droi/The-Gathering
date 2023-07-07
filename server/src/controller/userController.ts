@@ -208,7 +208,12 @@ export const Login = async (
           role: Photographer.role,
         });
       }
+    }else{
+      return res.status(400).json({
+        message: "Credientials Not Found, Kindly SignUp"
+      })
     }
+
     }
 
     if (User.verified ) {

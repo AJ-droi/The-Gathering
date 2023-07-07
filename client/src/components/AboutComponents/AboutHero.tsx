@@ -3,6 +3,7 @@ import aboutBg from "../../assets/aboutBg.png";
 import logo from "../../assets/logo.png";
 import join from "../../assets/join.png";
 import Button from "../common/Button";
+import {Link} from "react-router-dom"
 
 const AboutHero = () => {
   return (
@@ -12,11 +13,11 @@ const AboutHero = () => {
       </div>
       <div className="flex flex-col items-center absolute top-[15%] z-[5] w-[100%]">
         <img src={logo} alt="" className="lg:h-[40vh] md:h-[20vh]" />
-        <Button
+        <Link to={'/signup'} className="w-[100%] flex justify-center"><Button
           title={`Join The Community`}
           classes="bg-[#FF6E31] w-[60%] md:w-[50%] lg:w-[20%] text-[#fff] h-[4vh] my-[4%] lg:mt-[2%] px-[3%]"
           source={join}
-        ></Button>
+        ></Button></Link>
       </div>
       <div className="flex justify-center absolute top-[15%] z-[5] w-[100%]">
         <p className="text-[#fff]">

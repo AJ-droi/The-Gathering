@@ -47,13 +47,14 @@ const getQuotes = async() => {
       category: "inspirational"
     },
     headers: {
-      'X-Api-Key': 'uAERFAGTRqKiVzjOphETnA==YYZmcQPd9Xq2MRJb'
+      'X-Api-Key': 'uAERFAGTRqKiVzjOphETnA==YYZmcQPd9Xq2MRJb',
     }
   })
 
   const data = await response.data
   setQuotes(data)
-  console.log(quotes)
+  
+
 }catch(err){
   console.log(err);
   
@@ -193,7 +194,7 @@ export const AdminUsers = () => {
     setPage(page + 1)
   }
 
-  const NoOfItems = 7
+  const NoOfItems = 8
   const lastIndex = page * NoOfItems
   const firstIndex = lastIndex - NoOfItems
 
@@ -283,13 +284,13 @@ const RecommendedBooks = () => {
     dispatch(getMovies())
   }, [])
 
-  console.log('books', books)
+
 
   return (
     <div className="bg-[#fff] md:w-[63%] rounded-md px-[2%] text-left py-[2%] text-[#212121] ">
       <div>
         <h3 className="text-[0.9rem] text-[#212121] py-[2%]">Recommended Movies Of The Month</h3>
-        {movies?.map((elem:any, id:number) =>(
+        {movies?.slice(movies.length-3, movies.length)?.map((elem:any, id:number) =>(
         <div className="flex my-[2%] items-center" key={id}>
           <img src={elem?.coverImage} alt="" className="w-[50px] h-[50px] rounded-[8px]"/>
           <p className="text-left px-[2%]">
@@ -299,7 +300,7 @@ const RecommendedBooks = () => {
       </div>
       <div className=" border-t-[3px] border-[#B4B4B4] ">
         <h3 className="text-[0.9rem] text-[#212121] py-[2%]">Recommended Books Of The Month</h3>
-        {books?.map((elem:any, id:number) =>(
+        {books?.slice(books.length-3, books.length)?.map((elem:any, id:number) =>(
         <div className="flex my-[2%] items-center" key={id}>
           <img src={elem?.coverImage} alt="" className="w-[50px] h-[50px] rounded-[8px]"/>
           <p className="text-left px-[2%]">

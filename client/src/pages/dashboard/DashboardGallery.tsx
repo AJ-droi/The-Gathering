@@ -49,7 +49,7 @@ const DashboardGallery = () => {
     setPage(page + 1)
   }
 
-  const NoOfItems = 7
+  const NoOfItems = 8
   const lastIndex = page * NoOfItems
   const firstIndex = lastIndex - NoOfItems
 

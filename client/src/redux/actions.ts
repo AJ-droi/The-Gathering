@@ -132,6 +132,7 @@ export const registerEvent = createAsyncThunk(
       const response = await apiPatch(`/user/register-event?id=${id}`, formData);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
+      window.location.reload()
     } catch (error: any) {
       console.log(error.response.data.error);
       toast.error(error.response.data.Error);
@@ -150,6 +151,7 @@ export const uploadPhotos = createAsyncThunk(
       const response = await apiPatch(`/photographer/upload-photos`, formData);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
+      window.location.reload()
     } catch (error: any) {
       console.log(error.response.data.error);
       toast.error(error.response.data.Error);
@@ -185,6 +187,7 @@ export const saveImages = createAsyncThunk(
         const response = await apiDelete(`/photographer/delete-photos?eventId=${eventId}&url=${url}`);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
       } catch (error: any) {
         console.log(error.response.data.error);
         toast.error(error.response.data.Error);
@@ -254,6 +257,7 @@ export const saveImages = createAsyncThunk(
         const response = await apiPost(`/admin/create-photographer`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
       } catch (error: any) {
         console.log(error.response.data.error);
         toast.error(error.response.data.Error);
@@ -271,6 +275,7 @@ export const saveImages = createAsyncThunk(
           const response = await apiPost(`/admin/create-event`, formData);
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
+          window.location.reload()
         } catch (error: any) {
           console.log(error.response.data.error);
           toast.error(error.response.data.Error);
@@ -288,6 +293,7 @@ export const saveImages = createAsyncThunk(
         const response = await apiPatch(`/user/update`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
       } catch (error: any) {
         console.log(error.response.data.error);
         toast.error(error.response.data.Error);
@@ -306,6 +312,7 @@ export const saveImages = createAsyncThunk(
         const response = await apiPatch(`/photographer/update`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
       } catch (error: any) {
         console.log(error.response.data.error);
         toast.error(error.response.data.Error);
@@ -340,6 +347,7 @@ export const saveImages = createAsyncThunk(
         const response = await FormDataPost(`/admin/upload-books`, formData);
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
       } catch (error: any) {
         console.log(error.response.data.error);
         toast.error(error.response.data.Error);
@@ -356,7 +364,6 @@ export const saveImages = createAsyncThunk(
             dispatch(fetchDataStart(true));
             const response = await apiGet(`/user/get-books`);
             toast.success(response.data.message);
-            console.log('resp', response)
             dispatch(fetchBooks(response.data));
           } catch (error: any) {
             console.log(error.response.data.error);
@@ -393,6 +400,7 @@ export const saveImages = createAsyncThunk(
           const response = await apiGet(`/user/notifications`);
           toast.success(response.data.message);
           dispatch(fetchNotifications(response.data));
+
         } catch (error: any) {
           console.log(error.response.data.error);
           toast.error(error.response.data.Error);
