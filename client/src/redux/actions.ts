@@ -196,6 +196,24 @@ export const saveImages = createAsyncThunk(
     }
   );
 
+  /**==============Delete Photographer======= **/
+  export const deletePhotographer = createAsyncThunk(
+    "deletePhotographer",
+    async (id:any, { dispatch }) => {
+      try {
+        dispatch(fetchDataStart(true));
+        const response = await apiDelete(`/admin/delete-photographer/${id}`);
+        toast.success(response.data.message);
+        dispatch(fetchDataSuccess(response.data));
+        window.location.reload()
+      } catch (error: any) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.Error);
+        dispatch(fetchDataFailure(error.response.data.error));
+      }
+    }
+  );
+
 
   /**==============Get Photographers======= **/
   export const getPhotographers = createAsyncThunk(
@@ -409,9 +427,50 @@ export const saveImages = createAsyncThunk(
       }
     );
 
+   /**==============Verify Email======= **/
+   export const verifyEmail = createAsyncThunk(
+    "verifyEmail",
+    async (formData:any, { dispatch }) => {
+      try {
+        dispatch(fetchDataStart(true));
+        const response = await apiPut(`/user/verify-email`, formData);
+        toast.success(response.data.message);
+        dispatch(fetchDataSuccess(response.data));
+      } catch (error: any) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.Error);
+        dispatch(fetchDataFailure(error.response.data.error));
+      }
+    }
+  );
+  
+
+    /**==============User Forgot Password======= **/
+export const userForgotPassword = createAsyncThunk(
+  "userForgotPassword",
+  async ({formData, token}:any, { dispatch }) => {
+    try {
+      dispatch(fetchDataStart(true));
+      console.log(formData)
+      const response = await apiPut(`/user/forgot-password?token=${token}`, formData);
+      console.log(formData)
+      toast.success(response.data.message);
+      dispatch(fetchDataSuccess(response.data));
+      setTimeout(() => {
+        window.location.href = "/login"
+        }, 2000)
+    } catch (error: any) {
+      console.log(error.response.data.error);
+      toast.error(error.response.data.Error);
+      dispatch(fetchDataFailure(error.response.data.error));
+    }
+  }
+);
+
+
 
   /**==============Logout ======= **/
   export const Logout = () => {
     localStorage.clear();
-    window.location.href = "/signin";
+    window.location.href = "/login";
   };

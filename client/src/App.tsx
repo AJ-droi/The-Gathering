@@ -17,6 +17,8 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Social from './pages/Social';
 import { ProtectRoute } from './components/ProtectedRoute';
 import Loader from './components/common/Loader';
+import { ForgotPassword } from './pages/onboarding/ForgotPassword';
+import { VerifyEmail } from './pages/onboarding/VerifyEmail';
 
 
 
@@ -35,7 +37,7 @@ function App() {
       {loading? <Loader /> : null}
         <Routes>
           <Route path="/*" element={<Homepage />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignIn />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/confirm" element={<Confirmation />} />
@@ -44,6 +46,8 @@ function App() {
           <Route path="/update" element={<Update />} />
           <Route path="/dashboard/*" element={<ProtectRoute><Dashboard /></ProtectRoute>} />
           <Route path="/auth/social/*" element={<Social />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
  
         </Routes>
       

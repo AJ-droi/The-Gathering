@@ -6,6 +6,7 @@ import Button from '../../components/common/Button'
 import { getEvents } from '../../redux/actions'
 import lens from '../../assets/lens.jpeg'
 
+
 const HomePhotographer = () => {
 
 

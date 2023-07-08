@@ -31,8 +31,10 @@ const Navbar = () => {
 const NavbarDesktop = () => {
     const location = useLocation().pathname
   return (
-    <div className='bg-[#212121] flex justify-evenly relative z-[2]'>
-       <Link to="/"><img src={logo} alt="logo" /></Link> 
+    <div className='bg-[#212121] flex justify-evenly relative z-[2] h-[10vh]'>
+
+         <Link to="/" className='w-[15%] flex items-center justify-center'><img src={logo} alt="logo" className='lg:h-[20vh]'/></Link> 
+
         <ul className='flex justify-between items-center text-[#fff] text-[16px] w-[25%]'>
             <li className={location === "/" ?`text-[#FF6E31]` : ``}><Link to="/">Home</Link></li>
             <li className={location === "/about" ?`text-[#FF6E31]` : ``}><Link to="/about">About Us</Link></li>
@@ -52,9 +54,9 @@ const NavbarMobile= () => {
     const [isOpen, setIsOpen] = React.useState(false)
     const location = useLocation().pathname
     return (
-      <div className='bg-[#212121] flex flex-col justify-evenly relative z-[15]'>
+      <div className='bg-[#212121] flex flex-col justify-evenly relative z-[15] h-[10vh]'>
         <div className='w-[100%] flex justify-between items-center'>
-        <Link to="/"><img src={logo} alt="logo" /></Link> 
+        <Link to="/" className='w-[75%] flex items-center justify-start'><img src={logo} alt="logo" className='h-[150px] w-[150px]'/></Link> 
             <HiOutlineMenuAlt1 className='text-[#fff] text-[4rem] pr-[5%]' onClick={() => setIsOpen(!isOpen)} />
         </div>
          

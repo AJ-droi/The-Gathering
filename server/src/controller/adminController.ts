@@ -289,7 +289,7 @@ export const deletePhotographer = async(req:JwtPayload, res: Response) => {
 
       const delette =  await PhotographerInstance.destroy({where:{id:photoId}}) as unknown as PhotographerAttributes
       return res.status(200).json({
-        message: "deleted successfully",
+        message: "photographer removed successfully",
         delette,
       })
     }

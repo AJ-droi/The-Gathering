@@ -43,9 +43,26 @@ export const emailHtml = (otp:number, token:string) => {
     <div style="background-color: #f5f5f5; padding: 20px; font-family: sans-serif;">
         <div style="max-width: 600px; margin: auto; background-color: white; padding: 20px;">
             <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to THE GATHERING </h2>
-            <p>Congratulations! You're almost set to start using THE GATHERING APP. Just enter this one time code to verify your account.</p>
+            <p>Congratulations! You're almost set to start using THE GATHERING APP. </p>
             <div style="padding: 10px; background-color: #e0e0e0; text-align: center;">
             <a href="${FRONTEND_BASE_URLE}/verify/?token=${token}">click here to verify</a> or copy this ${FRONTEND_BASE_URLE}/verify/?token=${token} link and paste in your browser.
+            </div>
+            <p>Thanks,<br>
+            THE GATHERING Team</p>
+        </div>
+    </div>
+    `
+    return temp;
+}
+
+export const forgotHtml = (otp:number, token:string) => {
+    const temp = `
+    <div style="background-color: #f5f5f5; padding: 20px; font-family: sans-serif;">
+        <div style="max-width: 600px; margin: auto; background-color: white; padding: 20px;">
+            <h2 style="text-align: center; text-transform: uppercase;color: teal;">FORGOT PASSWORD</h2>
+            <p>Congratulations! You're almost set to change your password. </p>
+            <div style="padding: 10px; background-color: #e0e0e0; text-align: center;">
+            <a href="${FRONTEND_BASE_URLE}/forgot-password/?token=${token}">click here to verify</a> or copy this ${FRONTEND_BASE_URLE}/forgot-password/?token=${token} link and paste in your browser.
             </div>
             <p>Thanks,<br>
             THE GATHERING Team</p>

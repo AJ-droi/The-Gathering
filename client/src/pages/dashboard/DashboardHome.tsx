@@ -9,11 +9,12 @@ import { IoCall } from "react-icons/io5";
 import {GrAdd, GrMail} from "react-icons/gr"
 import { Link, useLocation } from "react-router-dom";
 import HomePhotographer from "./HomePhotographer";
-import { getBooks, getEvents, getMovies, getPhotographers, getUsers, uploadBooks, uploadMovies } from "../../redux/actions";
+import { deletePhotographer, getBooks, getEvents, getMovies, getPhotographers, getUsers, uploadBooks, uploadMovies } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import { HiXMark } from "react-icons/hi2";
 import profile1 from "../../assets/profile1.png"
+import {BsTrashFill} from 'react-icons/bs'
 
 
 
@@ -132,6 +133,10 @@ export const HomeAdmin= () => {
   useEffect(() =>{
     dispatch(getPhotographers())
   }, [])
+
+  const DeletePhotographer = async(id:any) => {
+    await dispatch(deletePhotographer(id))
+  }
  
   return (
     <div className="bg-[#E0E0E0] px-[5%] h-[50vh] my-[20%] md:my-[10%]">
@@ -153,7 +158,7 @@ export const HomeAdmin= () => {
         <div className="overflow-scroll">
           <div className="grid grid-cols-4 w-[300%] md:w-[200%] lg:w-[100%] ">
           {photographers?.map((elem:any, id:number) => (
-            <PhotographerCard key={id}  name={elem.name} phone={elem.phone} email={elem.email} />
+            <PhotographerCard key={id}  name={elem.name} phone={elem.phone} email={elem.email} click={() =>DeletePhotographer(elem.id)} />
           ))}
           </div>
 
@@ -242,7 +247,7 @@ export const AdminUsers = () => {
 
 }
 
-const PhotographerCard = ({name, phone, email}:any) => {
+const PhotographerCard = ({ click, name, phone, email}:any) => {
   return(
     <div className="bg-[#fff] rounded-md px-[4%] text-left py-[7%] text-[#212121] mx-[3%] my-[3%] ">
       <div className="text-center flex flex-col items-center">
@@ -265,6 +270,11 @@ const PhotographerCard = ({name, phone, email}:any) => {
         </div>
        
       </div>
+      <div className="flex justify-end ">
+        <BsTrashFill onClick={click} />
+
+      </div>
+      
 
     </div>
 

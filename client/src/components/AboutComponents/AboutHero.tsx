@@ -12,10 +12,10 @@ const AboutHero = () => {
         <img src={aboutBg} alt="" className="opacity-[0.5]"/>
       </div>
       <div className="flex flex-col items-center absolute top-[15%] z-[5] w-[100%]">
-        <img src={logo} alt="" className="lg:h-[40vh] md:h-[20vh]" />
+        <div className="flex justify-center items-center h-[13vh] lg:h-[30vh] lg:w-[50%] mt-[5%] lg:mt-[0%]"><img src={logo} alt="" className="h-[70vh] lg:h-[80vh]" /></div>
         <Link to={'/signup'} className="w-[100%] flex justify-center"><Button
           title={`Join The Community`}
-          classes="bg-[#FF6E31] w-[60%] md:w-[50%] lg:w-[20%] text-[#fff] h-[4vh] my-[4%] lg:mt-[2%] px-[3%]"
+          classes="bg-[#FF6E31] w-[60%] md:w-[40%] lg:w-[20%] text-[#fff] h-[4vh] lg:mt-[0%] px-[3%]"
           source={join}
         ></Button></Link>
       </div>

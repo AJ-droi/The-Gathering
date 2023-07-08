@@ -56,6 +56,11 @@ export const eventSchema = Joi.object().keys({
     ticketPrice: Joi.number().optional(),
 })
 
+export const forgotSchema = Joi.object().keys({
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+})
+
 
 export const option = {
     abortEarly: false,

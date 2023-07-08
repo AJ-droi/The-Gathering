@@ -12,7 +12,7 @@ export interface InputProps {
     placeholder: string,
     source?:string,
     signStyle?:string,
-    caption?:string,
+    caption?:any,
     name?:string,
     value?:string,
     onchange?: any,

@@ -1,6 +1,6 @@
 import express from 'express';
 import { getEvents } from '../controller/eventController';
-import {  addImage, getBooks, getGallery, getMovies, getNotifications, getSingleUser, getUsers, GoogleLogin, googleOauthHandler, Login, registerEvent, ResendVerification, Signup, updateUserProfile, verifyUser } from '../controller/userController';
+import {  addImage, forgotPassword, getBooks, getGallery, getMovies, getNotifications, getSingleUser, getUsers, googleOauthHandler, Login, registerEvent, ResendVerification, Signup, updateUserProfile, verifyUser, verifyUserEmail } from '../controller/userController';
 import { auth } from '../middleware/authorization';
 import { upload } from '../utils/multer';
 
@@ -20,6 +20,8 @@ router.patch("/user-gallery", auth, getGallery)
 router.get('/get-movies', getMovies)
 router.get('/get-books', getBooks)
 router.get('/notifications', getNotifications)
+router.put('/forgot-password',  forgotPassword )
+router.put('/verify-email', verifyUserEmail)
 
 
 

@@ -183,9 +183,9 @@ export const SidebarMobile1 = ({click}:any) => {
   const role = localStorage.getItem("role");
   return (
     <div className="w-[10%] bg-[#F5F5F5] flex flex-col justify-between h-[100vh] fixed overflow-[none] ">
-      <div className="px-[5%]">
-        <Link to={'/'}><div className="flex justify-start items-center w-[100%] ">
-          <img src={logoblack} alt="" className="h-[17vh]" />
+      <div className="px-[5%] flex flex-col justify-evenly h-[70vh]">
+        <Link to={'/'} className="w-[100%] my-[15%]"><div className="flex justify-start items-center w-[100%] ">
+          <img src={logoblack} alt="" className="h-[70px] w-[70px]" />
         </div></Link>
         <div className="flex items-center w-[65%] mx-[auto] pb-[25%]">
           <img src={sidenav} alt="" onClick={click} />

@@ -13,6 +13,9 @@ import { getGoogleUrl } from "../../utils/getGoogleUrl";
 import { facebookLoginUrl } from "../../utils/facebook";
 import { toast } from "react-toastify";
 
+
+
+
 const SignIn = () => {
   return (
     <div>
@@ -122,15 +125,11 @@ const Login = () => {
     }
   };
 
-  const { loading } = useSelector((state: State) => state);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
-      {path === "/signin" ? (
+      {path === "/login" ? (
         <div className="w-[100%] h-[100vh] py-[3%] flex flex-col justify-evenly ">
           <div>
             <h3 className="text-[1.4rem]">Welcome!</h3>
@@ -163,9 +162,9 @@ const Login = () => {
                 value={loginData.password}
                 onchange={handleChange}
               />
-              <p className="text-right underline  text-[#FF6E31] pr-[15%]">
+              <Link to={'/verify-email'} ><p className="text-right underline  text-[#FF6E31] pr-[15%]">
                 Forgot Password
-              </p>
+              </p></Link>
             </div>
 
             <Button
@@ -274,7 +273,13 @@ const Login = () => {
             <p className={"text-[0.5rem] text-[red]"}>{error.isEmail}</p>
 
             <SignInput
-              caption={"I agree to the Terms of Service and private policy"}
+              caption={<>
+                I agree to the{' '}
+                <Link to={'https://drive.google.com/file/d/1uSKaOSwIibCORLEvGJ2HGUE5umLcuxG9/view?usp=sharing'} className="underline text-[#FF6E31]" target={"_blank"}>
+                  Terms of Service and Privacy Policy
+                </Link>
+              </>}
+      
               type={"checkbox"}
               placeholder={"Enter Your Email Address"}
               signStyle={``}
@@ -292,6 +297,7 @@ const Login = () => {
               onClick={handleSubmit}
             />
           </form>
+          
 
           <div>
             <h4 className="text-[1.4rem] ">Or</h4>
@@ -325,6 +331,7 @@ const Login = () => {
               </span>
             </p>
           </div>
+         
         </div>
       )}
     </>

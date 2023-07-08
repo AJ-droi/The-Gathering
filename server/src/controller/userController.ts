@@ -5,13 +5,14 @@ import { v4 as uuidV4 } from "uuid";
 import { fromAdminMaill, GOOGLE_CLIENT_IDE, userSubjectt } from "../config";
 import { UserAttributes } from "../interface/userAttributes";
 import { UserInstance } from "../model/userModel";
-import { emailHtml, GenerateOTP, sendmail } from "../utils/notifications";
+import { emailHtml, forgotHtml, GenerateOTP, sendmail } from "../utils/notifications";
 
 
 import {
   GeneratePassword,
   GenerateSalt,
   Generatesignature,
+  forgotSchema,
   loginSchema,
   option,
   registerSchema,
@@ -30,6 +31,7 @@ import { NotifyInstance } from "../model/notificationModel";
 import { NotificationAttributes } from "../interface/notificationAttributes";
 import { BookInstance } from "../model/bookModel";
 import { MovieInstance } from "../model/movieModel";
+import { deletePhotographer } from "./adminController";
 
 export const Signup = async (
   req: Request,
@@ -210,7 +212,7 @@ export const Login = async (
       }
     }else{
       return res.status(400).json({
-        message: "Credientials Not Found, Kindly SignUp"
+        message: "Credentials Not Found, Kindly SignUp"
       })
     }
 
@@ -251,28 +253,6 @@ export const Login = async (
   }
 };
 
-export const GoogleLogin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-  
-
-    
-
-
-
-  
-
-  } catch (err) {
-    return res.status(500).json({
-      Error: "Internal server Error",
-      route: "/users/googlelogin",
-    });
-  }
-};
-
 
 
 export const ResendVerification = async (
@@ -304,6 +284,72 @@ export const ResendVerification = async (
 
     return res.status(200).json({
       message: "Verification Mail Resent Successfully",
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      Error: "Internal Server Error",
+    });
+  }
+};
+
+export const verifyUserEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {email} = req.body
+
+    const User = (await UserInstance.findOne({
+      where: { email: email },
+    })) as unknown as UserAttributes;
+
+    if (!User) {
+  
+      const photo = (await PhotographerInstance.findOne({
+        where: { email: email },
+      })) as unknown as PhotographerAttributes;
+  
+      if (!photo) {
+        return res.status(404).json({
+          message: "Photographer Not Found, Reach to Admin",
+        });
+      }
+  
+      
+      const { otp, expiry } = GenerateOTP();
+      const signature = await Generatesignature({
+        id: photo.id,
+        email: photo.email,
+        verified: photo.verified,
+      });
+  
+      const html = forgotHtml(otp, signature);
+  
+      await sendmail(fromAdminMaill, email, userSubjectt, html);
+  
+  
+      return res.status(200).json({
+        message: "Check Your Email",
+      });
+    }
+
+    
+    const { otp, expiry } = GenerateOTP();
+    const signature = await Generatesignature({
+      id: User.id,
+      email: User.email,
+      verified: User.verified,
+    });
+
+    const html = forgotHtml(otp, signature);
+
+    await sendmail(fromAdminMaill, email, userSubjectt, html);
+
+
+    return res.status(200).json({
+      message: "Check Your Email",
     });
 
   } catch (err) {
@@ -420,7 +466,7 @@ export const updateUserProfile = async (req: JwtPayload, res: Response) => {
       });
     }
     
-    console.log("hello")
+ 
 
 
 const updatedUser = (await UserInstance.update(
@@ -790,4 +836,106 @@ export const getNotifications = async(req:Request, res:Response) => {
       Error: "Internal server error",
     });
   }
+}
+
+export const forgotPassword = async(req:JwtPayload, res:Response) => {
+  try{
+    const {email, password} = req.body
+   console.log(req.body)
+
+    const validate =  forgotSchema.validate(req.body, option)
+
+    if(validate.error){
+      return res.status(400).json({
+        Error: validate.error.details[0].message,
+      });
+
+    }
+
+
+    const {token} = req.query
+
+    const verified = await verifySignature(token);
+
+    
+
+    const user = await UserInstance.findOne({
+      where:{
+        id:verified.id,
+      }}) as unknown as UserAttributes
+
+
+    if(!user){
+      
+      const photo = await PhotographerInstance.findOne({
+        where:{
+          id:verified.id,
+        }})
+
+        console.log('user')
+
+        if(!photo){
+          return res.status(404).json({
+            Error: "Photographer not found"
+          })
+        }
+
+        const salt = await GenerateSalt()
+        console.log('s', salt)
+
+        const hashedPassword = await GeneratePassword(password, salt)
+
+        console.log('h', hashedPassword)
+
+       
+
+        await PhotographerInstance.update(
+          {
+            password: hashedPassword,
+            salt:salt
+          },
+          { where: { id: verified.id } }
+        ) as unknown as PhotographerAttributes;
+
+        return res.status(200).json({
+          message: "Password changed successfully"
+      })
+    }
+
+      const salt = await GenerateSalt()
+
+        const hashedPassword = await GeneratePassword(password, salt)
+
+      await UserInstance.update(
+        {
+          password: hashedPassword,
+        },
+        { where: { id: verified.id } }
+      ) as unknown as UserAttributes;
+
+      console.log("hashed", hashedPassword)
+
+      const photographer =   await PhotographerInstance.update(
+        {
+          password: hashedPassword,
+        },
+        { where: { id: verified.id } }
+      ) as unknown as PhotographerAttributes;
+
+      console.log(photographer)
+
+      return res.status(200).json({
+        message: "Password changed successfully",
+        photographer
+
+    })
+      
+
+  }catch(err){
+    return res.status(500).json({
+      Error: "credentials not found",
+
+    })
+  }
+
 }
