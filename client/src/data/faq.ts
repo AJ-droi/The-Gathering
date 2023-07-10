@@ -8,10 +8,7 @@ export const faqData = [
         text:"How can I contribute or get involved in community initiatives?",
         answer:"There are several ways to contribute and get involved. You can volunteer for community projects, or propose new ideas to the community administrators. We encourage active participation and value the unique contributions of our members."
     },
-    {
-        text:"How can I contribute or get involved in community initiatives?",
-        answer:"There are several ways to contribute and get involved. You can volunteer for community projects, or propose new ideas to the community administrators. We encourage active participation and value the unique contributions of our members"
-    },
+
     {
         text:"Are there opportunities to collaborate with other community members?",
         answer: "Yes! Collaboration is highly encouraged. Our community provides a platform for members to connect and collaborate with like-minded individuals. You can browse through profiles, engage in discussions, and reach out to potential collaborators. We also organize collaborative projects and events where members can participate."

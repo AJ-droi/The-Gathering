@@ -1,4 +1,4 @@
-// import emi from '../assets/emii.JPG'
+import emi from '../assets/emii.jpeg'
 import king from '../assets/kingjoseph.jpg'
 import kesco from '../assets/kesco.jpg'
 
@@ -7,6 +7,7 @@ export const ReviewData = [
     title:
       "The Gathering has impacted me in so many ways. I'm an introvert, so at first I was skeptical of the whole thing (the people, activities ) but I decided to attend one and was so excited because I had lots of fun, got to meet with people, home my skills a bit and take nice pictures.I can't wait to be part of another.",
     name: "Emi",
+    source: emi
   },
   {
     title:
