@@ -327,7 +327,7 @@ const Login = () => {
             <p className="text-[#8F8F8F]  font-bold">
               Already have an Account?{" "}
               <span className="text-[#FF6E31]">
-                <Link to="/signin">Sign In</Link>
+                <Link to="/login">Sign In</Link>
               </span>
             </p>
           </div>

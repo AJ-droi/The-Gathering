@@ -24,9 +24,8 @@ const VerifiedChild = () => {
             </div>
             <p className='md:text-[1.2rem] w-[80%] px-[5%] my-[5%]'>Your Email has been successfully verified. </p>
 
-            <Link to="/signin" className='w-[100%] flex justify-center'> <Button title={'Continue'} classes={'bg-[#FF6E31] py-[1%] px-[7%]'} textStyle={`text-[#fff] text-[1.1rem]`} source={arrowRight} /></Link>
+            <Link to="/login" className='w-[100%] flex justify-center'> <Button title={'Continue'} classes={'bg-[#FF6E31] py-[1%] px-[7%]'} textStyle={`text-[#fff] text-[1.1rem]`} source={arrowRight} /></Link>
 
-            
         </div>
     )
 }
