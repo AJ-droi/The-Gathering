@@ -30,8 +30,8 @@ const Event = () => {
           source={meet}
         />
          <EventCard
-          header="Games"
-          text="The games at our event adds an element of excitement and friendship, bringing participants together in a spirit of fun and friendly competition. From interactive team challenges to creative art games, there is something for everyone to enjoy. The games provided a break from the regular event activities, allowing attendees to relax, let loose, and connect with others in a lighthearted setting. Laughter fills the air as participants enthusiastically participated in various games, showcasing their skills, creativity, and teamwork. The games not only entertains but also creates memorable moments and lasting bonds among the attendees. It is a time of joy, friendly banter, and shared experiences that adds a vibrant energy to our event, making it an unforgettable gathering for all involved."
+          header="Road Trip"
+          text="Our creative community embarks on an adventure-filled road trip, merging art, inspiration, and limitless creativity. With an exploratory spirit, we embrace the open road, seeking hidden gems and capturing the essence of each destination. As we journey, conversations ignite, ideas flow, and collaborations flourish. Immersed in breathtaking landscapes and vibrant cityscapes, we draw inspiration from diverse cultures and experiences. Spontaneous performances and shared passions forge new friendships and meaningful connections. With every twist and turn, we unleash our creativity, transforming the journey into a masterpiece. Brimming with inspiration, we return home, carrying cherished memories that forever fuel our creative pursuits, a testament to the power of exploration and shared creativity."
           source={cube}
         />
       </div>

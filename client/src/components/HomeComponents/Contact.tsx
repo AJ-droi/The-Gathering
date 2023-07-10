@@ -114,14 +114,14 @@ const Contact = () => {
             <img src={mail} alt="" />
             <p>Mail address</p>
           </div>
-          <p>curtis.weaver@example.com</p>
+          <p>thegatheringpictures@gmail.com</p>
         </div>
         <div>
           <div className="flex items-center">
             <img src={call} alt="" />
             <p>Phone number</p>
           </div>
-          <p>(217) 555-0113</p>
+          <p>08168237955, 09150813746</p>
         </div>
       </div>
       <div className="w-[100%] lg:w-[50%]">

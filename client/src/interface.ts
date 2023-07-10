@@ -49,6 +49,7 @@ export interface CategoryLayout{
 export interface ReviewProps {
     text: string;
     source?: string;
+    name?: string;
   }
 
 
