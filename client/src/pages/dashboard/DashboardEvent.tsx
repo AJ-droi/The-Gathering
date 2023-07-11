@@ -23,7 +23,6 @@ export default DashboardEvent
 const AdminEvent = () => {
   const events = useSelector((state:any) => state.data.events)
 
-  console.log(events)
   const dispatch = useDispatch() as unknown as any
 
   useEffect(() => {

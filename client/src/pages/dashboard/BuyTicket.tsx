@@ -44,7 +44,6 @@ const BuyTicket = () => {
 
   const ticket = events?.find((event:any) => event.id === id)
 
-  console.log(ticket)
 
   useEffect(() => {
     dispatch(getEvents())

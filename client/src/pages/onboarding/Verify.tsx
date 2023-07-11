@@ -23,7 +23,6 @@ const VerifyChild = () => {
     const token = searchParams.get('token') as unknown as string;
     const dispatch = useDispatch() as unknown as any;
 
-    console.log(location)
     return (
         <div className='flex flex-col justify-center items-center h-[100vh]'>
             <div className='px-[5%]'>

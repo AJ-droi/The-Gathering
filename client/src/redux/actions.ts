@@ -12,7 +12,6 @@ export const loginUser = createAsyncThunk(
     try {
       dispatch(fetchDataStart(true));
       const response = await apiPost("/user/login", formData);
-      console.log(response.data.id)
       localStorage.setItem("userId", response.data.id);
       localStorage.setItem("signature", response.data.signature);
       localStorage.setItem("role", response.data.role);
@@ -22,7 +21,6 @@ export const loginUser = createAsyncThunk(
         window.location.href = "/dashboard";
       }, 2000);
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -43,7 +41,6 @@ export const registerUser = createAsyncThunk(
         window.location.href = "/confirm";
       }, 2000);
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -62,7 +59,6 @@ export const verifyUser = createAsyncThunk(
         window.location.href = "/verified";
       }, 2000);
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
       window.location.href = "/expired";
@@ -82,7 +78,6 @@ export const resendverification = createAsyncThunk(
         window.location.href = "/confirm";
       }, 2000);
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -99,7 +94,6 @@ export const singleUser = createAsyncThunk(
       const response = await apiGet("/user/get-singleuser");
       dispatch(fetchDataUser(response.data));
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -115,7 +109,6 @@ export const getEvents = createAsyncThunk(
       const response = await apiGet("/event/getEvents");
       dispatch(fetchDataSuccess(response.data));
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -134,7 +127,6 @@ export const registerEvent = createAsyncThunk(
       dispatch(fetchDataSuccess(response.data));
       window.location.reload()
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -147,13 +139,11 @@ export const uploadPhotos = createAsyncThunk(
   async (formData:any, { dispatch }) => {
     try {
       dispatch(fetchDataStart(true));
-      console.log(formData)
       const response = await apiPatch(`/photographer/upload-photos`, formData);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
       window.location.reload()
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -166,12 +156,10 @@ export const saveImages = createAsyncThunk(
   async (formData:any, { dispatch }) => {
     try {
       dispatch(fetchDataStart(true));
-      console.log(formData)
       const response = await apiPut(`/user/save-image`, formData);
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }
@@ -189,7 +177,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -207,7 +195,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -225,7 +213,7 @@ export const saveImages = createAsyncThunk(
         toast.success(response.data.message);
         dispatch(fetchDataPhoto(response.data));
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -242,7 +230,7 @@ export const saveImages = createAsyncThunk(
           toast.success(response.data.message);
           dispatch(fetchDataPhoto(response.data));
         } catch (error: any) {
-          console.log(error.response.data.error);
+  
           toast.error(error.response.data.Error);
           dispatch(fetchDataFailure(error.response.data.error));
         }
@@ -259,7 +247,7 @@ export const saveImages = createAsyncThunk(
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
         } catch (error: any) {
-          console.log(error.response.data.error);
+  
           toast.error(error.response.data.Error);
           dispatch(fetchDataFailure(error.response.data.error));
         }
@@ -277,7 +265,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -295,7 +283,7 @@ export const saveImages = createAsyncThunk(
           dispatch(fetchDataSuccess(response.data));
           window.location.reload()
         } catch (error: any) {
-          console.log(error.response.data.error);
+  
           toast.error(error.response.data.Error);
           dispatch(fetchDataFailure(error.response.data.error));
         }
@@ -313,7 +301,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -332,7 +320,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -349,7 +337,7 @@ export const saveImages = createAsyncThunk(
           toast.success(response.data.message);
           dispatch(fetchDataSuccess(response.data));
         } catch (error: any) {
-          console.log(error.response.data.error);
+  
           toast.error(error.response.data.Error);
           dispatch(fetchDataFailure(error.response.data.error));
         }
@@ -367,7 +355,7 @@ export const saveImages = createAsyncThunk(
         dispatch(fetchDataSuccess(response.data));
         window.location.reload()
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -384,7 +372,7 @@ export const saveImages = createAsyncThunk(
             toast.success(response.data.message);
             dispatch(fetchBooks(response.data));
           } catch (error: any) {
-            console.log(error.response.data.error);
+    
             toast.error(error.response.data.Error);
             dispatch(fetchDataFailure(error.response.data.error));
           }
@@ -401,7 +389,7 @@ export const saveImages = createAsyncThunk(
         toast.success(response.data.message);
         dispatch(fetchMovies(response.data));
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -420,7 +408,7 @@ export const saveImages = createAsyncThunk(
           dispatch(fetchNotifications(response.data));
 
         } catch (error: any) {
-          console.log(error.response.data.error);
+  
           toast.error(error.response.data.Error);
           dispatch(fetchDataFailure(error.response.data.error));
         }
@@ -437,7 +425,7 @@ export const saveImages = createAsyncThunk(
         toast.success(response.data.message);
         dispatch(fetchDataSuccess(response.data));
       } catch (error: any) {
-        console.log(error.response.data.error);
+
         toast.error(error.response.data.Error);
         dispatch(fetchDataFailure(error.response.data.error));
       }
@@ -451,16 +439,13 @@ export const userForgotPassword = createAsyncThunk(
   async ({formData, token}:any, { dispatch }) => {
     try {
       dispatch(fetchDataStart(true));
-      console.log(formData)
       const response = await apiPut(`/user/forgot-password?token=${token}`, formData);
-      console.log(formData)
       toast.success(response.data.message);
       dispatch(fetchDataSuccess(response.data));
       setTimeout(() => {
         window.location.href = "/login"
         }, 2000)
     } catch (error: any) {
-      console.log(error.response.data.error);
       toast.error(error.response.data.Error);
       dispatch(fetchDataFailure(error.response.data.error));
     }

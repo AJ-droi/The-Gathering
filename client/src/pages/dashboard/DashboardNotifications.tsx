@@ -28,8 +28,7 @@ const DashboardNotifications = () => {
     (items: any, id: number) => items.recipient === "all"
   );
 
-  console.log(notify);
-  console.log(allNotify);
+
 
   const allItems = allNotify?.slice(firstIndex, lastIndex);
   const adminItems = adminNotify?.slice(firstIndex, lastIndex);

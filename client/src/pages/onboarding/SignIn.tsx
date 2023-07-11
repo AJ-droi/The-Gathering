@@ -102,11 +102,10 @@ const Login = () => {
       }
     } else {
       setLoginData({ ...loginData, [name]: value });
-      console.log(loginData);
     }
   };
 
-  console.log(checkData);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -197,7 +196,7 @@ const Login = () => {
                 classes={
                   "bg-[#FCFCFC] w-[60%] text-[#FF6E31] border border-[#FF6E31] flex-row-reverse mx-[auto] px-[2%] md:px-[4%] lg:px-[9%] xl:px-[15%] py-[1%] my-[5%] hover:bg-[#FF6E31]"
                 }
-                textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
+                textStyle={`text-[0.8rem] md:text-[1rem] text-[#212121] hover:text-[#fff]`}
                 imgHeight={`lg:h-[3vh]`}
               />
             </Link>
@@ -320,7 +319,7 @@ const Login = () => {
                 classes={
                   "bg-[#FCFCFC] w-[60%] text-[#FF6E31] border border-[#FF6E31] flex-row-reverse mx-[auto] px-[2%] md:px-[4%] lg:px-[9%] xl:px-[15%] py-[1%] my-[5%] hover:bg-[#FF6E31]"
                 }
-                textStyle={`text-[0.8rem] md:text-[1rem text-[#212121] hover:text-[#fff]`}
+                textStyle={`text-[0.8rem] md:text-[1rem] text-[#212121] hover:text-[#fff]`}
                 imgHeight={`lg:h-[3vh]`}
               />
             </Link>

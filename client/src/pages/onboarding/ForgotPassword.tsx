@@ -37,7 +37,6 @@ const Forgot = () => {
 
     const handleSubmit = async(e:any) => {
         e.preventDefault()
-        console.log(formData)
 
         await dispatch(userForgotPassword({formData, token}))
 

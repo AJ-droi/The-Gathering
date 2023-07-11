@@ -62,12 +62,6 @@ export const updateProfile = async (req: JwtPayload, res: Response) => {
           Error: "Not authorised to update your profile",
         });
       }
-
-      if(User.coverImage === ''){
-        return res.status(400).json({
-          Error: "Please upload a photo",
-        });
-      }
       
   
       const updatedUser = (await PhotographerInstance.update(

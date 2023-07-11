@@ -201,7 +201,7 @@ export const Login = async (
           email: Photographer.email,
           verified: Photographer.verified,
         });
-        console.log("hello");
+
         return res.status(200).json({
           message: "You have Successfully logged In",
           signature,
@@ -210,9 +210,12 @@ export const Login = async (
           role: Photographer.role,
         });
       }
+      return res.status(400).json({
+        Error:"wrong email or password"
+      })
     }else{
       return res.status(400).json({
-        message: "Credentials Not Found, Kindly SignUp"
+        message: "Not Verified"
       })
     }
 
@@ -247,7 +250,7 @@ export const Login = async (
     });
   } catch (err) {
     return res.status(500).json({
-      Error: "Internal server Error",
+      Error: "User Not Found",
       route: "/users/login",
     });
   }

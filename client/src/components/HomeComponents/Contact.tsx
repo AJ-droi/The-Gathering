@@ -3,7 +3,7 @@ import Button from "../common/Button";
 import Input from "../common/Input";
 import map from "../../assets/map.svg";
 import call from "../../assets/call.png";
-import mail from "../../assets/mail.png";
+import maill from "../../assets/emmail.png";
 
 const Contact = () => {
   const [formData, setFormData] = React.useState<any>({
@@ -60,7 +60,6 @@ const Contact = () => {
 
 
 
-    console.log(formData);
 
     const subject = `New message from ${formData.firstName} ${formData.lastName}`;
 
@@ -104,24 +103,24 @@ const Contact = () => {
         <h4>Thank you for your interest in hiring a service from us.</h4>
         <div>
           <div className="flex items-center">
-            <img src={map} alt="" />
+            <img src={map} alt="" className="h-[2vh] mr-[2%]" />
             <p>Office Address</p>
           </div>
-          <p>No.2a Ibiye drive off woji road , woji , PHC , Rivers state</p>
+          <p className="text-[0.8rem]">No.2a Ibiye drive off woji road , woji , PHC , Rivers state</p>
         </div>
         <div>
-          <div className="flex items-center">
-            <img src={mail} alt="" />
+          <div className="flex items-center ">
+            <img src={maill} alt="" className="h-[2vh] mr-[2%]" />
             <p>Mail address</p>
           </div>
-          <p>thegatheringpictures@gmail.com</p>
+          <p className="text-[0.8rem]">thegatheringpictures@gmail.com</p>
         </div>
         <div>
           <div className="flex items-center">
-            <img src={call} alt="" />
+            <img src={call} alt="" className="h-[2vh] mr-[2%]" />
             <p>Phone number</p>
           </div>
-          <p>08168237955, 09150813746</p>
+          <p className="text-[0.8rem]">08168237955, 09150813746</p>
         </div>
       </div>
       <div className="w-[100%] lg:w-[50%]">

@@ -164,7 +164,7 @@ export const SidebarDesktop = () => {
 };
 
 export const SidebarMobile =() => {
-  const [showNav, setShowNav] = useState(false)
+  const [showNav, setShowNav] = useState(true)
 
   const toggleNav = () => {
     setShowNav(!showNav)

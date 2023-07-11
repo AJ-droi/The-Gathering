@@ -33,7 +33,7 @@ export const SignInput: React.FC<InputProps> = ({type, placeholder, signStyle, c
     <label className='text-[#606060]'>{caption}</label>
     <div>
       <input type={showPassword ? 'password' : 'text'} name={name} value={value} placeholder={placeholder} className={`${signStyle} `} onChange={onchange} />
-      <img src={showPassword ? show : hide} alt={showPassword ? show : hide} className="absolute right-[15%] md:right-[10%] mt-[-7.5%] md:mt-[-4%] lg:mt-[-2.3%] " onClick={() => setShowPassword(!showPassword)} />
+      <img src={showPassword ? show : hide} alt={showPassword ? show : hide} className="absolute right-[15%] md:right-[10%] mt-[-6.5%] md:mt-[-3.7%] lg:mt-[-2.2%] h-[3vh] " onClick={() => setShowPassword(!showPassword)} />
     </div>
     
   </div>  : <div className='w-[70%] text-left mx-auto'>

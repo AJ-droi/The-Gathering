@@ -67,7 +67,7 @@ const NavbarMobile= () => {
                 <li className={location === "/gallery" ?`text-[#FF6E31]` : ``} onClick={() => setIsOpen(!isOpen)}><Link to="/gallery">Gallery</Link></li>
             </ul>
             <div className='flex justify-center items-center pb-[5%]'>
-                <Link to={"/login"} className="w-[30%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] w-[100%] h-[4vh] " /></Link>
+                <Link to={"/login"} className="w-[30%] mr-[5%]"><Button title="Sign In" classes="bg-[#fff] text-[#FF6E31] w-[100%] h-[4vh] " /></Link>
                 <Link to={"/signup"} className="w-[30%]"><Button title="Sign Up" classes="bg-[#FF6E31] w-[100%] text-[#fff] h-[4vh]" /></Link>
             </div>
         </div> : null}

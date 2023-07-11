@@ -99,9 +99,7 @@ export const HomeAdmin= () => {
   const dispatch = useDispatch() as unknown as any 
   
   const photographer = useSelector((state:any) => state.photographer.photographer)
-  // const users = useSelector((state:any) => state.data.Users)
-
-  // console.log(photographers)
+ 
 
   const [isBook, setIsBook] = useState(false)
   const  [isMovie, setIsMovie] = useState(false)
@@ -355,12 +353,9 @@ const Rings = () => {
       <div className="flex justify-end ">
         <img src={info} alt="" onClick={() => setRingInfo(!ringInfo)}/>
       </div>
-      {ringInfo ? <div className="border border-[#FF6E31] rounded-md absolute bottom-[-88%] md:bottom-[-12%] right-[12%] md:right-[6%] bg-[#fff] w-[50%] md:w-[20%] py-[2%] px-[1%] text-left">
-        <p className="text-[0.8rem]">
-          Rings are a reward for participating in community activity and
-          supporting community members.<br /> <br /> You can get rings by engaging with tasks
-          that have points attached to it (community activities and helping
-          other community members).
+      {ringInfo ? <div className="border border-[#FF6E31] rounded-md absolute bottom-[-85%] md:bottom-[-24%] lg:bottom-[-16%] right-[12%] md:right-[8%] bg-[#fff] w-[70%] md:w-[50%] lg:w-[30%] py-[2%] px-[1%] text-left">
+        <p className="text-[0.8rem] break-all">
+        Earning community points is an exciting way to recognize and reward your active participation and contributions in our creative community. These points reflect your engagement, dedication, and value in supporting fellow members. As you accumulate points, you unlock exclusive privileges like special events, early announcements, and opportunities to showcase your work. The points system fosters a positive and supportive environment, motivating everyone to actively participate and make meaningful connections. Let's continue to earn points, celebrate achievements, and nurture a thriving community where creativity flourishes
         </p>
       </div>: null}
     </div>

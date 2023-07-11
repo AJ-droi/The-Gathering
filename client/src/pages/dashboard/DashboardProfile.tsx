@@ -47,7 +47,6 @@ const DashboardProfile = () => {
     }
   }, []);
 
-  console.log(photo);
 
   const fileInputRef = useRef<any>(null);
 
@@ -61,7 +60,7 @@ const DashboardProfile = () => {
         ...formData,
         [event.target.name]: event.target.files[0],
       });
-      console.log(event.target.files[0]);
+
       setFile(URL.createObjectURL(event.target.files[0]));
     } else {
       setFormData({
@@ -89,7 +88,6 @@ const DashboardProfile = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (role === "photographer") {
-      console.log(photoData);
       dispatch(updatePhotoProfile(photoData));
     } else {
       dispatch(updateProfile(formData));
